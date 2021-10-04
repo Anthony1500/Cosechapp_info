@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/activity_login.xml" value="0.21014492753623187" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/activity_splash.xml" value="0.2" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/content_main.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/fragment_first.xml" value="0.264" />
       </map>
     </option>
   </component>

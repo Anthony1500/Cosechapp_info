@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="anthony.app.cosechapp">
+    package="anthony.app.cosechapp" >
 
     <application
         android:allowBackup="true"
@@ -8,12 +8,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Cosechapp">
+        android:theme="@style/Theme.Cosechapp" >
+
         <activity
             android:name=".splash_activity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Cosechapp.NoActionBar">
+            android:theme="@style/Theme.Cosechapp.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +25,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Cosechapp.NoActionBar"></activity>
+            android:theme="@style/Theme.Cosechapp.NoActionBar" />
     </application>
 
 </manifest>
