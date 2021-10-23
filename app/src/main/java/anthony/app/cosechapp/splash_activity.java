@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 public class splash_activity extends AppCompatActivity {
-private final int DURACION_SPLASH =5000;
+private final int DURACION_SPLASH =4000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
