@@ -9,5 +9,33 @@
         android:id="@+id/FirstFragment"
         android:name="anthony.app.cosechapp.FirstFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first"/>
+        tools:layout="@layout/fragment_first">
+        <action
+            android:id="@+id/action_FirstFragment_to_comprovar2"
+            app:destination="@id/comprovar" />
+        <action
+            android:id="@+id/action_FirstFragment_to_menuprincipal2"
+            app:destination="@id/menuprincipal" />
+    </fragment>
+    <activity
+        android:id="@+id/comprovar"
+        android:name="anthony.app.cosechapp.comprovar"
+        android:label="comprovarver"
+        tools:layout="@layout/comprovarver" />
+    <activity
+        android:id="@+id/menuprincipal"
+        android:name="anthony.app.cosechapp.menuprincipal"
+        android:label="app_bar_menuprincipal"
+        tools:layout="@layout/app_bar_menuprincipal" />
+    <navigation android:id="@+id/navigation"
+        app:startDestination="@id/splash_activity">
+        <activity
+            android:id="@+id/splash_activity"
+            android:name="anthony.app.cosechapp.splash_activity"
+            android:label="activity_splash"
+            tools:layout="@layout/activity_splash" />
+        <action
+            android:id="@+id/action_global_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </navigation>
 </navigation>

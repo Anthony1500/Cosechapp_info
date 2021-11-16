@@ -1,7 +1,15 @@
 package anthony.app.cosechapp;
 
 public class User {
-    private String email,password;
+    private String email,password,usuario;
+
+    public String getUsuario(String username) {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
 
     public String getEmail() {
         return email;

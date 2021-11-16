@@ -9,7 +9,8 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.Cosechapp.AppBarOverlay"/>
+        android:background="@android:color/holo_orange_dark"
+        android:theme="@style/Theme.Cosechapp.AppBarOverlay" />
 
     <include layout="@layout/content_main" />
 

@@ -96,14 +96,23 @@
                 android:textAllCaps="false"
                 app:cornerRadius="20dp" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+            <Button
+                android:id="@+id/botoncorreo"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="351dp"
+                android:layout_height="59dp"
+
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
                 android:text="¿Ha olvidado su contraseña?"
                 android:textAlignment="center"
-                android:textColor="#2144C1" />
+                android:textAllCaps="false"
+                android:textColor="#2144C1"
+                app:backgroundTint="@color/cardview_shadow_end_color"
+                app:iconTint="@color/cardview_shadow_end_color"
+                app:rippleColor="@color/cardview_shadow_end_color" />
+
         </LinearLayout>
 
         <LinearLayout
