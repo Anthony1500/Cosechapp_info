@@ -49,6 +49,7 @@
             android:id="@+id/botonenviar2"
             android:layout_width="235dp"
             android:layout_height="59dp"
+            android:layout_marginTop="212dp"
             android:autoText="true"
             android:backgroundTint="#FFAB40"
             android:freezesText="true"
@@ -68,37 +69,33 @@
             app:iconPadding="-41dp"
             app:iconSize="35dp"
             app:iconTintMode="src_in"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.465" />
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="136dp"
             android:text="Correo Electrónico (Campo no editable)"
             android:textAlignment="center"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/correoenvio2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.825" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="337dp"
             android:layout_height="62dp"
-            android:layout_marginBottom="356dp"
             android:text="Nota: enviaremos las credenciales de acceso al correo que asociaste, cuando te registraste en la aplicación de escritorio."
             android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/botonenviar2" />
 
     </android.support.constraint.ConstraintLayout>
 

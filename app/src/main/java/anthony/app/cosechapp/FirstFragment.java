@@ -2,31 +2,23 @@ package anthony.app.cosechapp;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.view.KeyEvent;
+import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.support.v4.app.Fragment;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.navigation.fragment.NavHostFragment;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
@@ -36,7 +28,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import anthony.app.cosechapp.databinding.FragmentFirstBinding;
-import anthony.app.cosechapp.ui.home.HomeFragment;
 
 public class FirstFragment extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener {
     private FragmentFirstBinding binding;
@@ -49,6 +40,7 @@ public class FirstFragment extends Fragment implements Response.Listener<JSONObj
     Button botoncorreo;
     String nombreusuario="";
     String id_usuario="";
+    Handler handler = new Handler();
     ProgressDialog progressDialog;
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container,
@@ -75,8 +67,10 @@ public class FirstFragment extends Fragment implements Response.Listener<JSONObj
                 {
                     progressDialog = new ProgressDialog(getContext(), R.style.MyAlertDialogStyle);
                     progressDialog.setMessage("Por favor espera...");
+                    progressDialog.setCancelable(false);
                     progressDialog.show();
                     iniciarSesion();
+
                 }
                 else{
                     cajacorreo.setError("Favor de escribir algo");
@@ -138,9 +132,12 @@ public class FirstFragment extends Fragment implements Response.Listener<JSONObj
         }catch (JSONException e){
             e.printStackTrace();
         }
+
+
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         Intent intent = new Intent(getContext(), menuprincipal.class);
         intent.putExtra("id", id_usuario);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
 

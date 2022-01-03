@@ -1,23 +1,20 @@
-package anthony.app.cosechapp.ui.sistema;
+package anthony.app.cosechapp.ui.calendario;
 
 import android.arch.lifecycle.ViewModelProvider;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
-import anthony.app.cosechapp.MainActivity;
 import anthony.app.cosechapp.R;
-import anthony.app.cosechapp.menuprincipal;
+import anthony.app.cosechapp.ui.sistema.SistemaexpertoViewModel;
+import anthony.app.cosechapp.ui.sistema.sistemaexperto;
 
-public class sistemaexperto extends Fragment {
+public class calendario extends Fragment {
     Button botonreglas;
     private SistemaexpertoViewModel mViewModel;
 
@@ -30,22 +27,9 @@ public class sistemaexperto extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         mViewModel =
                 new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(SistemaexpertoViewModel.class);
-        View v=inflater.inflate(R.layout.sistemaexperto, container, false);
+        View v=inflater.inflate(R.layout.calendario, container, false);
         botonreglas=(Button) v.findViewById(R.id.enviar);
-        botonreglas.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                Fragment nuevoFragmento = new reglas_sistemaexperto();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment_content_menuprincipal, nuevoFragmento);
-                transaction.addToBackStack(null);
-
-                // Commit a la transacción
-                transaction.commit();
-            }
-
-        });
 
         return v;
 

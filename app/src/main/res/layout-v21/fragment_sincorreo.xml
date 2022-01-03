@@ -57,18 +57,18 @@
             android:layout_width="235dp"
             android:layout_height="59dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="324dp"
+            android:layout_marginTop="416dp"
             android:backgroundTint="#FFAB40"
             android:gravity="center"
             android:text="VERIFICAR"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/colorBlanco"
             android:translationY="-67dp"
             app:cornerRadius="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <Button
             android:id="@+id/atras"

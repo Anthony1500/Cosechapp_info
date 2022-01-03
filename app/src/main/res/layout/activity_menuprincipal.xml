@@ -23,25 +23,39 @@
         app:headerLayout="@layout/nav_header_menuprincipal"
         app:menu="@menu/activity_menu_drawer" >
 
-        <Button
-            android:id="@+id/cerrraesecion"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:gravity="center|start|right|center_horizontal|top|left"
-            android:text="Cerrar sesión "
-            android:textAlignment="center"
-            android:translationX="40dp"
-            android:translationY="600dp"
-            app:backgroundTint="#FF4433"
-            app:cornerRadius="20dp" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Alfa v0.5"
-            android:translationX="16dp"
-            android:translationY="700dp" />
+            <Button
+                android:id="@+id/cerrraesecion"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:gravity="center|start|right|center_horizontal|top|left"
+                android:text="Cerrar sesión "
+                android:textAlignment="center"
+                app:backgroundTint="#FF4433"
+                app:cornerRadius="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.712" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="52dp"
+                android:text="Alfa v0.10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.071"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cerrraesecion"
+                app:layout_constraintVertical_bias="0.0" />
+        </android.support.constraint.ConstraintLayout>
+
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

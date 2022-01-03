@@ -22,8 +22,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.mail.Session;
-
 public class sincorreo extends AppCompatActivity implements Response.Listener<JSONObject>,Response.ErrorListener {
 
     Button botonatras;
@@ -83,6 +81,7 @@ public class sincorreo extends AppCompatActivity implements Response.Listener<JS
                 progressDialog = new ProgressDialog(sincorreo.this, R.style.MyAlertDialogStyle);
 
                 progressDialog.setMessage("Por favor espera...");
+                progressDialog.setCancelable(false);
                 progressDialog.show();
                 comprovar();
 

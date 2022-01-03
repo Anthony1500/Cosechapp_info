@@ -22,6 +22,12 @@
                 android:title="Reportes" >
             </item>
                 <item
+                    android:id="@+id/nav_calendario"
+                    android:icon="@drawable/calendario"
+                    android:title="Calendario">
+
+                </item>
+                <item
                     android:id="@+id/nav_diagnosticar"
                     android:icon="@drawable/lupa2"
                     android:title="Diagnosticar">

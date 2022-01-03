@@ -192,7 +192,8 @@ public class sincorreo2 extends AppCompatActivity {
         ll.setLayoutParams(llParam);
 
         ProgressBar progressBar = new ProgressBar(this);
-        progressBar.setIndeterminate(true);
+        progressBar.setIndeterminate(false);
+
         progressBar.setPadding(0, 0, llPadding, 0);
         progressBar.setLayoutParams(llParam);
 
@@ -216,8 +217,10 @@ public class sincorreo2 extends AppCompatActivity {
         builder.setView(ll);
 
         AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
         dialog.show();
         Window window = dialog.getWindow();
+
         if (window != null) {
             WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
             layoutParams.copyFrom(dialog.getWindow().getAttributes());

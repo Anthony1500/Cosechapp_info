@@ -16,11 +16,6 @@
         android:theme="@style/Theme.Cosechapp"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".Menu"
-            android:exported="false"
-            android:label="@string/title_activity_menu"
-            android:theme="@style/Theme.Cosechapp.NoActionBar" />
-        <activity
             android:name=".splash_activity"
             android:exported="true"
             android:label="@string/app_name"

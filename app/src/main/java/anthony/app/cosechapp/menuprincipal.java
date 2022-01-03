@@ -1,23 +1,20 @@
 package anthony.app.cosechapp;
 
-import static java.security.AccessController.getContext;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
-import android.support.design.widget.NavigationView;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import anthony.app.cosechapp.databinding.ActivityMenuprincipalBinding;
+import anthony.app.cosechapp.dialogo.smartdialogo;
 
 public class menuprincipal extends AppCompatActivity {
 
@@ -59,13 +57,24 @@ public class menuprincipal extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_diagnosticar)
+               R.id.nav_menu_bienvenida, R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_diagnosticar, R.id.nav_calendario)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menuprincipal);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         botoncerrarsecion=(Button) findViewById(R.id.cerrraesecion);
+
+
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        Bundle args = new Bundle();
+        args.putString("id", valor);
+        smartdialogo newFragment = new smartdialogo();
+        newFragment.setArguments(args);
+        newFragment.show(getSupportFragmentManager(), "id");
+
+       //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
        botoncerrarsecion.setOnClickListener(new View.OnClickListener() {
 
             @Override
