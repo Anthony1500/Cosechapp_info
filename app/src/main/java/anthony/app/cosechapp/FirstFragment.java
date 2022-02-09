@@ -30,7 +30,7 @@ import org.json.JSONObject;
 import anthony.app.cosechapp.databinding.FragmentFirstBinding;
 
 public class FirstFragment extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener {
-    private FragmentFirstBinding binding;
+   private FragmentFirstBinding binding;
     RequestQueue rq;
     private TextView textVie;
     JsonRequest jrq;

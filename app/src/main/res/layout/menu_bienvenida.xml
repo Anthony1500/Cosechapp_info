@@ -8,92 +8,97 @@
     android:orientation="vertical"
     tools:context=".ui.home.menu_bienvenida">
 
-    <android.support.constraint.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="399dp"
-            android:layout_height="147dp"
-            android:layout_marginTop="4dp"
-            android:contentDescription="TODO"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent"
-            card_view:srcCompat="@drawable/info_corp_cosecha" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="128dp"
-            android:fontFamily="sans-serif"
-            android:text="Breve Historia"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.456"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="399dp"
+                android:layout_height="147dp"
+                android:layout_marginTop="4dp"
+                android:contentDescription="TODO"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:srcCompat="@drawable/info_corp_cosecha" />
 
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="268dp"
-            android:fontFamily="sans-serif"
-            android:text="Quienes somos"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="128dp"
+                android:fontFamily="sans-serif"
+                android:text="Breve Historia"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.456"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="365dp"
-            android:layout_height="109dp"
-            android:layout_marginTop="156dp"
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="272dp"
+                android:fontFamily="sans-serif"
+                android:text="Quienes somos"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.47"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
 
-            android:text="Rosa y Juan una pareja de agricultores con inicios muy humildes. Lucharon juntos por cambiar la injusta situación del campo. Con la meta de entregar productos de calidad a los consumidores y a su vez mejorar las condiciones de los campesinos. Cosecha toma la posta con más energías, ideas y metas para continuar y cumplir el sueño de nuestros abuelos."
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textSize="13sp"
-            android:textStyle="italic"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.575"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="365dp"
+                android:layout_height="109dp"
+                android:layout_marginTop="156dp"
 
-        <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/imagenjardin"
-            android:layout_width="287dp"
-            android:layout_height="122dp"
-            android:layout_marginTop="388dp"
-            android:foreground="#ffffff"
-            android:foregroundGravity="center_vertical|center|center_horizontal"
-            android:src="@drawable/img_arandanos"
+                android:text="Rosa y Juan una pareja de agricultores con inicios muy humildes. Lucharon juntos por cambiar la injusta situación del campo. Con la meta de entregar productos de calidad a los consumidores y a su vez mejorar las condiciones de los campesinos. Cosecha toma la posta con más energías, ideas y metas para continuar y cumplir el sueño de nuestros abuelos."
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textStyle="italic"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.575"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
 
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="366dp"
+                android:layout_height="83dp"
+                android:layout_marginTop="296dp"
 
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="366dp"
-            android:layout_height="83dp"
-            android:layout_marginTop="296dp"
+                android:text="Somos un grupo empresarial con más de 15 años de experiencia en el sector agrícola, somos gestores y participes de todos los procesos agrícolas desde la siembra hasta la comercialización del producto final para mercados locales e internacionales "
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textStyle="italic"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.473"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
 
-            android:text="Somos un grupo empresarial con más de 15 años de experiencia en el sector agrícola, somos gestores y participes de todos los procesos agrícolas desde la siembra hasta la comercialización del producto final para mercados locales e internacionales "
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textSize="13sp"
-            android:textStyle="italic"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.473"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="240dp"
+                android:layout_height="179dp"
+                android:layout_marginTop="396dp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.497"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:srcCompat="@drawable/img_arandanos" />
 
-    </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
 </LinearLayout>

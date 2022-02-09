@@ -1,13 +1,11 @@
 package anthony.app.cosechapp.ui.sistema;
 
 import android.arch.lifecycle.ViewModelProvider;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +14,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import anthony.app.cosechapp.R;
-import anthony.app.cosechapp.sincorreo;
-import anthony.app.cosechapp.sincorreo2;
 
 public class reglas_sistemaexperto extends Fragment {
     private reglas_sistemaexpertoViewModel mViewModel2;
@@ -48,17 +44,32 @@ public class reglas_sistemaexperto extends Fragment {
 
             @Override
             public void onClick(View v) {
-                resultado.setText("");
-                int a = Integer.parseInt(dato1.getText().toString());
-                int b = Integer.parseInt(dato2.getText().toString());
 
-                if(a==b){
-                    Toast.makeText(getContext(),"Son iguales.",Toast.LENGTH_SHORT).show();
-                   resultado.setText(" Son iguales.");
+                String caja1 = dato1.getText().toString();
+                String caja2 = dato2.getText().toString();
 
-                }else{
-                    Toast.makeText(getContext(),"No son iguales.",Toast.LENGTH_SHORT).show();
-                    resultado.setText(" No son iguales.");
+
+                if(!caja1.isEmpty() &&  !caja2.isEmpty() )
+                {
+                    resultado.setText("");
+                    int a = Integer.parseInt(dato1.getText().toString());
+                    int b = Integer.parseInt(dato2.getText().toString());
+
+                    if(a==b){
+                        Toast.makeText(getContext(),"Son iguales.",Toast.LENGTH_SHORT).show();
+                        resultado.setText(" Son iguales.");
+
+                    }else{
+                        Toast.makeText(getContext(),"No son iguales.",Toast.LENGTH_SHORT).show();
+                        resultado.setText(" No son iguales.");
+                    }
+
+
+                }
+                else{
+                    dato1.setError("Favor de ingresar algo");
+                    dato2.setError("Favor de ingresar algo");
+
                 }
 
 

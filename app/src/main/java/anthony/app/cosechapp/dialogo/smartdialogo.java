@@ -44,6 +44,7 @@ public class smartdialogo extends DialogFragment {
     Activity actividad;
     RequestQueue rq;
 ImageView imagen;
+    TextView botoncerrar;
 String rol="";
     ProgressDialog progressDialog;
     Handler handler = new Handler();
@@ -66,6 +67,7 @@ public smartdialogo (){
 
         return fragment;
     }
+
     private AlertDialog creardialogo() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -74,13 +76,22 @@ public smartdialogo (){
         TextView nombre = (TextView) v.findViewById(R.id.textonombre);
         TextView privilegio = (TextView) v.findViewById(R.id.textorol);
         imagen = (ImageView) v.findViewById(R.id.imagenrol);
+        btnsalir= (ImageButton) v.findViewById(R.id.btnSalir);
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
        Bundle mArgs = getArguments();
         String valor= getArguments().getString("id");
        String url="https://apps.indoamerica.edu.ec/selectusuarios.php?id_usuario="+valor;
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
+        btnsalir.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+
+                dismiss();
+            }
+
+        });
 
         JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override

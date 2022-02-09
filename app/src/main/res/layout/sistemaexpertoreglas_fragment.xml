@@ -14,17 +14,16 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
             android:fontFamily="sans-serif"
             android:text="REGLA 1"
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="normal"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.041" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView9"
@@ -47,35 +46,33 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="248dp"
             android:fontFamily="sans-serif"
             android:text=" ENTONCES "
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="normal"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.12"
+            app:layout_constraintHorizontal_bias="0.123"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.288" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="136dp"
             android:fontFamily="sans-serif"
             android:text="="
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
             android:typeface="normal"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.163" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/verificar"
@@ -83,50 +80,47 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="120dp"
             android:text="Verificar"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView11"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
         <EditText
             android:id="@+id/campodato1"
             android:layout_width="93dp"
             android:layout_height="48dp"
+            android:layout_marginTop="128dp"
             android:background="@drawable/border_botton_top"
             android:ems="10"
             android:foregroundGravity="center_vertical|center"
             android:gravity="center|center_horizontal|center_vertical"
             android:inputType="number"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.172"
+            app:layout_constraintHorizontal_bias="0.176"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.157"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <EditText
             android:id="@+id/campodato2"
             android:layout_width="93dp"
             android:layout_height="48dp"
+            android:layout_marginTop="128dp"
             android:background="@drawable/border_botton_top"
             android:ems="10"
             android:foregroundGravity="center_vertical|center"
             android:gravity="center"
             android:inputType="number"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.817"
+            app:layout_constraintHorizontal_bias="0.823"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.157"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <EditText
             android:id="@+id/resultado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="304dp"
             android:background="@drawable/border_botton_top"
             android:ems="10"
             android:foregroundGravity="center|center_horizontal"
@@ -134,21 +128,18 @@
             android:hint="RESULTADO"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.377" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/botonregla2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="464dp"
             android:text="Siguiente Regla"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.576" />
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>
