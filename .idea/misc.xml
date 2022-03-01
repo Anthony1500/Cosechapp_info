@@ -15,11 +15,11 @@
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/activity_login.xml" value="0.1331521739130435" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/activity_menu.xml" value="0.1503623188405797" />
-        <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/activity_menuprincipal.xml" value="0.22" />
+        <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/activity_menuprincipal.xml" value="0.21076233183856502" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/activity_splash.xml" value="0.22" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/activity_week_view.xml" value="0.1" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/app_bar_menu.xml" value="0.1503623188405797" />
-        <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/app_bar_menuprincipal.xml" value="0.1" />
+        <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/app_bar_menuprincipal.xml" value="0.21076233183856502" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/calendar_cell.xml" value="0.1" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/calendario.xml" value="0.22" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/comprovar.xml" value="0.1" />
@@ -30,8 +30,11 @@
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/drawer_header.xml" value="0.18" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/drawler_tolvr.xml" value="0.1" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/drawler_toolbar.xml" value="0.10314207650273224" />
+        <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/editar_usuarios.xml" value="0.240473061760841" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/event_cell.xml" value="0.18" />
-        <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/fragment_first.xml" value="0.18" />
+        <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/fragment_cerrar_sesion.xml" value="0.12631578947368421" />
+        <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/fragment_cerrarsesion.xml" value="0.25" />
+        <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/fragment_first.xml" value="0.25" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/fragment_gallery.xml" value="0.1" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/fragment_second.xml" value="0.25" />
@@ -41,16 +44,22 @@
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/fragment_sistemaexperto.xml" value="0.25" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/fragment_slideshow.xml" value="0.1" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/fragment_smartdialog.xml" value="0.1" />
-        <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/fragment_smartdialogo.xml" value="0.25" />
+        <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/fragment_smartdialogo.xml" value="0.1" />
+        <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/lista_items.xml" value="0.5" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/menu_bienvenida.xml" value="0.240473061760841" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/nav_header_menu.xml" value="0.1503623188405797" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/nav_header_menuprincipal.xml" value="0.21" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/sin_correo.xml" value="0.18" />
+        <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/sistema_experto_regla1.xml" value="0.2" />
+        <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/sistema_experto_regla2.xml" value="0.1" />
+        <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/sistema_experto_regla3.xml" value="0.1" />
+        <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/sistema_experto_regla4.xml" value="0.1" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/sistemaexperto.xml" value="0.16" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/sistemaexperto_fragment.xml" value="0.1" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/sistemaexpertoreglas_fragment.xml" value="0.18" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/sistemaexpertoreglas_fragment2.xml" value="0.12631578947368421" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/switch_item.xml" value="0.25" />
+        <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/layout/usuarios.xml" value="0.1619047619047619" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/menu/activity_main_drawer.xml" value="0.2" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/menu/activity_menu_drawer.xml" value="0.33" />
         <entry key="..\:/Users/German Arteaga/AndroidStudioProjects/Cosechapp/app/src/main/res/menu/menu.xml" value="0.2" />

@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 public class splash_activity extends AppCompatActivity {
-private final int DURACION_SPLASH =4000;
+private final int DURACION_SPLASH =4000;// tiempo de espera
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,7 +17,7 @@ private final int DURACION_SPLASH =4000;
         setContentView(R.layout.activity_splash);
         new Handler().postDelayed(new Runnable() {
             @Override
-            public void run() {
+            public void run() {// metodo para pasar de una ppantalla a otra
                 Intent intent = new Intent(splash_activity.this, MainActivity.class);
                 startActivity(intent);
                 finish();

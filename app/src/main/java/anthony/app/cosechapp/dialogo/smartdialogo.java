@@ -62,7 +62,7 @@ public smartdialogo (){
         smartdialogo fragment = new smartdialogo();
 
         Bundle bundle = new Bundle();
-        bundle.putString("id", valor);
+        bundle.putString("id", valor);//Se obtiene el ID enviado del login
         fragment.setArguments(bundle);
 
         return fragment;
@@ -80,19 +80,16 @@ public smartdialogo (){
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
        Bundle mArgs = getArguments();
-        String valor= getArguments().getString("id");
+       String valor= getArguments().getString("id");
        String url="https://apps.indoamerica.edu.ec/selectusuarios.php?id_usuario="+valor;
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
         btnsalir.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
 
                 dismiss();
             }
-
         });
-
         JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -103,30 +100,25 @@ public smartdialogo (){
                 for (int i = 0; i < response.length(); i++) {
 
                     try {
-
                         jsonObject = response.getJSONObject(i);
                         nombre.setText(Html.fromHtml(jsonObject.getString("username").toUpperCase()));
                         privilegio.setText(Html.fromHtml(jsonObject.getString("privilegio").toUpperCase()));
-                        rol= String.valueOf(Html.fromHtml(jsonObject.getString("privilegio")));
-
+                        rol= String.valueOf(Html.fromHtml(jsonObject.getString("privilegio")));//Llenado en los diferentes campos en base a la consulta realizada
 
                         if(jsonObject.get("privilegio").equals("desarrollador"))
                             Glide.with(getActivity()).load(R.drawable.desarrollador).into(imagen);
                         if(jsonObject.get("privilegio").equals("admin"))
                             Glide.with(getActivity()).load(R.drawable.administrador).into(imagen);
                         if(jsonObject.get("privilegio").equals("usuario"))
-                            Glide.with(getActivity()).load(R.drawable.usuario).into(imagen);
+                            Glide.with(getActivity()).load(R.drawable.usuario).into(imagen);//IF que determina en base al privilegio el gif correspondiente
                         if(jsonObject.get("privilegio").equals("dueño"))
                             Glide.with(getActivity()).load(R.drawable.dueno).into(imagen);
                         if(jsonObject.get("privilegio").equals("tecnico"))
                             Glide.with(getActivity()).load(R.drawable.tecnico).into(imagen);
-
-
                     } catch (JSONException e) {
                         Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override

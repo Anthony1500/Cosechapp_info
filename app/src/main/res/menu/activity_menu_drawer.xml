@@ -1,37 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="navigation_view"
+
+    >
     <item android:title="Principal">
         <menu>
-            <group android:checkableBehavior="single">
+            <group android:checkableBehavior="single" android:id="@+id/navigationView" >
+                <!--Items de la vista de navegación-->
+                <item
+                    android:id="@+id/nav_usuarios"
+                    android:icon="@drawable/tecusu"
+                    android:title="Administrar Usuarios" >
+                </item>
+
             <item
                 android:id="@+id/nav_home"
-                android:icon="@drawable/casa"
-                android:title="menu principal" >
+                android:icon="@drawable/reloj"
+                android:title="Prog.fumigación" >
             </item>
 
             <item
                 android:id="@+id/nav_gallery"
                 android:icon="@drawable/folder"
-                android:title="Datos" >
+                android:title="Historial" >
             </item>
                <item
                 android:id="@+id/nav_slideshow"
                 android:icon="@drawable/graph"
                 android:title="Reportes" >
             </item>
-                <item
-                    android:id="@+id/nav_calendario"
-                    android:icon="@drawable/calendario"
-                    android:title="Calendario">
 
-                </item>
                 <item
-                    android:id="@+id/nav_diagnosticar"
-                    android:icon="@drawable/lupa2"
-                    android:title="Diagnosticar">
-
+                    android:id="@+id/nav_menu_bienvenida"
+                    android:icon="@drawable/informacion1"
+                    android:title="Info-Cosecha">
                 </item>
 
             </group>

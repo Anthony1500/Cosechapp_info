@@ -22,7 +22,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:src="@drawable/arandanos_imagen" />
+                android:src="@drawable/arandanos_imagen" /><!--Imagen presentación superior  -->
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:foregroundGravity="center"
-                    android:src="@drawable/banner_cosecha" />
+                    android:src="@drawable/banner_cosecha" /><!--Logo Cosecha -->
             </LinearLayout>
         </FrameLayout>
     </LinearLayout>
@@ -61,7 +62,7 @@
                 android:ems="10"
                 android:hint="Correo Electronico"
                 android:inputType="textEmailAddress"
-                android:padding="15dp" />
+                android:padding="15dp" /> <!--Campo Correo -->
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -81,7 +82,7 @@
                     android:inputType="textPassword"
                     android:padding="15dp"
                     app:passwordToggleEnabled="true"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    tools:ignore="SpeakableTextPresentCheck" /> <!--Campo Contraseña -->
             </android.support.design.widget.TextInputLayout>
             <Button
                 android:id="@+id/enviar"
@@ -94,14 +95,13 @@
                 android:text="Iniciar Sesión "
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                app:cornerRadius="20dp" />
+                app:cornerRadius="20dp" /><!--Bóton Iniciar Sesión -->
 
             <Button
                 android:id="@+id/botoncorreo"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="351dp"
                 android:layout_height="59dp"
-
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
@@ -111,7 +111,7 @@
                 android:textColor="#2144C1"
                 app:backgroundTint="@color/cardview_shadow_end_color"
                 app:iconTint="@color/cardview_shadow_end_color"
-                app:rippleColor="@color/cardview_shadow_end_color" />
+                app:rippleColor="@color/cardview_shadow_end_color" /><!--Botón de recuperación de credenciales -->
 
         </LinearLayout>
 

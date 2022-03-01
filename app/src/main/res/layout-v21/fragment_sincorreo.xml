@@ -30,7 +30,7 @@
             android:translationY="200dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" /><!--texto ingrese el nombre de usuario  -->
 
         <EditText
             android:id="@+id/usuario"
@@ -41,7 +41,6 @@
             android:background="@drawable/border_botton_top"
             android:ems="10"
             android:hint="Nombre de Usuario"
-
             android:inputType="text"
             android:padding="15dp"
             android:translationY="235dp"
@@ -50,7 +49,7 @@
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0" /><!--Campo Nombre de Usuario-->
 
         <Button
             android:id="@+id/enviar"
@@ -68,7 +67,7 @@
             app:cornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4" /><!--Bóton VERIFICAR-->
 
         <Button
             android:id="@+id/atras"

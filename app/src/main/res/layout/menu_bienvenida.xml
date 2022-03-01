@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical"
-    tools:context=".ui.home.menu_bienvenida">
+    tools:context=".ui.sistema.menu_bienvenida">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
-                card_view:srcCompat="@drawable/info_corp_cosecha" />
+                card_view:srcCompat="@drawable/info_corp_cosecha" /><!--Imagen Cosecha -->
 
             <TextView
                 android:id="@+id/textView13"
@@ -39,7 +39,7 @@
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.456"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintTop_toTopOf="parent" /><!--Titulo Breve Historia-->
 
             <TextView
                 android:id="@+id/textView15"
@@ -53,14 +53,13 @@
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.47"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintTop_toTopOf="parent" /><!--Titulo Breve Historia-->
 
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="365dp"
                 android:layout_height="109dp"
                 android:layout_marginTop="156dp"
-
                 android:text="Rosa y Juan una pareja de agricultores con inicios muy humildes. Lucharon juntos por cambiar la injusta situación del campo. Con la meta de entregar productos de calidad a los consumidores y a su vez mejorar las condiciones de los campesinos. Cosecha toma la posta con más energías, ideas y metas para continuar y cumplir el sueño de nuestros abuelos."
                 android:textAlignment="center"
                 android:textAllCaps="false"
@@ -69,14 +68,13 @@
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.575"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintTop_toTopOf="parent" /><!--Parrafo Quienes somos-->
 
             <TextView
                 android:id="@+id/textView16"
                 android:layout_width="366dp"
                 android:layout_height="83dp"
                 android:layout_marginTop="296dp"
-
                 android:text="Somos un grupo empresarial con más de 15 años de experiencia en el sector agrícola, somos gestores y participes de todos los procesos agrícolas desde la siembra hasta la comercialización del producto final para mercados locales e internacionales "
                 android:textAlignment="center"
                 android:textAllCaps="false"
@@ -85,7 +83,7 @@
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.473"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintTop_toTopOf="parent" /><!--Parrafo Breve Historia-->
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -96,7 +94,7 @@
                 card_view:layout_constraintHorizontal_bias="0.497"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
-                card_view:srcCompat="@drawable/img_arandanos" />
+                card_view:srcCompat="@drawable/img_arandanos" /><!--Imagen arandano-->
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

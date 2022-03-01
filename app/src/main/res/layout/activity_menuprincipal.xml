@@ -21,7 +21,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_menuprincipal"
-        app:menu="@menu/activity_menu_drawer" >
+        app:menu="@menu/activity_menu_drawer" ><!--Vista de navegacion-->
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"

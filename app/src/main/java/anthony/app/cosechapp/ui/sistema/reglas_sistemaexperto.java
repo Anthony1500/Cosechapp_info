@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,13 +91,13 @@ public class reglas_sistemaexperto extends Fragment {
 
             @Override
             public void onClick(View v) {
-                Fragment nuevoFragmento = new reglas_sistemaexperto2();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment_content_menuprincipal, nuevoFragmento);
-                transaction.addToBackStack(null);
+                //Fragment nuevoFragmento = new sistema_experto_regla();
+               // FragmentTransaction transaction = getFragmentManager().beginTransaction();
+              //  transaction.replace(R.id.nav_host_fragment_content_menuprincipal, nuevoFragmento);
+              //  transaction.addToBackStack(null);
 
                 // Commit a la transacción
-                transaction.commit();
+              //  transaction.commit();
             }
 
         });

@@ -1,13 +1,19 @@
 package anthony.app.cosechapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,13 +39,20 @@ public class menuprincipal extends AppCompatActivity {
 
 
     TextView someText;
-
+    ListView listView;
     RequestQueue rq;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMenuprincipalBinding binding;
     Button botoncerrarsecion;
+    Button botoninfo;
+    CheckBox pizza,coffe,burger;
+    MenuItem var;
+
+    Menu menu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         Bundle bundle = getIntent().getExtras();
         String valor= getIntent().getStringExtra("id");
@@ -49,24 +62,56 @@ public class menuprincipal extends AppCompatActivity {
 
         binding = ActivityMenuprincipalBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
        setSupportActionBar(binding.appBarMenuprincipal.toolbar);
-
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-               R.id.nav_menu_bienvenida, R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_diagnosticar, R.id.nav_calendario)
+               R.id.nav_menu_bienvenida,R.id.nav_usuarios, R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_diagnosticar, R.id.nav_calendario)
                 .setDrawerLayout(drawer)
-                .build();
+                .build();//Función de navegación entre las diferentes pantallas
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menuprincipal);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         botoncerrarsecion=(Button) findViewById(R.id.cerrraesecion);
-
-
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        NavigationView finalNavigationView = navigationView;
+        JsonArrayRequest jsonArrayrequest=new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+
+                JSONObject jsonObject = null;
+
+                for (int i = 0; i < response.length(); i++) {
+
+                    try {
+
+                        jsonObject = response.getJSONObject(i);
+                        if(jsonObject.get("privilegio").equals("usuario"))
+                        finalNavigationView.getMenu().findItem(R.id.nav_usuarios).setVisible(false);//Mostrar la diferentes funcionalidades en base al privilegio del usuario
+                        if(jsonObject.get("privilegio").equals("usuario"))
+                            finalNavigationView.getMenu().findItem(R.id.nav_home).setVisible(false);
+                        if(jsonObject.get("privilegio").equals("tecnico"))
+                        finalNavigationView.getMenu().findItem(R.id.nav_usuarios).setVisible(false);
+
+                    } catch (JSONException e) {
+                        Toast.makeText(menuprincipal.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(menuprincipal.this, "Error de Conexión", Toast.LENGTH_SHORT).show();
+            }
+        }
+        );
+        rq= Volley.newRequestQueue(menuprincipal.this);
+        rq.add(jsonArrayrequest);
+       //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         Bundle args = new Bundle();
         args.putString("id", valor);
@@ -75,15 +120,30 @@ public class menuprincipal extends AppCompatActivity {
         newFragment.show(getSupportFragmentManager(), "id");
 
        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-       botoncerrarsecion.setOnClickListener(new View.OnClickListener() {
+
+      //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        botoncerrarsecion.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(menuprincipal.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                Toast.makeText(menuprincipal.this,"Se cerro sesión correctamente." ,Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(menuprincipal.this);//Alert dialog cerrar sesión
+                alertDialog.setTitle("Cerrar Sesión...");
+                alertDialog.setMessage("Está seguro que desea cerrar sesión?");
+                alertDialog.setIcon(R.drawable.cerrar_sesion);
+                alertDialog.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int which) {
+                        Intent intent = new Intent(menuprincipal.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        Toast.makeText(menuprincipal.this,"Se cerro sesión correctamente." ,Toast.LENGTH_SHORT).show();
+                    }
+                });
+                alertDialog.show();
+
+
 
             }
 
@@ -139,8 +199,8 @@ public class menuprincipal extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-    public void buscarUsuarios(String URL){
 
 
-    }
+
+
 }

@@ -42,4 +42,14 @@
         android:name="anthony.app.cosechapp.ui.home.menu_bienvenida"
         android:label="Corp.Cosecha"
         tools:layout="@layout/menu_bienvenida" />
+    <fragment
+        android:id="@+id/menu_bienvenida"
+        android:name="anthony.app.cosechapp.ui.sistema.menu_bienvenida"
+        android:label="menu_bienvenida"
+        tools:layout="@layout/menu_bienvenida" />
+    <fragment
+        android:id="@+id/nav_usuarios"
+        android:name="anthony.app.cosechapp.ui.home.Usuarios"
+        android:label="Lista de Usuarios"
+        tools:layout="@layout/usuarios" />
 </navigation>
