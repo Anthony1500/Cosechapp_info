@@ -38,6 +38,8 @@ public class ListAdapter extends ArrayAdapter<Listausu> {
         nombreusuario.setText(listausu.getNombreusu());
         TextView rolusuario =view.findViewById(R.id.rolusuario);
         rolusuario.setText(listausu.getRolusu());
+        TextView id_usuario =view.findViewById(R.id.id_usuario);
+        id_usuario.setText(listausu.getId_usuario());
         return view;
     }
 }

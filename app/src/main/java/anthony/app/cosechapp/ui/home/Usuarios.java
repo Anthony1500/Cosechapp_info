@@ -66,10 +66,10 @@ public class Usuarios extends Fragment implements AdapterView.OnItemClickListene
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         jsonObject = response.getJSONObject(i);
-
+                        String id_usuario = jsonObject.getString("id_usuario");
                         nombreusuario = jsonObject.getString("username");
                         String rolusuario = jsonObject.getString("privilegio");
-                        milista.add(new Listausu(nombreusuario, "Rol: " + rolusuario, R.drawable.sinfoto));
+                        milista.add(new Listausu(nombreusuario, "Rol: " + rolusuario, R.drawable.sinfoto,id_usuario));
                         miadapter = new ListAdapter(getContext(), R.layout.lista_items, milista);
                         lista.setAdapter(miadapter);
 
@@ -107,13 +107,15 @@ public class Usuarios extends Fragment implements AdapterView.OnItemClickListene
 
         Bundle datosAEnviar = new Bundle();
        datosAEnviar.putString("nombre", milista.get(position).getNombreusu());
+       datosAEnviar.putInt("imagen", milista.get(position).getImage());
+       datosAEnviar.putString("id_usuario", milista.get(position).getId_usuario());
        Fragment fragmento = new editar_usuarios();
-      fragmento.setArguments(datosAEnviar);
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction =  getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment_content_menuprincipal, fragmento);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+       fragmento.setArguments(datosAEnviar);
+       FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+       FragmentTransaction fragmentTransaction =  getFragmentManager().beginTransaction();
+       fragmentTransaction.replace(R.id.nav_host_fragment_content_menuprincipal, fragmento);
+       fragmentTransaction.addToBackStack(null);
+       fragmentTransaction.commit();
 
 
 

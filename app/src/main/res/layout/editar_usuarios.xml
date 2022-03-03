@@ -12,8 +12,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/usuarioimagen"
-            android:layout_width="92dp"
-            android:layout_height="75dp"
+            android:layout_width="107dp"
+            android:layout_height="83dp"
             android:layout_centerInParent="true"
             android:layout_gravity="start"
             android:layout_marginTop="56dp"
@@ -25,7 +25,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" /><!--Imagen Usuario -->
 
         <TextView
             android:id="@+id/textousuario"
@@ -44,26 +44,65 @@
             android:id="@+id/textousuario2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="252dp"
+            android:layout_marginTop="260dp"
             android:fontFamily="sans-serif"
             android:text="ROL USUARIO"
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="normal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.088"
+            app:layout_constraintHorizontal_bias="0.109"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" /><!--Rol de Usuario -->
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="231dp"
-            android:layout_height="28dp"
+            style="@style/spinner_style"
+            android:layout_width="173dp"
+            android:layout_height="48dp"
             android:layout_marginTop="252dp"
+            android:contentDescription="@string/title_activity_menuprincipal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.911"
+            app:layout_constraintHorizontal_bias="0.731"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" /><!--Bóton Combobox -->
+
+        <!--Bóton Iniciar Sesión -->
+
+        <Button
+            android:id="@+id/atrasrol"
+            android:layout_width="167dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="364dp"
+            android:gravity="center"
+            android:text="Cancelar"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColorLink="@color/colorGranada"
+            app:backgroundTint="#FF4433"
+            app:cornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.065"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" /><!--Bóton Atras -->
+
+        <Button
+            android:id="@+id/guardarrol"
+            android:layout_width="168dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="364dp"
+            android:gravity="center"
+            android:text="Guardar "
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            app:backgroundTint="@color/colorAjustes"
+            app:cornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.934"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" /><!--Bóton Guardar -->
 
     </android.support.constraint.ConstraintLayout>
 

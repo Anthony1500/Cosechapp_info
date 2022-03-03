@@ -94,7 +94,7 @@ public class menuprincipal extends AppCompatActivity {
                         finalNavigationView.getMenu().findItem(R.id.nav_usuarios).setVisible(false);//Mostrar la diferentes funcionalidades en base al privilegio del usuario
                         if(jsonObject.get("privilegio").equals("usuario"))
                             finalNavigationView.getMenu().findItem(R.id.nav_home).setVisible(false);
-                        if(jsonObject.get("privilegio").equals("tecnico"))
+                        if(jsonObject.get("privilegio").equals("admin"))
                         finalNavigationView.getMenu().findItem(R.id.nav_usuarios).setVisible(false);
 
                     } catch (JSONException e) {
