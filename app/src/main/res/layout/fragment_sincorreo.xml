@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".sincorreo">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
         android:translationY="235dp" />
 
     <Button
-        android:id="@+id/enviar"
+        android:id="@+id/programarfumigacion"
         android:layout_width="235dp"
         android:layout_height="59dp"
         android:layout_gravity="center"

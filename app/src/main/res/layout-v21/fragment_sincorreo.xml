@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".sincorreo">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -44,7 +44,7 @@
             android:inputType="text"
             android:padding="15dp"
             android:translationY="235dp"
-            app:layout_constraintBottom_toTopOf="@+id/enviar"
+            app:layout_constraintBottom_toTopOf="@+id/programarfumigacion"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
             app:layout_constraintVertical_bias="0.0" /><!--Campo Nombre de Usuario-->
 
         <Button
-            android:id="@+id/enviar"
+            android:id="@+id/programarfumigacion"
             android:layout_width="235dp"
             android:layout_height="59dp"
             android:layout_gravity="center"
@@ -84,7 +84,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpeakableTextPresentCheck" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/textView5"

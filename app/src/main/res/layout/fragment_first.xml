@@ -64,7 +64,7 @@
                 android:inputType="textEmailAddress"
                 android:padding="15dp" /> <!--Campo Correo -->
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
@@ -83,9 +83,9 @@
                     android:padding="15dp"
                     app:passwordToggleEnabled="true"
                     tools:ignore="SpeakableTextPresentCheck" /> <!--Campo Contraseña -->
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
             <Button
-                android:id="@+id/enviar"
+                android:id="@+id/programarfumigacion"
                 android:layout_width="351dp"
                 android:layout_height="59dp"
                 android:layout_gravity="center"

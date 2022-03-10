@@ -3,7 +3,7 @@ package anthony.app.cosechapp;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,7 +43,7 @@ public class sincorreo extends AppCompatActivity implements Response.Listener<JS
         cajausuario=(EditText) findViewById(R.id.usuario);
         rq = Volley.newRequestQueue(sincorreo.this);
         botonatras=(Button) findViewById(R.id.atras);
-        botonconprovar=(Button) findViewById(R.id.enviar);//Instanciamos las variables del XML a variables locales.
+        botonconprovar=(Button) findViewById(R.id.programarfumigacion);//Instanciamos las variables del XML a variables locales.
         botonenviar=(Button) findViewById(R.id.botonenviar2);
         botonatras.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,10 +1,10 @@
 package anthony.app.cosechapp.ui.calendario;
 
-import android.arch.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +28,7 @@ public class calendario extends Fragment {
         mViewModel =
                 new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(SistemaexpertoViewModel.class);
         View v=inflater.inflate(R.layout.calendario, container, false);
-        botonreglas=(Button) v.findViewById(R.id.enviar);
+        botonreglas=(Button) v.findViewById(R.id.programarfumigacion);
 
 
         return v;

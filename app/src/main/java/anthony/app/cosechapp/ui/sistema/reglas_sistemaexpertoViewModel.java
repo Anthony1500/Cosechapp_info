@@ -1,6 +1,6 @@
 package anthony.app.cosechapp.ui.sistema;
 
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel;
 
 public class reglas_sistemaexpertoViewModel extends ViewModel {
 }
