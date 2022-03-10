@@ -44,7 +44,7 @@ public class editar_usuarios extends Fragment implements Response.Listener<JSONO
    private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
     String privilegio,id_usuario;
-    RequestQueue rq;
+    RequestQueue rq,rqs;
     JsonRequest jrq;
     Spinner spinner;
     ProgressDialog progressDialog;
@@ -59,6 +59,7 @@ public class editar_usuarios extends Fragment implements Response.Listener<JSONO
         String url="https://apps.indoamerica.edu.ec/selectusuarios.php?id_usuario="+id_usuario;
         View v;
         v=inflater.inflate(R.layout.editar_usuarios, container, false);
+        rq = Volley.newRequestQueue(getContext());
         TextView nombre = (TextView) v.findViewById(R.id.textousuario);
         ImageView usuario = (ImageView) v.findViewById(R.id.usuarioimagen);
        spinner = (Spinner) v.findViewById(R.id.spinner);
@@ -109,9 +110,10 @@ public class editar_usuarios extends Fragment implements Response.Listener<JSONO
             }
         }
         );
-        rq= Volley.newRequestQueue(getContext());
-        rq.add(jsonArrayRequest);
+        rqs= Volley.newRequestQueue(getContext());
+        rqs.add(jsonArrayRequest);
         //****************************************************************************************
+
         guardarrol.setOnClickListener(new View.OnClickListener() {//Método para darle función al botón
 
             @Override
@@ -120,20 +122,21 @@ public class editar_usuarios extends Fragment implements Response.Listener<JSONO
 
 
                 String caja1 = spinner.getSelectedItem().toString();
-                if(caja1.equals(privilegio) )
-                {
-                    Toast.makeText(getContext(), "No se puede guardar si el rol es igual al anterior", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    progressDialog = new ProgressDialog(getContext(), R.style.MyAlertDialogStyle);
+                if(caja1.equals("-------")){
+                    Toast.makeText(getContext(), "Seleccione un rol para guardar.", Toast.LENGTH_SHORT).show();
+                }else {
+                    if (caja1.equals(privilegio)) {
+                        Toast.makeText(getContext(), "No se puede guardar si el rol es igual al anterior", Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog = new ProgressDialog(getContext(), R.style.MyAlertDialogStyle);
 
-                    progressDialog.setMessage("Por favor espera...");
-                    progressDialog.setCancelable(false);//Método del Progress Dialog
-                    progressDialog.show();
-                    comprovar();
+                        progressDialog.setMessage("Por favor espera...");
+                        progressDialog.setCancelable(false);//Método del Progress Dialog
+                        progressDialog.show();
+                        comprovar();
 
 
-
+                    }
                 }
             }
         });
@@ -141,11 +144,7 @@ public class editar_usuarios extends Fragment implements Response.Listener<JSONO
 
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
+
 
 
 
@@ -159,7 +158,7 @@ public class editar_usuarios extends Fragment implements Response.Listener<JSONO
     @Override
     public void onErrorResponse(VolleyError error) {
         progressDialog.dismiss();
-        Toast.makeText(getContext(), "Se  guardo Correctamente", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Se guardo Correctamente", Toast.LENGTH_SHORT).show();
         Fragment fragmento = new Usuarios();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction =  getFragmentManager().beginTransaction();
@@ -173,5 +172,10 @@ public class editar_usuarios extends Fragment implements Response.Listener<JSONO
         String urls="https://apps.indoamerica.edu.ec/actualizar.php?privilegio="+spinner.getSelectedItem().toString()+"&id_usuario="+id_usuario;
         jrq= new JsonObjectRequest(Request.Method.GET,urls,null,this,this);
         rq.add(jrq);//Envió y recepción de datos
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

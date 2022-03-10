@@ -9,4 +9,7 @@
         <item name="android:background">@drawable/spinner_selector</item>
         <item name="android:paddingLeft">5dip</item>
     </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    </style>
+
 </resources>

@@ -32,13 +32,13 @@ public class ListAdapter extends ArrayAdapter<Listausu> {
 
         Listausu listausu =milista.get(position);
 
-        ImageView image =view.findViewById(R.id.imagenlista);
+        ImageView image =view.findViewById(R.id.fumigacion);
         image.setImageResource(listausu.getImage());
         TextView nombreusuario =view.findViewById(R.id.nombreusuario);
         nombreusuario.setText(listausu.getNombreusu());
         TextView rolusuario =view.findViewById(R.id.rolusuario);
         rolusuario.setText(listausu.getRolusu());
-        TextView id_usuario =view.findViewById(R.id.id_usuario);
+        TextView id_usuario =view.findViewById(R.id.id_fumigacion);
         id_usuario.setText(listausu.getId_usuario());
         return view;
     }

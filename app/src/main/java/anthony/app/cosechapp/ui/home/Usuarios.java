@@ -96,11 +96,7 @@ public class Usuarios extends Fragment implements AdapterView.OnItemClickListene
 
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
+
 
     @Override
     public void onItemClick(AdapterView<?> Adapterview, View view, int position, long id) {
@@ -122,5 +118,10 @@ public class Usuarios extends Fragment implements AdapterView.OnItemClickListene
 
 
 
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

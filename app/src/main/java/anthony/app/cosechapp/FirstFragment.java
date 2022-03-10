@@ -50,7 +50,9 @@ public class FirstFragment extends Fragment implements Response.Listener<JSONObj
         cajacontraseña=(EditText) vista.findViewById(R.id.contraseña);
         botonenviar=(Button) vista.findViewById(R.id.enviar);//Instanciamos las variables del XML a variables locales.
         botoncorreo=(Button) vista.findViewById(R.id.botoncorreo);
-        rq = Volley.newRequestQueue(getContext());
+        {
+            rq = Volley.newRequestQueue(getContext());
+        }
 
         botonenviar.setOnClickListener(new View.OnClickListener() {//Método para darle función al botón
 

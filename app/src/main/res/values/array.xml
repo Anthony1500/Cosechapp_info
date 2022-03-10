@@ -2,6 +2,7 @@
 <resources>
 
     <string-array name="meinv">
+        <item> ------- </item>
         <item> usuario </item>
         <item> tecnico </item>
         <item> admin </item>

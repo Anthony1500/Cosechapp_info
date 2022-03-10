@@ -3,50 +3,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <TextView
         android:id="@+id/fumigacion"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="2dp"
-        />
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:translationX="4dp" />
 
     <TextView
-        android:id="@+id/nombreusuario"
+        android:id="@+id/fecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginLeft="7dp"
+        android:layout_marginLeft="14dp"
         android:layout_toRightOf="@+id/fumigacion" />
 
     <TextView
-        android:id="@+id/rolusuario"
+        android:id="@+id/hora"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginLeft="7dp"
+        android:layout_marginLeft="10dp"
 
         android:layout_marginTop="21dp"
 
-        android:layout_toRightOf="@+id/fumigacion" />
+        android:layout_toRightOf="@+id/fumigacion"
+        android:translationX="4dp" />
 
     <TextView
         android:id="@+id/id_fumigacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
         android:layout_marginLeft="85dp"
-
         android:layout_marginTop="21dp"
 
-        android:layout_toRightOf="@+id/fumigacion" />
+        android:layout_toRightOf="@+id/fumigacion"
+
+        android:visibility="invisible" />
 
     <ImageView
+        android:id="@+id/icono"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@mipmap/ic_adelante"
-        android:id="@+id/icono"
-        android:layout_marginTop="10dp"
         android:layout_alignParentEnd="true"
-        />
+        android:layout_marginTop="0dp"
+        android:src="@mipmap/ic_adelante" />
 
 </RelativeLayout>

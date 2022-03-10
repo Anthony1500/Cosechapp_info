@@ -40,34 +40,38 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--Rol de Usuario -->
+
+        <!--Bóton Combobox -->
+
+        <!--Bóton Iniciar Sesión -->
+
         <TextView
             android:id="@+id/textousuario2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="260dp"
+            android:layout_marginTop="272dp"
             android:fontFamily="sans-serif"
             android:text="ROL USUARIO"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:typeface="normal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.109"
+            app:layout_constraintHorizontal_bias="0.158"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" /><!--Rol de Usuario -->
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
             android:id="@+id/spinner"
             style="@style/spinner_style"
             android:layout_width="173dp"
             android:layout_height="48dp"
-            android:layout_marginTop="252dp"
+            android:layout_marginTop="256dp"
             android:contentDescription="@string/title_activity_menuprincipal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.731"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" /><!--Bóton Combobox -->
-
-        <!--Bóton Iniciar Sesión -->
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/atrasrol"
