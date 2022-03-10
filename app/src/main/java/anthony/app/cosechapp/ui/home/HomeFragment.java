@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
     RequestQueue rq;
     String id,fecha,hora,fumigacion;
     ListView lista;
+    Button botonfumigacion;
     String url = "https://apps.indoamerica.edu.ec/selectfumigacion.php";
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
@@ -50,7 +52,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
         lista = (ListView) root.findViewById(R.id.listafumigacion);
         lista.setOnItemClickListener(this);
         List<String> names = new ArrayList<String>();
-
+        botonfumigacion=(Button) root.findViewById(R.id.programarfumigacion);
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
             JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
@@ -86,7 +88,13 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             rq = Volley.newRequestQueue(getContext());
             rq.add(jsonArrayrequest);
+        botonfumigacion.setOnClickListener(new View.OnClickListener() {//Método para darle función al botón
 
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         //   textView.setText(s);
         return root;
 
@@ -97,6 +105,8 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
         super.onDestroyView();
         binding = null;
     }
+
+
 
 
     @Override

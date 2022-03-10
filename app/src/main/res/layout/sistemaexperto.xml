@@ -38,7 +38,7 @@
         app:srcCompat="@drawable/thinking" />
 
     <Button
-        android:id="@+id/enviar"
+        android:id="@+id/programarfumigacion"
         android:layout_width="200dp"
         android:layout_height="59dp"
         android:layout_gravity="center"
