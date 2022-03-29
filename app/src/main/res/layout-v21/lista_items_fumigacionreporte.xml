@@ -4,27 +4,27 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/fumigacion"
-        android:layout_width="100dp"
+        android:id="@+id/humidityamb"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="21dp"
         android:translationX="4dp" />
 
     <TextView
-        android:id="@+id/invernadero"
+        android:id="@+id/humidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="14dp"
-        android:layout_toRightOf="@+id/fumigacion" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="42dp"
+        android:translationX="4dp" />
 
     <TextView
         android:id="@+id/fecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="21dp"
-        android:layout_toRightOf="@+id/fumigacion"
+        android:layout_marginTop="63dp"
         android:translationX="4dp" />
 
     <TextView
@@ -32,25 +32,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="42dp"
-        android:layout_toRightOf="@+id/fumigacion"
+        android:layout_marginTop="84dp"
         android:translationX="4dp" />
 
     <TextView
-        android:id="@+id/id_fumigacion"
+        android:id="@+id/temperatureamb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="85dp"
-        android:layout_marginTop="21dp"
-        android:layout_toRightOf="@+id/fumigacion"
-        android:visibility="invisible" />
+        android:layout_marginLeft="14dp" />
 
-    <ImageView
-        android:id="@+id/icono"
-        android:layout_width="30dp"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="33dp"
-        android:src="@mipmap/ic_adelante" />
 
 </RelativeLayout>

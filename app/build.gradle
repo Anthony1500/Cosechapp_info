@@ -1,22 +1,23 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 
 
 }
 
 android {
-    compileSdkVersion 17
-    buildToolsVersion "17.0.0"
+    compileSdkVersion 20
+    buildToolsVersion "20.0.0"
 
     defaultConfig {
         applicationId "anthony.app.cosechapp"
-        minSdkVersion 19
+        minSdkVersion 20
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-        minSdkVersion 17
+        minSdkVersion 20
         targetSdk 30
         signingConfig signingConfigs.debug
     }
@@ -46,8 +47,8 @@ dependencies {
     implementation files('libs/mail.jar')
     implementation files('libs/additionnal.jar')
     implementation files('libs/activation.jar')
-
-
+    implementation 'com.google.firebase:firebase-messaging:23.0.0'
+    implementation 'com.jjoe64:graphview:4.2.2'
 
     def lottieVersion = "3.4.0"
     //noinspection GradleCompatible
@@ -64,6 +65,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.0.0'
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+
 
     implementation 'com.github.d-max:spots-dialog:0.4@aar'
     implementation 'com.squareup.picasso:picasso:2.71828'

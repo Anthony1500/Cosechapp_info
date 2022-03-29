@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/programarfumigacion"
+        android:id="@+id/reportetemp"
         android:layout_width="251dp"
         android:layout_height="63dp"
         android:layout_gravity="center"
@@ -34,6 +34,17 @@
         android:textAllCaps="false"
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/textoemergente"
+        android:layout_width="48dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="132dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,7 +63,7 @@
             android:gravity="clip_vertical">
 
             <ListView
-                android:id="@+id/listafumigacion"
+                android:id="@+id/listatempera"
                 android:layout_width="match_parent"
                 android:layout_height="378dp"
                 android:layout_marginTop="4dp">

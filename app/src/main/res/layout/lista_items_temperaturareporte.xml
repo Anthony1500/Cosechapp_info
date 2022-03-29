@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/hora"
+        android:id="@+id/humidityamb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -12,7 +12,7 @@
         android:translationX="4dp" />
 
     <TextView
-        android:id="@+id/invernadero"
+        android:id="@+id/humidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -20,7 +20,7 @@
         android:translationX="4dp" />
 
     <TextView
-        android:id="@+id/tratamiento"
+        android:id="@+id/fecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -28,7 +28,7 @@
         android:translationX="4dp" />
 
     <TextView
-        android:id="@+id/encargado"
+        android:id="@+id/hora"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -36,7 +36,7 @@
         android:translationX="4dp" />
 
     <TextView
-        android:id="@+id/fecha"
+        android:id="@+id/temperatureamb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp" />

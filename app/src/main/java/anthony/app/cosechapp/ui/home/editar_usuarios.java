@@ -1,12 +1,7 @@
 package anthony.app.cosechapp.ui.home;
 
 import android.app.ProgressDialog;
-import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +11,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -151,12 +152,7 @@ public class editar_usuarios extends Fragment implements Response.Listener<JSONO
 
     @Override
     public void onResponse(JSONObject response) {
-        progressDialog.dismiss();
-        Toast.makeText(getContext(), "No se  pudo guardar", Toast.LENGTH_SHORT).show();
 
-    }
-    @Override
-    public void onErrorResponse(VolleyError error) {
         progressDialog.dismiss();
         Toast.makeText(getContext(), "Se guardo Correctamente", Toast.LENGTH_SHORT).show();
         Fragment fragmento = new Usuarios();
@@ -165,6 +161,12 @@ public class editar_usuarios extends Fragment implements Response.Listener<JSONO
         fragmentTransaction.replace(R.id.nav_host_fragment_content_menuprincipal, fragmento);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+
+    }
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        progressDialog.dismiss();
+        Toast.makeText(getContext(), "No se  pudo guardar", Toast.LENGTH_SHORT).show();
 
     }
     private void comprovar(){

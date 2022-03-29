@@ -1,17 +1,20 @@
 package anthony.app.cosechapp.ui.home;
 
-import androidx.lifecycle.ViewModelProvider;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -69,10 +72,11 @@ public class Usuarios extends Fragment implements AdapterView.OnItemClickListene
                         String id_usuario = jsonObject.getString("id_usuario");
                         nombreusuario = jsonObject.getString("username");
                         String rolusuario = jsonObject.getString("privilegio");
-                        milista.add(new Listausu(nombreusuario, "Rol: " + rolusuario, R.drawable.sinfoto,id_usuario));
-                        miadapter = new ListAdapter(getContext(), R.layout.lista_items, milista);
-                        lista.setAdapter(miadapter);
-
+                        if (getActivity()!=null) {
+                            milista.add(new Listausu(nombreusuario, "Rol: " + rolusuario, R.drawable.sinfoto, id_usuario));
+                            miadapter = new ListAdapter(getContext(), R.layout.lista_items, milista);
+                            lista.setAdapter(miadapter);
+                        }
                     } catch (JSONException e) {
                         Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -101,19 +105,36 @@ public class Usuarios extends Fragment implements AdapterView.OnItemClickListene
     @Override
     public void onItemClick(AdapterView<?> Adapterview, View view, int position, long id) {
 
-        Bundle datosAEnviar = new Bundle();
-       datosAEnviar.putString("nombre", milista.get(position).getNombreusu());
-       datosAEnviar.putInt("imagen", milista.get(position).getImage());
-       datosAEnviar.putString("id_usuario", milista.get(position).getId_usuario());
-       Fragment fragmento = new editar_usuarios();
-       fragmento.setArguments(datosAEnviar);
-       FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-       FragmentTransaction fragmentTransaction =  getFragmentManager().beginTransaction();
-       fragmentTransaction.replace(R.id.nav_host_fragment_content_menuprincipal, fragmento);
-       fragmentTransaction.addToBackStack(null);
-       fragmentTransaction.commit();
 
 
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());//Alert dialog cerrar sesión
+        alertDialog.setTitle("Usuario: "+milista.get(position).getNombreusu());
+        alertDialog.setMessage("Está seguro que desea editar el rol del usuario seleccionado?");
+        alertDialog.setIcon( R.drawable.sinfoto);
+        alertDialog.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int which) {
+
+
+                Bundle datosAEnviar = new Bundle();
+                datosAEnviar.putString("nombre", milista.get(position).getNombreusu());
+                datosAEnviar.putInt("imagen", milista.get(position).getImage());
+                datosAEnviar.putString("id_usuario", milista.get(position).getId_usuario());
+                Fragment fragmento = new editar_usuarios();
+                fragmento.setArguments(datosAEnviar);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction =  getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment_content_menuprincipal, fragmento);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+
+
+
+
+                Toast.makeText(getContext(),"Pantalla de edición de rol." ,Toast.LENGTH_SHORT).show();
+            }
+        });
+        alertDialog.show();
 
 
 

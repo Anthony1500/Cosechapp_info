@@ -28,7 +28,7 @@ public class calendario extends Fragment {
         mViewModel =
                 new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(SistemaexpertoViewModel.class);
         View v=inflater.inflate(R.layout.calendario, container, false);
-        botonreglas=(Button) v.findViewById(R.id.programarfumigacion);
+        botonreglas=(Button) v.findViewById(R.id.reportetemp);
 
 
         return v;

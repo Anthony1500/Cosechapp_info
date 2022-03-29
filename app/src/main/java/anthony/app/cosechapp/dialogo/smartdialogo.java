@@ -8,9 +8,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,6 +21,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -106,14 +107,19 @@ public smartdialogo (){
                         rol= String.valueOf(Html.fromHtml(jsonObject.getString("privilegio")));//Llenado en los diferentes campos en base a la consulta realizada
 
                         if(jsonObject.get("privilegio").equals("desarrollador"))
+                            if (getActivity()!=null)
                             Glide.with(getActivity()).load(R.drawable.desarrollador).into(imagen);
                         if(jsonObject.get("privilegio").equals("admin"))
+                            if (getActivity()!=null)
                             Glide.with(getActivity()).load(R.drawable.administrador).into(imagen);
-                        if(jsonObject.get("privilegio").equals("usuario"))
+                        if(jsonObject.get("privilegio").equals("basico"))
+                            if (getActivity()!=null)
                             Glide.with(getActivity()).load(R.drawable.usuario).into(imagen);//IF que determina en base al privilegio el gif correspondiente
                         if(jsonObject.get("privilegio").equals("dueño"))
+                            if (getActivity()!=null)
                             Glide.with(getActivity()).load(R.drawable.dueno).into(imagen);
                         if(jsonObject.get("privilegio").equals("tecnico"))
+                            if (getActivity()!=null)
                             Glide.with(getActivity()).load(R.drawable.tecnico).into(imagen);
                     } catch (JSONException e) {
                         Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();

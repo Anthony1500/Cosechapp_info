@@ -4,9 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.navigation.NavigationView;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -27,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +34,7 @@ import org.json.JSONObject;
 
 import anthony.app.cosechapp.databinding.ActivityMenuprincipalBinding;
 import anthony.app.cosechapp.dialogo.smartdialogo;
+import anthony.app.cosechapp.ui.home.HomeFragment;
 
 public class menuprincipal extends AppCompatActivity {
 
@@ -47,7 +48,7 @@ public class menuprincipal extends AppCompatActivity {
     Button botoninfo;
     CheckBox pizza,coffe,burger;
     MenuItem var;
-
+    String valor;
     Menu menu;
 
     @Override
@@ -55,8 +56,13 @@ public class menuprincipal extends AppCompatActivity {
 
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         Bundle bundle = getIntent().getExtras();
-        String valor= getIntent().getStringExtra("id");
+         valor= getIntent().getStringExtra("id");
         String url="https://apps.indoamerica.edu.ec/selectusuarios.php?id_usuario="+valor;
+        HomeFragment v= new HomeFragment();
+
+
+
+
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         super.onCreate(savedInstanceState);
 
@@ -75,7 +81,6 @@ public class menuprincipal extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         botoncerrarsecion=(Button) findViewById(R.id.cerrraesecion);
-        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         NavigationView finalNavigationView = navigationView;
         JsonArrayRequest jsonArrayrequest=new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
@@ -92,10 +97,11 @@ public class menuprincipal extends AppCompatActivity {
                         jsonObject = response.getJSONObject(i);
                         if(jsonObject.get("privilegio").equals("usuario"))
                         finalNavigationView.getMenu().findItem(R.id.nav_usuarios).setVisible(false);//Mostrar la diferentes funcionalidades en base al privilegio del usuario
-                        if(jsonObject.get("privilegio").equals("usuario"))
-                            finalNavigationView.getMenu().findItem(R.id.nav_home).setVisible(false);
                         if(jsonObject.get("privilegio").equals("admin"))
                         finalNavigationView.getMenu().findItem(R.id.nav_usuarios).setVisible(false);
+
+
+
 
                     } catch (JSONException e) {
                         Toast.makeText(menuprincipal.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -119,7 +125,7 @@ public class menuprincipal extends AppCompatActivity {
         newFragment.setArguments(args);
         newFragment.show(getSupportFragmentManager(), "id");
 
-       //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
       //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -155,6 +161,10 @@ public class menuprincipal extends AppCompatActivity {
 
         TextView navnombre = (TextView) headerView.findViewById(R.id.mostrarnombre);
         TextView navcorreo = (TextView) headerView.findViewById(R.id.mostrarcorreo);
+        TextView navid = (TextView) headerView.findViewById(R.id.idusuario);
+
+//********************************************************************************************
+
 
 
 
@@ -167,6 +177,7 @@ public class menuprincipal extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         jsonObject = response.getJSONObject(i);
+                        navid.setText(jsonObject.getString("id_usuario"));
                         navnombre.setText(Html.fromHtml(jsonObject.getString("username")));
 
                         navcorreo.setText(jsonObject.getString("email"));

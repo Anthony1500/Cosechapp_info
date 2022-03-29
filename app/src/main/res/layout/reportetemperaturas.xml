@@ -26,25 +26,25 @@
                 android:translationX="10dp"
                 android:translationY="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.808"
+                app:layout_constraintHorizontal_bias="0.788"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/descargarreporte"
+                android:id="@+id/reportetemp"
                 android:layout_width="329dp"
                 android:layout_height="57dp"
 
                 android:layout_marginTop="376dp"
                 android:gravity="center|right|fill"
-                android:text="@string/hyperlink"
+                android:text="@string/hyperlink2"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/listafumi" />
+                app:layout_constraintTop_toTopOf="@+id/listatempera" />
 
             <TextView
                 android:id="@+id/textView29"
@@ -58,7 +58,7 @@
                 android:inputType="textMultiLine"
                 android:lineSpacingExtra="10sp"
                 android:minHeight="48dp"
-                android:text="Lista de fumigaciones"
+                android:text="Lista Temperaturas"
                 android:textAlignment="center"
                 android:textColor="@color/purple_200"
                 android:textSize="24sp"
@@ -68,7 +68,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ListView
-                android:id="@+id/listafumi"
+                android:id="@+id/listatempera"
                 android:layout_width="match_parent"
                 android:layout_height="378dp"
                 android:layout_marginTop="48dp"
@@ -79,8 +79,33 @@
                 app:layout_constraintTop_toTopOf="parent">
 
             </ListView>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/regresar"
+        android:layout_width="200dp"
+        android:layout_height="59dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="583dp"
+        android:layout_marginEnd="36dp"
+        android:backgroundTint="#FFAB40"
+        android:gravity="center"
+        android:isScrollContainer="false"
+
+        android:text="Regresar"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        app:cornerRadius="20dp"
+        app:icon="@android:drawable/ic_menu_revert"
+        app:iconGravity="start"
+        app:iconPadding="0dp"
+        app:iconTintMode="src_atop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!--Bóton Iniciar Sesión -->
 

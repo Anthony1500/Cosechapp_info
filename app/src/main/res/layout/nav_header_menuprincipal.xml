@@ -16,6 +16,14 @@
     app:layout_anchorGravity="clip_horizontal"
     >
 
+    <TextView
+        android:id="@+id/idusuario"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:text="TextView"
+        android:translationY="-56dp"
+        android:visibility="invisible" />
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/usuarioimagen"
         android:layout_width="69dp"

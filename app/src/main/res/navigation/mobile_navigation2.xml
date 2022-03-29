@@ -8,13 +8,13 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="anthony.app.cosechapp.ui.home.HomeFragment"
-        android:label="Menú principal."
+        android:label="Prog.fumigación"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
         android:name="anthony.app.cosechapp.ui.gallery.GalleryFragment"
-        android:label="Datos"
+        android:label="Sensado de T y H"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
@@ -50,6 +50,6 @@
     <fragment
         android:id="@+id/nav_usuarios"
         android:name="anthony.app.cosechapp.ui.home.Usuarios"
-        android:label="Lista de Usuarios"
+        android:label="Administrar Usuarios"
         tools:layout="@layout/usuarios" />
 </navigation>

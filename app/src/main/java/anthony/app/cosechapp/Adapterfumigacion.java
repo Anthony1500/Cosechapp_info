@@ -1,13 +1,14 @@
 package anthony.app.cosechapp;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.List;
 
@@ -30,12 +31,17 @@ public class Adapterfumigacion extends ArrayAdapter<Listafumigacion> {
             view= LayoutInflater.from(mcontext).inflate(R.layout.lista_items_fumigacion,null);
         int pisicion=position+1;
         Listafumigacion Listafumigacion =milista.get(position);
-
+       // TextView encargado =view.findViewById(R.id.encargado);
+       // encargado.setText(Listafumigacion.getEncargado());
+       // TextView tratamiento =view.findViewById(R.id.tratamiento);
+      //  tratamiento.setText(Listafumigacion.getTratamiento());
+        TextView invernadero =view.findViewById(R.id.humidity);
+        invernadero.setText(Listafumigacion.getInvernadero());
         TextView fumigacion =view.findViewById(R.id.fumigacion);
         fumigacion.setText(Listafumigacion.getFumigacion()+pisicion);
-        TextView fecha =view.findViewById(R.id.fecha);
+        TextView fecha =view.findViewById(R.id.temperatureamb);
         fecha.setText(Listafumigacion.getFecha());
-        TextView hora =view.findViewById(R.id.hora);
+        TextView hora =view.findViewById(R.id.humidityamb);
         hora.setText(Listafumigacion.getHora());
         TextView id =view.findViewById(R.id.id_fumigacion);
         id.setText(Listafumigacion.getId());

@@ -44,7 +44,7 @@
             android:inputType="text"
             android:padding="15dp"
             android:translationY="235dp"
-            app:layout_constraintBottom_toTopOf="@+id/programarfumigacion"
+            app:layout_constraintBottom_toTopOf="@+id/reportetemp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
             app:layout_constraintVertical_bias="0.0" /><!--Campo Nombre de Usuario-->
 
         <Button
-            android:id="@+id/programarfumigacion"
+            android:id="@+id/reportetemp"
             android:layout_width="235dp"
             android:layout_height="59dp"
             android:layout_gravity="center"

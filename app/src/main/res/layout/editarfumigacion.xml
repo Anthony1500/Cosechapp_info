@@ -17,7 +17,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/atrasfumigacion"
+                android:id="@+id/atrasfumigacioneditar"
                 android:layout_width="160dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
@@ -35,7 +35,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/fechafumigacion"
+                android:id="@+id/fechafumigacioneditar"
                 android:layout_width="195dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="128dp"
@@ -50,7 +50,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/encargadofumi"
+                android:id="@+id/encargadofumieditar"
                 android:layout_width="195dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="264dp"
@@ -65,7 +65,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/horafumigacion"
+                android:id="@+id/horafumigacioneditar"
                 android:layout_width="195dp"
                 android:layout_height="51dp"
                 android:layout_marginTop="200dp"
@@ -80,7 +80,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/bfecha"
+                android:id="@+id/bfechaeditar"
                 android:layout_width="89dp"
                 android:layout_height="52dp"
                 android:layout_marginTop="128dp"
@@ -92,7 +92,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/fumi_tratamiento"
+                android:id="@+id/fumi_tratamientoeditar"
                 android:layout_width="324dp"
                 android:layout_height="127dp"
                 android:layout_marginTop="396dp"
@@ -130,7 +130,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/bhora"
+                android:id="@+id/bhoraeditar"
                 android:layout_width="89dp"
                 android:layout_height="56dp"
                 android:layout_marginTop="200dp"
@@ -155,7 +155,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/agregarinvernadero"
+                android:id="@+id/editarinvernadero"
                 android:layout_width="195dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="48dp"
@@ -184,7 +184,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/guardarfumigacion"
+                android:id="@+id/guardareditarfumigacion"
                 android:layout_width="160dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center"

@@ -38,8 +38,8 @@
         <TextView
             android:id="@+id/textView18"
 
-            android:layout_width="177dp"
-            android:layout_height="57dp"
+            android:layout_width="160dp"
+            android:layout_height="48dp"
             android:layout_marginTop="228dp"
             android:layout_weight="1"
             android:ems="7"
@@ -48,7 +48,7 @@
             android:inputType="textMultiLine"
 
             android:minHeight="48dp"
-            android:text="TEMPERATURA AMBIENTE"
+            android:text="TEMPERATURA AIRE"
             android:textAlignment="center"
             android:textColor="@color/colorSplash"
             android:textSize="20sp"
@@ -63,7 +63,7 @@
 
             android:layout_width="177dp"
             android:layout_height="57dp"
-            android:layout_marginTop="520dp"
+            android:layout_marginTop="516dp"
             android:layout_weight="1"
             android:ems="7"
             android:foregroundGravity="bottom|center_vertical|center|clip_vertical"
@@ -72,13 +72,12 @@
 
 
             android:minHeight="48dp"
-            android:text="HUMEDAD CULTIVO"
+            android:text="HUMEDAD TIERRA"
             android:textAlignment="center"
             android:textColor="@color/colorSplash"
             android:textSize="20sp"
             android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.581"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -95,7 +94,7 @@
             android:inputType="textMultiLine"
             android:lineSpacingExtra="0sp"
             android:minHeight="48dp"
-            android:text="HUMEDAD AMBIENTE"
+            android:text="HUMEDAD AIRE"
             android:textAlignment="center"
             android:textColor="@color/colorSplash"
             android:textSize="20sp"
@@ -130,9 +129,8 @@
             android:layout_marginTop="284dp"
             android:fontFamily="sans-serif-light"
             android:textAlignment="center"
-            android:textColor="@color/colorFondo"
+            android:textColor="@color/cardview_dark_background"
             android:textSize="20sp"
-            android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.291"
@@ -143,16 +141,16 @@
             android:id="@+id/datohumedadcultivo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="200dp"
             android:layout_marginTop="576dp"
             android:contentDescription="@string/back"
             android:fontFamily="sans-serif-light"
             android:text=" "
             android:textAlignment="center"
-            android:textColor="@color/colorFondo"
+            android:textColor="@color/cardview_dark_background"
             android:textSize="20sp"
-            android:textStyle="bold"
             android:typeface="sans"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.44"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -165,7 +163,6 @@
             android:textAlignment="center"
             android:textColor="@color/colorFondo"
             android:textSize="20sp"
-            android:textStyle="bold"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.715"

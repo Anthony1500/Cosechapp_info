@@ -1,13 +1,14 @@
 package anthony.app.cosechapp.ui.gallery;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -41,8 +42,11 @@ public class GalleryFragment extends Fragment {
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         humedad = (TextView) root.findViewById(R.id.datohumedad);
-       temperatura = (TextView) root.findViewById(R.id.datotemperatura);
-       humedadcultivo = (TextView) root.findViewById(R.id.datohumedadcultivo);
+        temperatura = (TextView) root.findViewById(R.id.datotemperatura);
+        humedadcultivo = (TextView) root.findViewById(R.id.datohumedadcultivo);
+        humedad.setText("cargando..");
+        temperatura.setText("cargando..");
+        humedadcultivo.setText("cargando..");
 
         //Creamos el Timer
 
@@ -95,7 +99,9 @@ public class GalleryFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError errore) {
-                Toast.makeText(getContext(), "Error de Conexión", Toast.LENGTH_SHORT).show();
+                humedad.setText("Sin datos..");
+                temperatura.setText("Sin datos..");
+                humedadcultivo.setText("Sin datos..");
             }
         }
         );

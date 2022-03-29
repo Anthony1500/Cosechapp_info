@@ -43,7 +43,7 @@ public class sincorreo extends AppCompatActivity implements Response.Listener<JS
         cajausuario=(EditText) findViewById(R.id.usuario);
         rq = Volley.newRequestQueue(sincorreo.this);
         botonatras=(Button) findViewById(R.id.atras);
-        botonconprovar=(Button) findViewById(R.id.programarfumigacion);//Instanciamos las variables del XML a variables locales.
+        botonconprovar=(Button) findViewById(R.id.reportetemp);//Instanciamos las variables del XML a variables locales.
         botonenviar=(Button) findViewById(R.id.botonenviar2);
         botonatras.setOnClickListener(new View.OnClickListener() {
             @Override
