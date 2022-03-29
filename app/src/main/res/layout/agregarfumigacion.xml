@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/border_top">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="83dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/atrasfumigacioneditar"
+                android:layout_width="160dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="568dp"
+                android:gravity="center"
+                android:text="Cancelar"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColorLink="@color/colorGranada"
+                app:backgroundTint="#FF4433"
+                app:cornerRadius="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.079"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/fechafumigacioneditar"
+                android:layout_width="195dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="128dp"
+                android:background="@drawable/border_botton_top"
+                android:ems="10"
+                android:hint="Fecha"
+                android:inputType="textEmailAddress"
+                android:padding="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.601"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/encargadofumieditar"
+                android:layout_width="195dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="264dp"
+                android:background="@drawable/border_botton_top"
+                android:ems="10"
+                android:hint="Nombre encargado"
+                android:inputType="textEmailAddress"
+                android:padding="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.601"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/horafumigacioneditar"
+                android:layout_width="195dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="200dp"
+                android:background="@drawable/border_botton_top"
+                android:ems="10"
+                android:hint="Hora"
+                android:inputType="textEmailAddress"
+                android:padding="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.601"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/bfechaeditar"
+                android:layout_width="89dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="128dp"
+                android:text="FECHA"
+                android:translationX="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.049"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/fumi_tratamientoeditar"
+                android:layout_width="324dp"
+                android:layout_height="127dp"
+                android:layout_marginTop="396dp"
+                android:background="@drawable/spot"
+                android:ems="10"
+                android:foreground="@drawable/border_botton_top"
+                android:gravity="start|top"
+                android:hint="Tratamiento"
+                android:inputType="textMultiLine"
+                android:minHeight="48dp"
+                android:scrollbarThumbHorizontal="@drawable/spot"
+                android:scrollbarThumbVertical="@drawable/spot"
+                android:scrollbarTrackHorizontal="@drawable/spot"
+                android:scrollbarTrackVertical="@drawable/spot"
+                android:text=" "
+                android:textIsSelectable="false"
+                app:barrierAllowsGoneWidgets="false"
+                app:chainUseRtl="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.609"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="360dp"
+                android:text="Tratamiento"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/bhoraeditar"
+                android:layout_width="89dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="200dp"
+                android:text="HORA"
+                android:translationX="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.049"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="68dp"
+                android:text="Invernadero "
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.051"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editarinvernadero"
+                android:layout_width="195dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:background="@drawable/border_botton_top"
+                android:ems="10"
+                android:hint="Nombre invernadero"
+                android:inputType="textEmailAddress"
+                android:padding="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.601"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="284dp"
+                android:text="Encargado"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:translationX="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.054"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/guardareditarfumigacion"
+                android:layout_width="160dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="568dp"
+                android:gravity="center"
+                android:text="Guardar "
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/colorAjustes"
+                app:cornerRadius="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.936"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!--Campo Correo -->
+</androidx.constraintlayout.widget.ConstraintLayout>
