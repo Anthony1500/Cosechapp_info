@@ -47,7 +47,7 @@ public class sincorreo2 extends AppCompatActivity {
     Button botonenviar2;
     Session session;
     String correoelectronico="corpcosechapp@gmail.com";
-    String contraseña="cosecha123";
+    String contraseña="CoprCosecha1234";
     String usuario,contrasñausuario,emailusuario,privilegio;
     ProgressDialog progressDialog;
     Handler handler = new Handler();

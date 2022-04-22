@@ -1,15 +1,16 @@
 package anthony.app.cosechapp.ui.sistema;
 
-import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import anthony.app.cosechapp.R;
 
@@ -27,7 +28,7 @@ public class sistemaexperto extends Fragment {
         mViewModel =
                 new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(SistemaexpertoViewModel.class);
         View v=inflater.inflate(R.layout.sistemaexperto, container, false);
-        botonreglas=(Button) v.findViewById(R.id.programarfumigacion);
+
         botonreglas.setOnClickListener(new View.OnClickListener() {
 
             @Override

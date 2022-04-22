@@ -107,7 +107,8 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     if (getActivity()!=null) {
-                        Toast.makeText(getContext(), "Sin datos de fumigación.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Sin datos actuales de fumigación.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Agrega  una fumigación.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,7 +82,7 @@ public class menuprincipal extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         botoncerrarsecion=(Button) findViewById(R.id.cerrraesecion);
-
+       ImageView infodevelop=(ImageView) findViewById(R.id.infodesarrollador);
         NavigationView finalNavigationView = navigationView;
         JsonArrayRequest jsonArrayrequest=new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
@@ -199,7 +200,23 @@ public class menuprincipal extends AppCompatActivity {
         rq= Volley.newRequestQueue(this);
         rq.add(jsonArrayRequest);
 
+//******************************************************************************************************
+        infodevelop.setOnClickListener(new View.OnClickListener() {//Método para darle función al botón
+            @Override
+            public void onClick(View v) {
 
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(menuprincipal.this);//Alert dialog cerrar sesión
+                alertDialog.setTitle("Ing. Ciencias de la Computación.");
+                alertDialog.setMessage("Nombre: Anthony Arteaga").setMessage("Desarrollador de la aplicación móvil.");
+                alertDialog.setIcon(R.drawable.anthony);
+                alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.show();
+            }
+        });
     }
 
 
