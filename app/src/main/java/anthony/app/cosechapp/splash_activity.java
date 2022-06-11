@@ -2,10 +2,11 @@ package anthony.app.cosechapp;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.os.Handler;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class splash_activity extends AppCompatActivity {
 private final int DURACION_SPLASH =4000;// tiempo de espera
@@ -17,7 +18,7 @@ private final int DURACION_SPLASH =4000;// tiempo de espera
         setContentView(R.layout.activity_splash);
         new Handler().postDelayed(new Runnable() {
             @Override
-            public void run() {// metodo para pasar de una ppantalla a otra
+            public void run() {// metodo para pasar de una pantalla a otra
                 Intent intent = new Intent(splash_activity.this, MainActivity.class);
                 startActivity(intent);
                 finish();

@@ -3,12 +3,13 @@ package anthony.app.cosechapp;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -63,7 +64,6 @@ public class sincorreo extends AppCompatActivity implements Response.Listener<JS
                 if(!caja1.isEmpty() )
                 {
                 progressDialog = new ProgressDialog(sincorreo.this, R.style.MyAlertDialogStyle);
-
                 progressDialog.setMessage("Por favor espera...");
                 progressDialog.setCancelable(false);//Método del Progress Dialog
                 progressDialog.show();
