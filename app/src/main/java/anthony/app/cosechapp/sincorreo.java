@@ -36,7 +36,7 @@ public class sincorreo extends AppCompatActivity implements Response.Listener<JS
     EditText mensaje;
     JsonRequest jrq;
     ProgressDialog progressDialog;
-    String url = "https://apps.indoamerica.edu.ec/selectusuarios2.php";
+    String url = "https://apps.indoamerica.edu.ec/catastros/cosecha/selectusuarios2.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +99,7 @@ public class sincorreo extends AppCompatActivity implements Response.Listener<JS
     }
     private void comprovar(){
 
-        String urls="https://apps.indoamerica.edu.ec/comprobar.php?username="+cajausuario.getText().toString();
+        String urls="https://apps.indoamerica.edu.ec/catastros/cosecha/comprobar.php?username="+cajausuario.getText().toString();
         jrq= new JsonObjectRequest(Request.Method.GET,urls,null,this,this);
         rq.add(jrq);//Envió y recepción de datos
     }

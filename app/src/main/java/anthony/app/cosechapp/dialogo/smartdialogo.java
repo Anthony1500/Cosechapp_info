@@ -82,7 +82,7 @@ public smartdialogo (){
 
        Bundle mArgs = getArguments();
        String valor= getArguments().getString("id");
-       String url="https://apps.indoamerica.edu.ec/selectusuarios.php?id_usuario="+valor;
+       String url="https://apps.indoamerica.edu.ec/catastros/cosecha/selectusuarios.php?id_usuario="+valor;
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
         btnsalir.setOnClickListener(new View.OnClickListener() {
             @Override

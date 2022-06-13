@@ -126,7 +126,7 @@ public class FirstFragment extends Fragment implements Response.Listener<JSONObj
     }
     private void iniciarSesion(){
 
-        String url="https://apps.indoamerica.edu.ec/usuarios.php?email="+cajacorreo.getText().toString()+"&password="+cajacontraseña.getText().toString();
+        String url="https://apps.indoamerica.edu.ec/catastros/cosecha/usuarios.php?email="+cajacorreo.getText().toString()+"&password="+cajacontraseña.getText().toString();
         jrq= new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         rq.add(jrq);//Envió y recepción de datos
     }

@@ -57,7 +57,7 @@ public class sincorreo2 extends AppCompatActivity {
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         Bundle bundle = getIntent().getExtras();
         String valor = getIntent().getStringExtra("id");
-        String url = "https://apps.indoamerica.edu.ec/selectusuarios.php?id_usuario=" + valor;
+        String url = "https://apps.indoamerica.edu.ec/catastros/cosecha/selectusuarios.php?id_usuario=" + valor;
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         super.onCreate(savedInstanceState);
@@ -141,7 +141,7 @@ public class sincorreo2 extends AppCompatActivity {
                         message.setFrom(new InternetAddress(correoelectronico));
                         message.setSubject("Consulta de Datos");
                         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(correo.getText().toString()));
-                        message.setContent("<center><h2>Credenciales de Acceso</h2></center><br>" + "<center><img  src=\"https://apps.indoamerica.edu.ec/img/cosecha.png\"></center>" + "<center>" + usuario.toUpperCase() + "<br>" + "</center>" + "<br>" + "Email : "
+                        message.setContent("<center><h2>Credenciales de Acceso</h2></center><br>" + "<center><img  src=\"https://apps.indoamerica.edu.ec/catastros/cosecha/img/cosecha.png\"></center>" + "<center>" + usuario.toUpperCase() + "<br>" + "</center>" + "<br>" + "Email : "
                                 + emailusuario + "<br>" + "Contraseña:" + contrasñausuario + "<br>" + "Privilegio:" + privilegio + "<center><p>Recuerda no compartir esta información. </p></center>", "text/html; charset=utf-8");
 
                         Transport.send(message);

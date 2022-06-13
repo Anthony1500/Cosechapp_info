@@ -41,7 +41,7 @@ public class Usuarios extends Fragment implements AdapterView.OnItemClickListene
     RequestQueue rq;
     ListView lista;
     String valor,nombreusuario;
-    String url = "https://apps.indoamerica.edu.ec/selectusuarios2.php";
+    String url = "https://apps.indoamerica.edu.ec/catastros/cosecha/selectusuarios2.php";
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
 

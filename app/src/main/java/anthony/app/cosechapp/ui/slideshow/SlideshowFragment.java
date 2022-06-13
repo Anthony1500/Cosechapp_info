@@ -44,7 +44,7 @@ public class SlideshowFragment extends Fragment {
     String fecha,hora,encargado,invernadero,tratamiento;
     ListView listafumi;
     Button botonpasaratemperatura;
-    String url = "https://apps.indoamerica.edu.ec/selectfumigacion.php";
+    String url = "https://apps.indoamerica.edu.ec/catastros/cosecha/selectfumigacion.php";
 
     RequestQueue rq;
 
