@@ -6,4 +6,4 @@ DESARROLLO DE UNA APLICACIÓN MÓVIL PARA LA GESTIÓN REMOTA DE LOS CULTIVOS DE 
   src="/app/src/main/res/drawable/logo_cosecha.png"
   alt="Alt text"
   title="Cosecha"
-  style="display: block; margin:auto; width: 60%; hight: 10%">
+  style="display: flex; margin:auto; width: 60%; hight: 10%;left: 500%">
