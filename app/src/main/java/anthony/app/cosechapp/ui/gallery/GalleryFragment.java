@@ -35,7 +35,7 @@ public class GalleryFragment extends Fragment {
     JsonRequest jrq;
     TextView humedad,temperatura,humedadcultivo;
     Timer timer = new Timer();
-    String url="https://apps.indoamerica.edu.ec/catastros/cosecha/selectsensado.php";
+    String url="https://cosecha.tech/cosechaap_api_service/cosecha/selectsensado.php";
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
