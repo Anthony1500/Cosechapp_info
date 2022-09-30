@@ -217,7 +217,7 @@ int dia,mes,anio,hora,minuto;
 
     private void agregar(){
 
-        String url="https://apps.indoamerica.edu.ec/catastros/cosecha/agregarfumigacion.php?fecha="+tfecha.getText().toString()+"&hora="+thora.getText().toString()+"&invernadero="+invernadero.getText().toString()+"&tratamiento="+tratamiento.getText().toString()+"&encargado="+encargado.getText().toString();
+        String url="https://cosecha.tech/cosechaap_api_service/agregarfumigacion.php?fecha="+tfecha.getText().toString()+"&hora="+thora.getText().toString()+"&invernadero="+invernadero.getText().toString()+"&tratamiento="+tratamiento.getText().toString()+"&encargado="+encargado.getText().toString();
         jrq= new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         rq.add(jrq);//Envió y recepción de datos
     }

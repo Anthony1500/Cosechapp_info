@@ -56,7 +56,7 @@ public class editarfumigacion extends Fragment implements Response.Listener<JSON
         Bundle datosRecuperados = getArguments();
         id= datosRecuperados.getString("id");
         Toast.makeText(getContext(), "Pantalla edición de fumigación.", Toast.LENGTH_SHORT).show();
-        String urls="https://apps.indoamerica.edu.ec/catastros/cosecha/selectfumigacioneditar.php?id="+id;
+        String urls="https://cosecha.tech/cosechaap_api_service/selectfumigacioneditar.php?id="+id;
         View v;
         v=inflater.inflate(R.layout.editarfumigacion, container, false);
         bfecha=(Button) v.findViewById(R.id.bfechaeditar);
@@ -273,7 +273,7 @@ public class editarfumigacion extends Fragment implements Response.Listener<JSON
 
     private void editar(){
 
-        String url="https://apps.indoamerica.edu.ec/catastros/cosecha/editarfumigacion.php?fecha="+tfecha.getText().toString()+"&hora="+thora.getText().toString()+"&invernadero="+invernadero.getText().toString()+"&tratamiento="+tratamiento.getText().toString()+"&encargado="+encargado.getText().toString()+"&id="+id;
+        String url="https://cosecha.tech/cosechaap_api_service/editarfumigacion.php?fecha="+tfecha.getText().toString()+"&hora="+thora.getText().toString()+"&invernadero="+invernadero.getText().toString()+"&tratamiento="+tratamiento.getText().toString()+"&encargado="+encargado.getText().toString()+"&id="+id;
         jrq= new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         rqs.add(jrq);//Envió y recepción de datos
     }

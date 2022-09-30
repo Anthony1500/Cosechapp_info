@@ -171,7 +171,7 @@ public class editar_usuarios extends Fragment implements Response.Listener<JSONO
     }
     private void comprovar(){
 
-        String urls="https://apps.indoamerica.edu.ec/catastros/cosecha/actualizar.php?privilegio="+spinner.getSelectedItem().toString()+"&id_usuario="+id_usuario;
+        String urls="https://cosecha.tech/cosechaap_api_service/actualizar.php?privilegio="+spinner.getSelectedItem().toString()+"&id_usuario="+id_usuario;
         jrq= new JsonObjectRequest(Request.Method.GET,urls,null,this,this);
         rq.add(jrq);//Envió y recepción de datos
     }

@@ -44,7 +44,7 @@ public class reportetemperaturas extends Fragment {
     String temperaturaaire,humedadaire,humedad,fecha,hora;
     ListView listatempera;
     Button botonregresar;
-    String url = "https://apps.indoamerica.edu.ec/catastros/cosecha/selecttemperaturas.php";
+    String url = "https://cosecha.tech/cosechaap_api_service/selecttemperaturas.php";
 
     RequestQueue rq;
 

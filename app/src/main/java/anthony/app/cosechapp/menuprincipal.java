@@ -58,7 +58,7 @@ public class menuprincipal extends AppCompatActivity {
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         Bundle bundle = getIntent().getExtras();
          valor= getIntent().getStringExtra("id");
-        String url="https://apps.indoamerica.edu.ec/catastros/cosecha/selectusuarios.php?id_usuario="+valor;
+        String url="https://cosecha.tech/cosechaap_api_service/selectusuarios.php?id_usuario="+valor;
         HomeFragment v= new HomeFragment();
 
 

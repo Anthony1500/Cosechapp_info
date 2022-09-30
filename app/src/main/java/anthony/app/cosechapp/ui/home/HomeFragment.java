@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
     ImageView textoermegente;
     ProgressDialog progressDialog;
     String url1,recibido;
-    String url = "https://apps.indoamerica.edu.ec/catastros/cosecha/selectfumigacionactual.php";
+    String url = "https://cosecha.tech/cosechaap_api_service/selectfumigacionactual.php";
     public  void recibir (String valor){
         recibido=valor;
     }
@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
         TextView navnombre = (TextView) headerView.findViewById(R.id.mostrarnombre);
         TextView navid = (TextView) headerView.findViewById(R.id.idusuario);
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        url1="https://apps.indoamerica.edu.ec/catastros/cosecha/selectusuarios.php?id_usuario="+navid.getText();
+        url1="https://cosecha.tech/cosechaap_api_service/selectusuarios.php?id_usuario="+navid.getText();
         lista = (ListView) root.findViewById(R.id.listatempera);
         lista.setOnItemClickListener(this);
         List<String> names = new ArrayList<String>();
@@ -252,7 +252,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
     }
     private void eliminar(String id){
 
-        String url="https://apps.indoamerica.edu.ec/catastros/cosecha/eliminarfumigacion.php?id="+id;
+        String url="https://cosecha.tech/cosechaap_api_service/eliminarfumigacion.php?id="+id;
         jrq= new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         rq.add(jrq);//Envió y recepción de datos
     }

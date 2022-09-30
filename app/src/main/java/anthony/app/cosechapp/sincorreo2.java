@@ -57,7 +57,7 @@ public class sincorreo2 extends AppCompatActivity {
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         Bundle bundle = getIntent().getExtras();
         String valor = getIntent().getStringExtra("id");
-        String url = "https://apps.indoamerica.edu.ec/catastros/cosecha/selectusuarios.php?id_usuario=" + valor;
+        String url = "https://cosecha.tech/cosechaap_api_service/selectusuarios.php?id_usuario=" + valor;
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         super.onCreate(savedInstanceState);
