@@ -25,6 +25,29 @@
                 android:src="@drawable/arandanos_imagen" /><!--Imagen presentación superior  -->
 
 
+            <RelativeLayout
+                android:id="@+id/loadingPanel"
+                android:layout_width="100dp"
+                android:layout_height="100dp">
+
+                <ProgressBar
+                    android:id="@+id/progressBar2"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/botonActualizar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:contentDescription="@android:string/untitled"
+                app:backgroundTint="@color/colorTransparente"
+                app:icon="@android:drawable/stat_notify_sync"
+                app:iconGravity="textStart"
+                app:iconSize="44dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -34,10 +57,12 @@
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:foregroundGravity="center"
-                    android:src="@drawable/banner_cosecha" /><!--Logo Cosecha -->
+                    android:src="@drawable/banner_cosecha" />
+
+                <!--Logo Cosecha -->
             </LinearLayout>
         </FrameLayout>
     </LinearLayout>

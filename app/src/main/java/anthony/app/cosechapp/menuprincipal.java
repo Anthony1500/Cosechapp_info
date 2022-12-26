@@ -46,6 +46,7 @@ public class menuprincipal extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMenuprincipalBinding binding;
     Button botoncerrarsecion;
+
     Button botoninfo;
     CheckBox pizza,coffe,burger;
     MenuItem var;
@@ -60,8 +61,7 @@ public class menuprincipal extends AppCompatActivity {
          valor= getIntent().getStringExtra("id");
         String url="https://cosecha.tech/cosechaap_api_service/selectusuarios.php?id_usuario="+valor;
         HomeFragment v= new HomeFragment();
-
-
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -96,11 +96,12 @@ public class menuprincipal extends AppCompatActivity {
                     try {
 
                         jsonObject = response.getJSONObject(i);
-                        if(jsonObject.get("privilegio").equals("usuario"))
-                        finalNavigationView.getMenu().findItem(R.id.nav_usuarios).setVisible(false);//Mostrar la diferentes funcionalidades en base al privilegio del usuario
-                        if(jsonObject.get("privilegio").equals("admin"))
-                        finalNavigationView.getMenu().findItem(R.id.nav_usuarios).setVisible(false);
-
+                        if(jsonObject.get("privilegio").equals("usuario")){
+                            finalNavigationView.getMenu().findItem(R.id.nav_usuarios).setVisible(false);//Mostrar la diferentes funcionalidades en base al privilegio del usuario
+                        }
+                        if(jsonObject.get("privilegio").equals("admin")) {
+                            finalNavigationView.getMenu().findItem(R.id.nav_usuarios).setVisible(false);
+                        }
 
 
 
