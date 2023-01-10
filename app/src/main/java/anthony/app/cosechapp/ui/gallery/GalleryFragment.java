@@ -35,7 +35,7 @@ public class GalleryFragment extends Fragment {
     JsonRequest jrq;
     TextView humedad,temperatura,humedadcultivo;
     Timer timer = new Timer();
-    String url="https://cosecha.tech/cosechaap_api_service/cosecha/selectsensado.php";
+    String url="selectsensado.php";
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -78,7 +78,7 @@ public class GalleryFragment extends Fragment {
     }
     private void FuncionParaEsteHilo()
     {
-        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(getResources().getString(R.string.ip)+url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 

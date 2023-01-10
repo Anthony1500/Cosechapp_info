@@ -42,6 +42,7 @@ int dia,mes,anio,hora,minuto;
     ProgressDialog progressDialog;
     RequestQueue rq;
     JsonRequest jrq;
+
     private editarfumigacionViewModel editarfumigacionl;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -125,14 +126,14 @@ int dia,mes,anio,hora,minuto;
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         String hora= "0"+hourOfDay;
                         String minuto= "0"+minute;
-                        if(hourOfDay<10 )
-                        thora.setText(hora + ":" + minute);
-                        if(minute<10 )
-                        thora.setText(hourOfDay + ":" + minuto);
-                        if(hourOfDay<10 && minute<10)
-                        thora.setText(hora + ":" + 0+minute);
-                        if(hourOfDay>9 && minute>9)
-                        thora.setText(hourOfDay + ":" + minute);
+                        if(hourOfDay<10 ){
+                        thora.setText(hora + ":" + minute);}
+                        if(minute<10 ){
+                        thora.setText(hourOfDay + ":" + minuto);}
+                        if(hourOfDay<10 && minute<10){
+                        thora.setText(hora + ":" + 0+minute);}
+                        if(hourOfDay>9 && minute>9){
+                        thora.setText(hourOfDay + ":" + minute);}
 
                     }
                 },hora,minuto,true);
@@ -217,7 +218,7 @@ int dia,mes,anio,hora,minuto;
 
     private void agregar(){
 
-        String url="https://cosecha.tech/cosechaap_api_service/agregarfumigacion.php?fecha="+tfecha.getText().toString()+"&hora="+thora.getText().toString()+"&invernadero="+invernadero.getText().toString()+"&tratamiento="+tratamiento.getText().toString()+"&encargado="+encargado.getText().toString();
+        String url=getResources().getString(R.string.ip)+"agregarfumigacion.php?fecha="+tfecha.getText().toString()+"&hora="+thora.getText().toString()+"&invernadero="+invernadero.getText().toString()+"&tratamiento="+tratamiento.getText().toString()+"&encargado="+encargado.getText().toString();
         jrq= new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         rq.add(jrq);//Envió y recepción de datos
     }

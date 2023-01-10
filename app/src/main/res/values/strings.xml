@@ -27,8 +27,8 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="cancel">cancel</string>
-    <string name="accept">accept</string>
+    <string name="cancel">cancelar</string>
+    <string name="accept">aceptar</string>
     <string name="back"><![CDATA[<-]]></string>
     <string name="forward"><![CDATA[->]]></string>
     <string name="menu_home">Home</string>
@@ -41,8 +41,8 @@
 
     <public name="mylib_app_name" type="string"/>
     <public name="mylib_public_string" type="string"/>
-
-
+    <!-- Comunicación -->
+    <string name="ip">https://cosecha.tech/cosechaap_api_service/</string>
     <!-- LINKS REPORTES -->
     <string name="hyperlink">Reporte de las Fumigaciónes <a href="https://apps.indoamerica.edu.ec/catastros/reportefumigacion.php"> Descargar</a></string>
     <string name="hyperlink2">Reporte de las Temperaturas <a href="https://apps.indoamerica.edu.ec/catastros/reportedatosplanta.php"> Descargar</a></string>

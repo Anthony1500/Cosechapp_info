@@ -1,8 +1,13 @@
 package anthony.app.cosechapp;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
@@ -33,25 +38,30 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import anthony.app.cosechapp.databinding.ActivityMenuprincipalBinding;
+import anthony.app.cosechapp.dialogo.sininternetdialogo;
 import anthony.app.cosechapp.dialogo.smartdialogo;
-import anthony.app.cosechapp.ui.home.HomeFragment;
 
 public class menuprincipal extends AppCompatActivity {
 
 
-    TextView someText;
+    TextView version;
     ListView listView;
     RequestQueue rq;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMenuprincipalBinding binding;
     Button botoncerrarsecion;
-
+    private Timer timer;
     Button botoninfo;
     CheckBox pizza,coffe,burger;
     MenuItem var;
     String valor;
     Menu menu;
+    Autoupdater autoupdater = new Autoupdater(this);
+    sininternetdialogo dialogFragment = new sininternetdialogo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +69,8 @@ public class menuprincipal extends AppCompatActivity {
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         Bundle bundle = getIntent().getExtras();
          valor= getIntent().getStringExtra("id");
-        String url="https://cosecha.tech/cosechaap_api_service/selectusuarios.php?id_usuario="+valor;
-        HomeFragment v= new HomeFragment();
+        String url=getResources().getString(R.string.ip)+"selectusuarios.php?id_usuario="+valor;
+        //HomeFragment v= new HomeFragment();
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
@@ -82,7 +92,17 @@ public class menuprincipal extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         botoncerrarsecion=(Button) findViewById(R.id.cerrraesecion);
+        version=(TextView) findViewById(R.id.version);
        ImageView infodevelop=(ImageView) findViewById(R.id.infodesarrollador);
+       //mostrar la version en el menu
+        PackageInfo pckginfo = null;
+        try {
+            pckginfo = getApplication().getPackageManager().getPackageInfo(getApplication().getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+       version.setText("v"+pckginfo.versionName);
+       //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         NavigationView finalNavigationView = navigationView;
         JsonArrayRequest jsonArrayrequest=new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
@@ -166,7 +186,20 @@ public class menuprincipal extends AppCompatActivity {
         TextView navid = (TextView) headerView.findViewById(R.id.idusuario);
 
 //********************************************************************************************
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // Inicie el timer.
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                checkInternetConnection();
+            }
+        }, 0, 5000);  // Ejecute el método cada 5 segundos.
 
+
+
+
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 
@@ -229,6 +262,32 @@ public class menuprincipal extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    private void checkInternetConnection() {
+        // Compruebe si el dispositivo está conectado a Internet.
+
+        ConnectivityManager cm = (ConnectivityManager)getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        if (isConnected) {
+            // El dispositivo está conectado a Internet.
+            if (dialogFragment.isAdded()) {
+                // Oculte el diálogo si está mostrándose.
+                dialogFragment.dismiss();
+            }
+        } else {
+            // El dispositivo no está conectado a Internet.
+            if (!dialogFragment.isAdded()) {
+                // Muestre el diálogo.
+                dialogFragment.show(getSupportFragmentManager(), "estado");
+
+            }
+        }
+
+
+
+
+
+    }
 
 
 

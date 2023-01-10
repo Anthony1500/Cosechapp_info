@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorTransparente"
+    android:foreground="@drawable/border_botton_top"
+
+    android:gravity="left"
+    android:orientation="vertical"
+    tools:context=".dialogo.sininternetdialogo">
+
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_botton_top"
+        android:contentDescription="@string/accept"
+        android:foreground="@drawable/border_botton_top"
+        android:foregroundGravity="top|fill">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/email_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/border_botton_top"
+            android:padding="14dp">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/imagenrol"
+                android:layout_width="200dp"
+                android:layout_height="149dp"
+                android:layout_marginTop="12dp"
+                android:foregroundGravity="center_vertical|center|center_horizontal"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:lottie_autoPlay="true"
+                card_view:lottie_loop="true"
+                card_view:lottie_rawRes="@raw/nointernet" />
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="113dp"
+                android:layout_height="77dp"
+                android:layout_marginTop="56dp"
+                android:fontFamily="sans-serif-black"
+                android:text="No tienes acceso a internet "
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/colorInformacion"
+                android:textSize="20sp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.744"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</LinearLayout>

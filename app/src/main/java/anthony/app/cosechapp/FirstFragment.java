@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,14 +41,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import anthony.app.cosechapp.databinding.FragmentFirstBinding;
+import anthony.app.cosechapp.dialogo.sininternetdialogo;
 
 public class FirstFragment extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener ,OnRequestPermissionsResultCallback  {
 
     private static final int MY_PERMISSIONS_REQUEST_MANAGE_EXTERNAL_STORAGE = 1;
     private static final int REQUEST_CODE_WRITE_STORAGE_PERMISSION = 2;
     private static final int REQUEST_CODE_MANAGE_EXTERNAL_STORAGE = 3;
-
+    sininternetdialogo dialogFragment = new sininternetdialogo();
 
     private FragmentFirstBinding binding;
     RequestQueue rq;
@@ -61,9 +67,10 @@ public class FirstFragment extends Fragment implements Response.Listener<JSONObj
     Button botonenviar;
     Button botoncorreo;
     String nombreusuario="";
-    String id_usuario="";
+    String id_usuario="",valor;
     Handler handler = new Handler();
     ProgressDialog progressDialog;
+    private Timer timer;
     private ActivityCompat FragmentCompat;
 
     @Override
@@ -79,6 +86,20 @@ public class FirstFragment extends Fragment implements Response.Listener<JSONObj
         {
             rq = Volley.newRequestQueue(getContext());
         }
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // Inicie el timer.
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                checkInternetConnection();
+            }
+        }, 0, 5000);  // Ejecute el método cada 5 segundos.
+
+
+
+
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         //requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_WRITE_STORAGE_PERMISSION);
         requestPermissions(new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE},
@@ -104,21 +125,7 @@ if ( checkPer()){
 }else{
     requestPer();
 }
-
-
-
-
-
-                     
-
-
-
-
-
-
-
-
-                }
+              }
             });
         }catch (Exception ex){
             //Por Cualquier error.
@@ -183,7 +190,8 @@ if ( checkPer()){
     @Override
     public void onErrorResponse(VolleyError error) {//Respuesta fallida
         progressDialog.dismiss();
-        Toast.makeText(getContext(),"las credenciales ingresadas son incorrectas"+error.toString(),Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getContext(),"Las credenciales ingresadas son incorrectas"+error.toString(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(),"Las credenciales ingresadas son incorrectas",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -209,6 +217,7 @@ if ( checkPer()){
             e.printStackTrace();
         }
 
+
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         Intent intent = new Intent(getContext(), menuprincipal.class );
         intent.putExtra("id", id_usuario);//Envió hacia otro Activity
@@ -220,7 +229,7 @@ if ( checkPer()){
     }
     private void iniciarSesion(){
 
-        String url="https://cosecha.tech/cosechaap_api_service/usuarios.php?email="+cajacorreo.getText().toString()+"&password="+cajacontraseña.getText().toString();
+        String url=getResources().getString(R.string.ip)+"usuarios.php?email="+cajacorreo.getText().toString()+"&password="+cajacontraseña.getText().toString();
         jrq= new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         rq.add(jrq);//Envió y recepción de datos
     }
@@ -233,15 +242,18 @@ if ( checkPer()){
             //Comprueba que halla nueva versión.
             if(updater.isNewVersionAvailable()){
                 //Crea mensaje con datos de versión.
-                String msj = "Nueva Version: " + updater.isNewVersionAvailable();
-                msj += "\nCurrent Version: " + updater.getCurrentVersionName() + "(" + updater.getCurrentVersionCode() + ")";
-                msj += "\nLastest Version: " + updater.getLatestVersionName() + "(" + updater.getLatestVersionCode() +")";
-                msj += "\nDesea Actualizar?";
+                String msj = "Nueva Versión Disponible" ;
+                msj += "\nVersión Actual: " +  updater.getCurrentVersionName() + "(" + updater.getCurrentVersionCode() + ")";
+                msj += "\nUltima versión: " + updater.getLatestVersionName() + "(" + updater.getLatestVersionCode() +")";
+               // msj += "\nDesea Actualizar?";
                 //Crea ventana de alerta.
 
                 AlertDialog.Builder dialog1 = new AlertDialog.Builder(context);
+                dialog1.setTitle("Desea Actualizar?");
+
+                dialog1.setIcon(R.drawable.descarga);
                 dialog1.setMessage(msj);
-                dialog1.setNegativeButton(R.string.cancel, null);
+                //dialog1.setNegativeButton(R.string.cancel, null);
                 //Establece el boton de Aceptar y que hacer si se selecciona.
                 dialog1.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                     @Override
@@ -250,14 +262,15 @@ if ( checkPer()){
                         loadingPanel.setVisibility(View.VISIBLE);
                         //Se ejecuta el Autoupdater con la orden de instalar. Se puede poner un listener o no
                        // updater.InstallNewVersion(null);
-                        DownloadApk downloadApk = new DownloadApk(getContext());
-                        downloadApk.startDownloadingApk(updater.getDownloadURL(),"update");
+                      DownloadApk downloadApk = new DownloadApk(getContext());
+                      downloadApk.startDownloadingApk(updater.getDownloadURL(),"versión");
                     }
                 });
 
                 //Muestra la ventana esperando respuesta.
 
                 dialog1.show();
+
             }else{
                 //No existen Actualizaciones.
                 //Log.d("Mensaje","No Hay actualizaciones");
@@ -288,5 +301,33 @@ void requestPer(){
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        timer.cancel();
     }
+    private void checkInternetConnection() {
+        // Compruebe si el dispositivo está conectado a Internet.
+
+        ConnectivityManager cm = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        if (isConnected) {
+            // El dispositivo está conectado a Internet.
+            if (dialogFragment.isAdded()) {
+                // Oculte el diálogo si está mostrándose.
+                dialogFragment.dismiss();
+            }
+        } else {
+            // El dispositivo no está conectado a Internet.
+            if (!dialogFragment.isAdded()) {
+                // Muestre el diálogo.
+                dialogFragment.show(getParentFragmentManager(), "estado");
+
+            }
+        }
+
+
+
+
+
+    }
+
 }

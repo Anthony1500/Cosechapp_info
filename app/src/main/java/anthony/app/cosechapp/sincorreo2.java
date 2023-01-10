@@ -57,12 +57,12 @@ public class sincorreo2 extends AppCompatActivity {
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         Bundle bundle = getIntent().getExtras();
         String valor = getIntent().getStringExtra("id");
-        String url = "https://cosecha.tech/cosechaap_api_service/selectusuarios.php?id_usuario=" + valor;
+        String url = getResources().getString(R.string.ip)+"selectusuarios.php?id_usuario=" + valor;
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_sincorreo2);
-        botonenviar2 = (Button) findViewById(R.id.botonenviar2);
+        botonenviar2 = (Button) findViewById(R.id.botonenviarcorreo);
         correo = (EditText) findViewById(R.id.correoenvio2);
         correo.setKeyListener(null);
 
@@ -137,11 +137,12 @@ public class sincorreo2 extends AppCompatActivity {
 
                     if (session != null) {
                         setProgressDialog();
+                        String ip= getResources().getString(R.string.ip)+"/img/cosecha.png";
                         javax.mail.Message message = new MimeMessage(session);
                         message.setFrom(new InternetAddress(correoelectronico));
                         message.setSubject("Consulta de Datos");
                         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(correo.getText().toString()));
-                        message.setContent("<center><h2>Credenciales de Acceso</h2></center><br>" + "<center><img  src=\"https://apps.indoamerica.edu.ec/catastros/cosecha/img/cosecha.png\"></center>" + "<center>" + usuario.toUpperCase() + "<br>" + "</center>" + "<br>" + "Email : "
+                        message.setContent("<center><h2>Credenciales de Acceso</h2></center><br>" + "<center><img  src=\""+ip+"\"></center>" + "<center>" + usuario.toUpperCase() + "<br>" + "</center>" + "<br>" + "Email : "
                                 + emailusuario + "<br>" + "Contraseña:" + contrasñausuario + "<br>" + "Privilegio:" + privilegio + "<center><p>Recuerda no compartir esta información. </p></center>", "text/html; charset=utf-8");
 
                         Transport.send(message);

@@ -1,6 +1,14 @@
 package anthony.app.cosechapp.ui.slideshow;
 
+import android.app.DownloadManager;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -43,8 +52,8 @@ public class reportetemperaturas extends Fragment {
 
     String temperaturaaire,humedadaire,humedad,fecha,hora;
     ListView listatempera;
-    Button botonregresar;
-    String url = "https://cosecha.tech/cosechaap_api_service/selecttemperaturas.php";
+    Button botonregresar,reportetemperatura;
+    String url ="selecttemperaturas.php";
 
     RequestQueue rq;
 
@@ -59,6 +68,7 @@ public class reportetemperaturas extends Fragment {
         linkTextView.setMovementMethod(LinkMovementMethod.getInstance());
         listatempera = (ListView) v.findViewById(R.id.listatempera);
         botonregresar=(Button) v.findViewById(R.id.regresar);
+        reportetemperatura=(Button) v.findViewById(R.id.reportetemp);
         List<String> names = new ArrayList<String>();
         /*final TextView textView = binding.textSlideshow;
         slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -67,7 +77,7 @@ public class reportetemperaturas extends Fragment {
                 textView.setText(s);
             }
         });*/
-        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(getResources().getString(R.string.ip)+url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -128,6 +138,43 @@ public class reportetemperaturas extends Fragment {
                 transaction.commit();
             }
         });
+        reportetemperatura.setOnClickListener(new View.OnClickListener() {//Método para darle función al botón
+
+            @Override
+            public void onClick(View v) {
+                String url = getResources().getString(R.string.ip)+"reportes/reportedatosplanta.php";
+                final ProgressDialog progressDialog = new ProgressDialog(getContext());
+                progressDialog.setTitle("Descargando...");
+                progressDialog.setMessage("Espere mientras se completa la descarga...");
+
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                request.setTitle("Reporte de las temperaturas");
+                request.setDescription("Descargando...");
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                request.allowScanningByMediaScanner();
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Reporte temperaturas.xlsx");
+
+                DownloadManager downloadManager = (DownloadManager) ContextCompat.getSystemService(getContext(), DownloadManager.class);
+                downloadManager.enqueue(request);
+
+                // registrar un BroadcastReceiver para recibir actualizaciones sobre la descarga
+                BroadcastReceiver onComplete = new BroadcastReceiver() {
+                    public void onReceive(Context ctxt, Intent intent) {
+                        // Eliminar el BroadcastReceiver
+                        getContext().unregisterReceiver(this);
+                        progressDialog.dismiss();
+                    }
+                };
+                getContext().registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
+
+            }
+        });
+
+
         return v;
     }
 

@@ -1,25 +1,16 @@
 package anthony.app.cosechapp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Environment;
-import android.provider.Settings;
 import android.util.Log;
-
-import androidx.core.content.FileProvider;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -223,8 +214,7 @@ public class Autoupdater extends androidx.core.content.FileProvider {
         if(isNewVersionAvailable()){
             if(getDownloadURL() == "") return;
             listener = OnFinishRunnable;
-            String params[] = {getDownloadURL()};
-            downloadInstaller.execute(params);
+
 
         }
     }
@@ -256,63 +246,6 @@ public class Autoupdater extends androidx.core.content.FileProvider {
      * No es cancelable.
      */
 
-    private AsyncTask<String, Integer, Intent> downloadInstaller = new AsyncTask<String, Integer, Intent>() {
-        @Override
-        protected Intent doInBackground(String... strings) {
-            try {
 
-                URL url = new URL(strings[0]);
-                HttpURLConnection c = (HttpURLConnection) url.openConnection();
-                c.setRequestMethod("GET");
-                c.setDoOutput(true);
-                c.connect();
-
-                String PATH = Environment.getExternalStorageDirectory() + "/download/";
-                File file = new File(PATH);
-                file.mkdirs();
-                File outputFile = new File(file, "app.apk");
-                FileOutputStream fos = new FileOutputStream(outputFile);
-
-                InputStream is = c.getInputStream();
-
-                byte[] buffer = new byte[1024];
-                int len1 = 0;
-                while ((len1 = is.read(buffer)) != -1) {
-                    fos.write(buffer, 0, len1);
-                }
-                fos.close();
-                is.close();//till here, it works fine - .apk is download to my sdcard in download file
-
-
-                Intent installIntent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-               // File apkFile = new File(Environment.getExternalStorageDirectory() +"/download/app.apk");
-
-                Uri contentUri = FileProvider.getUriForFile(context, "anthony.app.cosechapp.fileprovider",outputFile);
-                installIntent.setDataAndType(contentUri, "application/vnd.android.package-archive");
-                installIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK );
-
-                context.startActivity(installIntent);
-
-
-
-
-
-
-
-            } catch (IOException e) {
-
-                Log.e("Update error!", e.getMessage());
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Intent intent) {
-            super.onPostExecute(intent);
-            if(listener != null)listener.run();
-            listener = null;
-        }
-    };
 
 }

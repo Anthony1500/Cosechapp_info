@@ -16,35 +16,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/imageView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="440dp"
-                android:contentDescription="TODO"
-                android:src="@drawable/excel"
-                android:translationX="10dp"
-                android:translationY="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.788"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/reportetemperatura"
-                android:layout_width="329dp"
-                android:layout_height="57dp"
-
-                android:layout_marginTop="376dp"
-                android:gravity="center|right|fill"
-                android:text="@string/hyperlink"
+            <Button
+                android:id="@+id/reportefumigacion"
+                android:layout_width="351dp"
+                android:layout_height="59dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="436dp"
+                android:backgroundTint="@color/colorVerde"
+                android:gravity="center"
+                android:text="Descargar reporte"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="@color/black"
+                android:textColorLink="@color/blue"
+                app:cornerRadius="20dp"
+                app:icon="@drawable/excel"
+                app:iconGravity="textStart"
+                app:iconTintMode="multiply"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/listatempera" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView29"

@@ -41,7 +41,7 @@ public class Usuarios extends Fragment implements AdapterView.OnItemClickListene
     RequestQueue rq;
     ListView lista;
     String valor,nombreusuario;
-    String url = "https://cosecha.tech/cosechaap_api_service/selectusuarios2.php";
+
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
 
@@ -52,7 +52,7 @@ public class Usuarios extends Fragment implements AdapterView.OnItemClickListene
 
         View v;
         v=inflater.inflate(R.layout.usuarios, container, false);
-
+        String url =getResources().getString(R.string.ip)+"selectusuarios2.php";
         lista = (ListView) v.findViewById(R.id.lista_usuarios);
         lista.setOnItemClickListener(this);
         List<String> names = new ArrayList<String>();

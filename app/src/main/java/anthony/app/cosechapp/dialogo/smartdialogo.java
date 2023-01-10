@@ -73,7 +73,12 @@ public smartdialogo (){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater =getActivity().getLayoutInflater();
-        View v=inflater.inflate(R.layout.fragment_smartdialogo,null);
+        LinearLayout layout = new LinearLayout(getActivity());
+        layout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 500));
+
+
+        View v=inflater.inflate(R.layout.fragment_smartdialogo,layout);
+
         TextView nombre = (TextView) v.findViewById(R.id.textonombre);
         TextView privilegio = (TextView) v.findViewById(R.id.textorol);
         imagen = (ImageView) v.findViewById(R.id.imagenrol);
@@ -82,7 +87,7 @@ public smartdialogo (){
 
        Bundle mArgs = getArguments();
        String valor= getArguments().getString("id");
-       String url="https://cosecha.tech/cosechaap_api_service/selectusuarios.php?id_usuario="+valor;
+       String url=getResources().getString(R.string.ip)+"selectusuarios.php?id_usuario="+valor;
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
         btnsalir.setOnClickListener(new View.OnClickListener() {
             @Override

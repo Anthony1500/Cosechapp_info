@@ -1,16 +1,23 @@
 package anthony.app.cosechapp.ui.slideshow;
 
+import android.app.DownloadManager;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -43,8 +50,8 @@ public class SlideshowFragment extends Fragment {
 
     String fecha,hora,encargado,invernadero,tratamiento;
     ListView listafumi;
-    Button botonpasaratemperatura;
-    String url = "https://cosecha.tech/cosechaap_api_service/selectfumigacion.php";
+    Button botonpasaratemperatura,reportefumigacion;
+    String url ="selectfumigacion.php";
 
     RequestQueue rq;
 
@@ -55,10 +62,11 @@ public class SlideshowFragment extends Fragment {
 
         binding = FragmentSlideshowBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        TextView linkTextView = root.findViewById(R.id.reportetemperatura);
-        linkTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        //TextView linkTextView = root.findViewById(R.id.reportetemperatura);
+      //  linkTextView.setMovementMethod(LinkMovementMethod.getInstance());
         listafumi = (ListView) root.findViewById(R.id.listatempera);
         botonpasaratemperatura=(Button) root.findViewById(R.id.reportetemp);
+        reportefumigacion=(Button) root.findViewById(R.id.reportefumigacion);
         List<String> names = new ArrayList<String>();
         /*final TextView textView = binding.textSlideshow;
         slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -67,7 +75,7 @@ public class SlideshowFragment extends Fragment {
                 textView.setText(s);
             }
         });*/
-        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(getResources().getString(R.string.ip)+url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -128,7 +136,44 @@ public class SlideshowFragment extends Fragment {
                 transaction.commit();
             }
         });
+        reportefumigacion.setOnClickListener(new View.OnClickListener() {//Método para darle función al botón
 
+            @Override
+            public void onClick(View v) {
+                String url = getResources().getString(R.string.ip)+"reportes/reportefumigacion.php";
+                final ProgressDialog progressDialog = new ProgressDialog(getContext());
+                progressDialog.setTitle("Descargando...");
+                progressDialog.setMessage("Espere mientras se completa la descarga...");
+
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                request.setTitle("Reporte de las fumigaciones");
+                request.setDescription("Descargando...");
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                request.allowScanningByMediaScanner();
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Reporte fumigaciones.xlsx");
+
+                DownloadManager downloadManager = (DownloadManager) ContextCompat.getSystemService(getContext(), DownloadManager.class);
+                downloadManager.enqueue(request);
+
+                // registrar un BroadcastReceiver para recibir actualizaciones sobre la descarga
+                BroadcastReceiver onComplete = new BroadcastReceiver() {
+                    public void onReceive(Context ctxt, Intent intent) {
+                        // Eliminar el BroadcastReceiver
+                        getContext().unregisterReceiver(this);
+                        progressDialog.dismiss();
+                    }
+                };
+
+
+
+                getContext().registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
+
+            }
+        });
 
 
 

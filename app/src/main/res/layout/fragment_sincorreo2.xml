@@ -38,7 +38,7 @@
             android:inputType="textEmailAddress"
             android:padding="15dp"
             android:textColor="@color/cardview_dark_background"
-            app:layout_constraintBottom_toTopOf="@+id/botonenviar2"
+            app:layout_constraintBottom_toTopOf="@+id/botonenviarcorreo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <Button
-            android:id="@+id/botonenviar2"
+            android:id="@+id/botonenviarcorreo"
             android:layout_width="235dp"
             android:layout_height="59dp"
             android:layout_marginTop="212dp"
@@ -95,7 +95,7 @@
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/botonenviar2" />
+            app:layout_constraintTop_toBottomOf="@+id/botonenviarcorreo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

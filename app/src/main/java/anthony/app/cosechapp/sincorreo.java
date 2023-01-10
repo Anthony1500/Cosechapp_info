@@ -36,7 +36,7 @@ public class sincorreo extends AppCompatActivity implements Response.Listener<JS
     EditText mensaje;
     JsonRequest jrq;
     ProgressDialog progressDialog;
-    String url = "https://cosecha.tech/cosechaap_api_service/selectusuarios2.php";
+    String url ="selectusuarios2.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +45,7 @@ public class sincorreo extends AppCompatActivity implements Response.Listener<JS
         rq = Volley.newRequestQueue(sincorreo.this);
         botonatras=(Button) findViewById(R.id.atras);
         botonconprovar=(Button) findViewById(R.id.reportetemp);//Instanciamos las variables del XML a variables locales.
-        botonenviar=(Button) findViewById(R.id.botonenviar2);
+       // botonenviar=(Button) findViewById(R.id.botonenviarcorreo);
         botonatras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +78,7 @@ public class sincorreo extends AppCompatActivity implements Response.Listener<JS
     @Override
     public void onErrorResponse(VolleyError error) {//Respuesta fallida
         progressDialog.dismiss();
-        Toast.makeText(getApplicationContext(),"las credenciales ingresadas son incorrectas"+error.toString(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"El usuario ingresado es incorrecto",Toast.LENGTH_SHORT).show();
     }
     @Override
     public void onResponse(JSONObject response) {//Respuesta correcta
@@ -99,7 +99,7 @@ public class sincorreo extends AppCompatActivity implements Response.Listener<JS
     }
     private void comprovar(){
 
-        String urls="https://cosecha.tech/cosechaap_api_service/comprobar.php?username="+cajausuario.getText().toString();
+        String urls=getResources().getString(R.string.ip)+"comprobar.php?username="+cajausuario.getText().toString();
         jrq= new JsonObjectRequest(Request.Method.GET,urls,null,this,this);
         rq.add(jrq);//Envió y recepción de datos
     }

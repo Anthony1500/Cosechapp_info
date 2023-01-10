@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import anthony.app.cosechapp.Adapterfumigacion;
@@ -45,6 +47,7 @@ import anthony.app.cosechapp.databinding.FragmentHomeBinding;
 public class HomeFragment extends Fragment implements AdapterView.OnItemClickListener , Response.Listener<JSONObject>,Response.ErrorListener{
     Adapterfumigacion miadapter;
     private List<Listafumigacion> milista = new ArrayList<>();
+
     String s = "";
     RequestQueue rq;
     String id,fecha,hora,fumigacion,encargado,invernadero,tratamiento,privilegio, valor;
@@ -54,7 +57,8 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
     ImageView textoermegente;
     ProgressDialog progressDialog;
     String url1,recibido;
-    String url = "https://cosecha.tech/cosechaap_api_service/selectfumigacionactual.php";
+    private Handler handler = new Handler();
+    private Runnable runnable;
     public  void recibir (String valor){
         recibido=valor;
     }
@@ -72,51 +76,77 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
         TextView navnombre = (TextView) headerView.findViewById(R.id.mostrarnombre);
         TextView navid = (TextView) headerView.findViewById(R.id.idusuario);
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        url1="https://cosecha.tech/cosechaap_api_service/selectusuarios.php?id_usuario="+navid.getText();
+        String url = getResources().getString(R.string.ip)+"selectfumigacionactual.php";
+        url1=getResources().getString(R.string.ip)+"selectusuarios.php?id_usuario="+navid.getText();
         lista = (ListView) root.findViewById(R.id.listatempera);
         lista.setOnItemClickListener(this);
         List<String> names = new ArrayList<String>();
         botonfumigacion=(Button) root.findViewById(R.id.reportetemp);
 
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+
+
+            runnable = new Runnable() {
                 @Override
-                public void onResponse(JSONArray response) {
-                    JSONObject jsonObject = null;
-                    for (int i = 0; i < response.length(); i++) {
-                        try {
-                            jsonObject = response.getJSONObject(i);
-                            id = jsonObject.getString("id");
-                            fecha = jsonObject.getString("fecha");
-                            hora = jsonObject.getString("hora");
-                            encargado=jsonObject.getString("encargado");
-                            invernadero=jsonObject.getString("invernadero");
-                            tratamiento=jsonObject.getString("tratamiento");
-                            fumigacion = "Fumigación ";
-                           if (getActivity()!=null) {
-                           milista.add(new Listafumigacion(fumigacion, "Hora:   " + hora, "Fecha: " + fecha, id, "Encargado: " + encargado, "Invernadero: " + invernadero, "Tratamiento: " + tratamiento));
-                           miadapter = new Adapterfumigacion(getContext(), R.layout.lista_items_fumigacion, milista);
-                           lista.setAdapter(miadapter);
+                public void run() {
+                    // Hacer la solicitud JSON y actualizar la lista
+                    JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            JSONObject jsonObject = null;
+                            HashSet<Integer> added = new HashSet<>();
+                            milista.clear();
+                            for (int i = 0; i < response.length(); i++) {
+                                try {
+                                    jsonObject = response.getJSONObject(i);
+                                    id = jsonObject.getString("id");
+                                    if (!added.contains(id)) {
+                                        added.add(Integer.valueOf(id));
+                                        fecha = jsonObject.getString("fecha");
+                                        hora = jsonObject.getString("hora");
+                                        encargado = jsonObject.getString("encargado");
+                                        invernadero = jsonObject.getString("invernadero");
+                                        tratamiento = jsonObject.getString("tratamiento");
+                                        fumigacion = "Fumigación ";
+
+
+                                    if (getActivity() != null) {
+
+                                        milista.add(new Listafumigacion(fumigacion, "Hora:   " + hora, "Fecha: " + fecha, id, "Encargado: " + encargado, "Invernadero: " + invernadero, "Tratamiento: " + tratamiento));
+                                        miadapter = new Adapterfumigacion(getContext(), R.layout.lista_items_fumigacion, milista);
+                                        miadapter.notifyDataSetChanged();
+
+                                        lista.setAdapter(miadapter);
+                                    }
+                                }
+                                } catch (JSONException e) {
+                                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                }
                             }
-                        } catch (JSONException e) {
-                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            if (getActivity()!=null) {
+                               // Toast.makeText(getContext(), "Sin datos actuales de fumigación.", Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(getContext(), "Agrega  una fumigación.", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
+                    );
+                    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    rq = Volley.newRequestQueue(getContext());
+                    rq.add(jsonArrayrequest);
+                    //*******************************************************************************
+
+                    handler.postDelayed(this, 2000);
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    if (getActivity()!=null) {
-                        Toast.makeText(getContext(), "Sin datos actuales de fumigación.", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getContext(), "Agrega  una fumigación.", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-            );
-            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            rq = Volley.newRequestQueue(getContext());
-            rq.add(jsonArrayrequest);
-            //*******************************************************************************
+            };
+            handler.postDelayed(runnable, 1000);
+
+
+
         JsonArrayRequest jsonArrayrequest1=new JsonArrayRequest(url1, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -236,6 +266,9 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        handler.removeCallbacks(runnable);
+        runnable = null;
+        miadapter = null;
     }
 
     @Override
@@ -252,7 +285,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
     }
     private void eliminar(String id){
 
-        String url="https://cosecha.tech/cosechaap_api_service/eliminarfumigacion.php?id="+id;
+        String url=getResources().getString(R.string.ip)+"eliminarfumigacion.php?id="+id;
         jrq= new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         rq.add(jrq);//Envió y recepción de datos
     }

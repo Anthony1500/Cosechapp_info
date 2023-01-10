@@ -57,7 +57,7 @@ public class editar_usuarios extends Fragment implements Response.Listener<JSONO
         String valor= datosRecuperados.getString("nombre");
         int imagen= datosRecuperados.getInt("imagen");
         id_usuario= datosRecuperados.getString("id_usuario");
-        String url="https://apps.indoamerica.edu.ec/catastros/cosecha/selectusuarios.php?id_usuario="+id_usuario;
+        String url=getResources().getString(R.string.ip)+"selectusuarios.php?id_usuario="+id_usuario;
         View v;
         v=inflater.inflate(R.layout.editar_usuarios, container, false);
         rq = Volley.newRequestQueue(getContext());
@@ -171,7 +171,7 @@ public class editar_usuarios extends Fragment implements Response.Listener<JSONO
     }
     private void comprovar(){
 
-        String urls="https://cosecha.tech/cosechaap_api_service/actualizar.php?privilegio="+spinner.getSelectedItem().toString()+"&id_usuario="+id_usuario;
+        String urls=getResources().getString(R.string.ip)+"actualizar.php?privilegio="+spinner.getSelectedItem().toString()+"&id_usuario="+id_usuario;
         jrq= new JsonObjectRequest(Request.Method.GET,urls,null,this,this);
         rq.add(jrq);//Envió y recepción de datos
     }
