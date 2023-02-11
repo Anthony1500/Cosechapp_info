@@ -27,23 +27,28 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import anthony.app.cosechapp.databinding.ActivityMenuprincipalBinding;
 import anthony.app.cosechapp.dialogo.sininternetdialogo;
 import anthony.app.cosechapp.dialogo.smartdialogo;
+import anthony.app.cosechapp.validation.validateToken;
 
 public class menuprincipal extends AppCompatActivity {
 
@@ -51,6 +56,7 @@ public class menuprincipal extends AppCompatActivity {
     TextView version;
     ListView listView;
     RequestQueue rq;
+    JsonRequest jrq;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMenuprincipalBinding binding;
     Button botoncerrarsecion;
@@ -60,16 +66,23 @@ public class menuprincipal extends AppCompatActivity {
     MenuItem var;
     String valor;
     Menu menu;
+    JSONObject data;
     Autoupdater autoupdater = new Autoupdater(this);
     sininternetdialogo dialogFragment = new sininternetdialogo();
+    Context context = this;
+    validateToken validate = new validateToken(context);
+    String apptoken;
 
+    private Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         Bundle bundle = getIntent().getExtras();
-         valor= getIntent().getStringExtra("id");
-        String url=getResources().getString(R.string.ip)+"selectusuarios.php?id_usuario="+valor;
+        valor= getIntent().getStringExtra("id");
+        String url=getResources().getString(R.string.ip)+"selectusuarios";
+        //validate.llenar();
+
         //HomeFragment v= new HomeFragment();
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -82,6 +95,7 @@ public class menuprincipal extends AppCompatActivity {
        setSupportActionBar(binding.appBarMenuprincipal.toolbar);
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+        mContext = this;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -91,6 +105,7 @@ public class menuprincipal extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menuprincipal);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
         botoncerrarsecion=(Button) findViewById(R.id.cerrraesecion);
         version=(TextView) findViewById(R.id.version);
        ImageView infodevelop=(ImageView) findViewById(R.id.infodesarrollador);
@@ -103,42 +118,64 @@ public class menuprincipal extends AppCompatActivity {
         }
        version.setText("v"+pckginfo.versionName);
        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
         NavigationView finalNavigationView = navigationView;
-        JsonArrayRequest jsonArrayrequest=new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
 
+        User user = new User();
+        datos datos = new datos();
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
 
-                JSONObject jsonObject = null;
+        TextView navnombre = (TextView) headerView.findViewById(R.id.mostrarnombre);
+        TextView navcorreo = (TextView) headerView.findViewById(R.id.mostrarcorreo);
+        TextView navid = (TextView) headerView.findViewById(R.id.idusuario);
 
-                for (int i = 0; i < response.length(); i++) {
-
-                    try {
-
-                        jsonObject = response.getJSONObject(i);
-                        if(jsonObject.get("privilegio").equals("usuario")){
-                            finalNavigationView.getMenu().findItem(R.id.nav_usuarios).setVisible(false);//Mostrar la diferentes funcionalidades en base al privilegio del usuario
-                        }
-                        if(jsonObject.get("privilegio").equals("admin")) {
-                            finalNavigationView.getMenu().findItem(R.id.nav_usuarios).setVisible(false);
-                        }
+//********************************************************************************************
 
 
 
-                    } catch (JSONException e) {
-                        Toast.makeText(menuprincipal.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url,validate.getusuarios(valor),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                           try {
+                                if(response.getString("privilegio").equals("usuario")){
+                                    finalNavigationView.getMenu().findItem(R.id.nav_usuarios).setVisible(false);//Mostrar la diferentes funcionalidades en base al privilegio del usuario
+                                }
+                                if(response.getString("privilegio").equals("admin")) {
+                                    finalNavigationView.getMenu().findItem(R.id.nav_usuarios).setVisible(false);
+                                }
+                               navid.setText(response.getString("id_usuario"));
+                               navnombre.setText(Html.fromHtml(response.getString("username")));
+                               navcorreo.setText(response.getString("email"));
+                            } catch (JSONException e) {
+                                Toast.makeText(menuprincipal.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                     }
-                }
-            }
-        }, new Response.ErrorListener() {
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(menuprincipal.this, "Error de Conexión", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(menuprincipal.this, "Error de Conexión", Toast.LENGTH_SHORT).show();
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Accept", "application/json");
+                headers.put("Authorization", "Bearer "+validate.getAccesstoken());
+                return headers;
             }
-        }
-        );
+        };
+
         rq= Volley.newRequestQueue(menuprincipal.this);
-        rq.add(jsonArrayrequest);
+        rq.add(jsonRequest);
+
+
+
+
        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         Bundle args = new Bundle();
@@ -162,6 +199,8 @@ public class menuprincipal extends AppCompatActivity {
                 alertDialog.setIcon(R.drawable.cerrar_sesion);
                 alertDialog.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int which) {
+                        logout();
+                        validate.borrar();
                         Intent intent = new Intent(menuprincipal.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -176,64 +215,6 @@ public class menuprincipal extends AppCompatActivity {
             }
 
         });
-
-
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View headerView = navigationView.getHeaderView(0);
-
-        TextView navnombre = (TextView) headerView.findViewById(R.id.mostrarnombre);
-        TextView navcorreo = (TextView) headerView.findViewById(R.id.mostrarcorreo);
-        TextView navid = (TextView) headerView.findViewById(R.id.idusuario);
-
-//********************************************************************************************
-        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        // Inicie el timer.
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                checkInternetConnection();
-            }
-        }, 0, 5000);  // Ejecute el método cada 5 segundos.
-
-
-
-
-        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-
-        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-
-
-                JSONObject jsonObject = null;
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        jsonObject = response.getJSONObject(i);
-                        navid.setText(jsonObject.getString("id_usuario"));
-                        navnombre.setText(Html.fromHtml(jsonObject.getString("username")));
-
-                        navcorreo.setText(jsonObject.getString("email"));
-
-
-                    } catch (JSONException e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Error de Conexión", Toast.LENGTH_SHORT).show();
-            }
-        }
-        );
-        rq= Volley.newRequestQueue(this);
-        rq.add(jsonArrayRequest);
-
 //******************************************************************************************************
         infodevelop.setOnClickListener(new View.OnClickListener() {//Método para darle función al botón
             @Override
@@ -287,8 +268,53 @@ public class menuprincipal extends AppCompatActivity {
 
 
 
+
+
+
     }
-
-
-
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
+    // Inicie el timer.
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (timer == null) {
+            timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    checkInternetConnection();
+                }
+            }, 0, 5000);// Ejecute el método cada 5 segundos.
+        }
+    }
+    private void logout() {
+        String url=getResources().getString(R.string.ip)+"logout";
+        JSONObject data = new JSONObject();
+        validate.llenar();
+        try {
+            data.put("email", validate.getEmail());
+            data.put("token", validate.getApptoken());
+            data.put("password", validate.getPassword());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        jrq= new JsonObjectRequest(Request.Method.POST,url,data,null,null){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Accept","application/json");
+                headers.put("Authorization", "Bearer "+validate.getAccesstoken());
+                return headers;
+            }
+        };
+        rq.add(jrq);//Envió y recepción de datos
+    }
 }

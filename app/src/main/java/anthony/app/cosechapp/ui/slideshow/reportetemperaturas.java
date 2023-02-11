@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +23,9 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -35,12 +37,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import anthony.app.cosechapp.Adaptertemperaturas;
 import anthony.app.cosechapp.Listtemperaturas;
 import anthony.app.cosechapp.R;
 import anthony.app.cosechapp.databinding.FragmentSlideshowBinding;
+import anthony.app.cosechapp.validation.validateToken;
 
 public class reportetemperaturas extends Fragment {
 
@@ -49,18 +54,17 @@ public class reportetemperaturas extends Fragment {
     Adaptertemperaturas miadapter;
     private List<Listtemperaturas> milista = new ArrayList<Listtemperaturas>();
     String s = "";
-
+    validateToken validate;
+    Context context= getActivity();
     String temperaturaaire,humedadaire,humedad,fecha,hora;
     ListView listatempera;
     Button botonregresar,reportetemperatura;
-    String url ="selecttemperaturas.php";
-
+    String url ="selecttemperaturas";
+    ProgressBar progressBar;
     RequestQueue rq;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(SlideshowViewModel.class);
 
         View v;
         v=inflater.inflate(R.layout.reportetemperaturas, container, false);
@@ -69,6 +73,8 @@ public class reportetemperaturas extends Fragment {
         listatempera = (ListView) v.findViewById(R.id.listatempera);
         botonregresar=(Button) v.findViewById(R.id.regresar);
         reportetemperatura=(Button) v.findViewById(R.id.reportetemp);
+        progressBar = v.findViewById(R.id.progressbartemp);
+        progressBar.setVisibility(View.VISIBLE);
         List<String> names = new ArrayList<String>();
         /*final TextView textView = binding.textSlideshow;
         slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -77,10 +83,10 @@ public class reportetemperaturas extends Fragment {
                 textView.setText(s);
             }
         });*/
-        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(getResources().getString(R.string.ip)+url, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonRequest = new JsonArrayRequest(Request.Method.POST, getResources().getString(R.string.ip)+url,null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-
+                progressBar.setVisibility(View.INVISIBLE);
 
                 JSONObject jsonObject = null;
 
@@ -100,6 +106,7 @@ public class reportetemperaturas extends Fragment {
                             listatempera.setAdapter(miadapter);
                         }
                     } catch (JSONException e) {
+                        progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -107,13 +114,35 @@ public class reportetemperaturas extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(getContext(), "Error de Conexión", Toast.LENGTH_SHORT).show();
             }
-        }
-        );
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+            @Override
+            public byte[] getBody()  {
+                return validate.getonlyusers().toString().getBytes();
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Accept", "application/json");
+                validate.llenar();
+                String token = validate.getAccesstoken();
+                if (token != null && !token.isEmpty()) {
+                    headers.put("Authorization", "Bearer " +token);
+                }
+                return headers;
+            }
+
+
+        };
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         rq = Volley.newRequestQueue(getContext());
-        rq.add(jsonArrayrequest);
+        rq.add(jsonRequest);
 /*
         GraphView graph = (GraphView) root.findViewById(R.id.graph);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
@@ -142,11 +171,10 @@ public class reportetemperaturas extends Fragment {
 
             @Override
             public void onClick(View v) {
-                String url = getResources().getString(R.string.ip)+"reportes/reportedatosplanta.php";
-                final ProgressDialog progressDialog = new ProgressDialog(getContext());
+                String url = getResources().getString(R.string.descarga)+"reportedatosplanta";
+                final ProgressDialog progressDialog = new ProgressDialog(getContext(),R.style.MyAlertDialogStyle);
                 progressDialog.setTitle("Descargando...");
                 progressDialog.setMessage("Espere mientras se completa la descarga...");
-
                 progressDialog.setCancelable(false);
                 progressDialog.show();
 
@@ -156,7 +184,11 @@ public class reportetemperaturas extends Fragment {
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 request.allowScanningByMediaScanner();
                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Reporte temperaturas.xlsx");
-
+                // agregar la cabecera
+                validate.llenar();
+                String token = validate.getAccesstoken();
+                request.addRequestHeader("Authorization","Bearer "+token);
+                request.setVisibleInDownloadsUi(true);
                 DownloadManager downloadManager = (DownloadManager) ContextCompat.getSystemService(getContext(), DownloadManager.class);
                 downloadManager.enqueue(request);
 
@@ -177,7 +209,13 @@ public class reportetemperaturas extends Fragment {
 
         return v;
     }
-
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context != null) {
+            validate = new validateToken(context);
+        }
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

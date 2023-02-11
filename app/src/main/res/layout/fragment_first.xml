@@ -88,14 +88,21 @@
                 android:ems="10"
                 android:hint="Correo Electronico"
                 android:inputType="textEmailAddress"
-                android:padding="15dp" /> <!--Campo Correo -->
+                android:padding="15dp"
+                android:selectAllOnFocus="true"
+                android:singleLine="false" /> <!--Campo Correo -->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
+                android:persistentDrawingCache="animation"
+                app:boxBackgroundMode="none"
+                app:counterEnabled="false"
+                app:errorEnabled="false"
+                app:hintAnimationEnabled="false"
                 app:hintEnabled="false"
-                app:passwordToggleEnabled="true">
+                app:endIconMode="password_toggle">
 
                 <EditText
                     android:id="@+id/contraseña"

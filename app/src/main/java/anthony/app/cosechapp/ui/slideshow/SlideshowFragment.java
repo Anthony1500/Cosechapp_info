@@ -14,14 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -33,40 +35,47 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import anthony.app.cosechapp.Adapterreportefumigacion;
 import anthony.app.cosechapp.Listreportefumigacion;
 import anthony.app.cosechapp.R;
 import anthony.app.cosechapp.databinding.FragmentSlideshowBinding;
+import anthony.app.cosechapp.validation.validateToken;
 
 public class SlideshowFragment extends Fragment {
 
     private SlideshowViewModel slideshowViewModel;
     private FragmentSlideshowBinding binding;
+    validateToken validate;
+    Context context= getActivity();
     Adapterreportefumigacion miadapter;
     private List<Listreportefumigacion> milista = new ArrayList<>();
     String s = "";
-
+    ProgressBar progressBar;
     String fecha,hora,encargado,invernadero,tratamiento;
     ListView listafumi;
     Button botonpasaratemperatura,reportefumigacion;
-    String url ="selectfumigacion.php";
+    String url ="selectfumigacion";
 
     RequestQueue rq;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(SlideshowViewModel.class);
+
 
         binding = FragmentSlideshowBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
         //TextView linkTextView = root.findViewById(R.id.reportetemperatura);
       //  linkTextView.setMovementMethod(LinkMovementMethod.getInstance());
         listafumi = (ListView) root.findViewById(R.id.listatempera);
         botonpasaratemperatura=(Button) root.findViewById(R.id.reportetemp);
         reportefumigacion=(Button) root.findViewById(R.id.reportefumigacion);
+        progressBar = root.findViewById(R.id.progressBarslider);
+        progressBar.setVisibility(View.VISIBLE);
         List<String> names = new ArrayList<String>();
         /*final TextView textView = binding.textSlideshow;
         slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -75,10 +84,10 @@ public class SlideshowFragment extends Fragment {
                 textView.setText(s);
             }
         });*/
-        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(getResources().getString(R.string.ip)+url, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.POST,getResources().getString(R.string.ip)+url,null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-
+                progressBar.setVisibility(View.INVISIBLE);
 
                 JSONObject jsonObject = null;
 
@@ -105,13 +114,37 @@ public class SlideshowFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(getContext(), "Error de Conexión", Toast.LENGTH_SHORT).show();
             }
-        }
-        );
-        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        rq = Volley.newRequestQueue(getContext());
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+            @Override
+            public byte[] getBody()  {
+                return validate.getonlyusers().toString().getBytes();
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Accept", "application/json");
+                validate.llenar();
+                String token = validate.getAccesstoken();
+                if (token != null && !token.isEmpty()) {
+                    headers.put("Authorization", "Bearer " +token);
+                }
+                return headers;
+            }
+
+
+        };
+        rq= Volley.newRequestQueue(getContext());
         rq.add(jsonArrayrequest);
+
+
+
 /*
         GraphView graph = (GraphView) root.findViewById(R.id.graph);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
@@ -140,36 +173,44 @@ public class SlideshowFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                String url = getResources().getString(R.string.ip)+"reportes/reportefumigacion.php";
-                final ProgressDialog progressDialog = new ProgressDialog(getContext());
+
+
+
+                String url = getResources().getString(R.string.descarga)+"reportefumigacion";
+
+                final ProgressDialog progressDialog = new ProgressDialog(getContext(),R.style.MyAlertDialogStyle);
                 progressDialog.setTitle("Descargando...");
                 progressDialog.setMessage("Espere mientras se completa la descarga...");
-
                 progressDialog.setCancelable(false);
                 progressDialog.show();
 
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-                request.setTitle("Reporte de las fumigaciones");
+                request.setTitle("Reporte de las Fumigaciones");
                 request.setDescription("Descargando...");
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 request.allowScanningByMediaScanner();
                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Reporte fumigaciones.xlsx");
-
+                // agregar la cabecera
+                validate.llenar();
+                String token = validate.getAccesstoken();
+                request.addRequestHeader("Authorization","Bearer "+token);
+                request.setVisibleInDownloadsUi(true);
                 DownloadManager downloadManager = (DownloadManager) ContextCompat.getSystemService(getContext(), DownloadManager.class);
                 downloadManager.enqueue(request);
 
-                // registrar un BroadcastReceiver para recibir actualizaciones sobre la descarga
-                BroadcastReceiver onComplete = new BroadcastReceiver() {
-                    public void onReceive(Context ctxt, Intent intent) {
-                        // Eliminar el BroadcastReceiver
-                        getContext().unregisterReceiver(this);
-                        progressDialog.dismiss();
-                    }
-                };
 
 
+                        // registrar un BroadcastReceiver para recibir actualizaciones sobre la descarga
+                        BroadcastReceiver onComplete = new BroadcastReceiver() {
+                            public void onReceive(Context ctxt, Intent intent) {
+                                // Eliminar el BroadcastReceiver
+                                getContext().unregisterReceiver(this);
+                                progressDialog.dismiss();
+                            }
+                        };
+                        getContext().registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
-                getContext().registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
 
 
             }
@@ -183,6 +224,14 @@ public class SlideshowFragment extends Fragment {
         return root;
     }
 
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context != null) {
+            validate = new validateToken(context);
+        }
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

@@ -2,6 +2,7 @@ package anthony.app.cosechapp;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,13 +22,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,6 +42,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import anthony.app.cosechapp.validation.validateToken;
+
 public class sincorreo2 extends AppCompatActivity {
     EditText correo;
     RequestQueue rq;
@@ -50,6 +53,8 @@ public class sincorreo2 extends AppCompatActivity {
     String contraseña="ieijrakhyikvfpjn";
     String usuario,contrasñausuario,emailusuario,privilegio;
     ProgressDialog progressDialog;
+    Context context = this;
+    validateToken validate = new validateToken(context);
     Handler handler = new Handler();
     public static int esperar = 5000;
     @Override
@@ -57,7 +62,7 @@ public class sincorreo2 extends AppCompatActivity {
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         Bundle bundle = getIntent().getExtras();
         String valor = getIntent().getStringExtra("id");
-        String url = getResources().getString(R.string.ip)+"selectusuarios.php?id_usuario=" + valor;
+        String url = getResources().getString(R.string.ip)+"selectuser";
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         super.onCreate(savedInstanceState);
@@ -76,27 +81,21 @@ public class sincorreo2 extends AppCompatActivity {
             }
         });
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST,url,validate.getusuarios(valor), new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray response) {
+            public void onResponse(JSONObject response) {
 
 
-                JSONObject jsonObject = null;
-                for (int i = 0; i < response.length(); i++) {
                     try {
-
-                        jsonObject = response.getJSONObject(i);
-                        correo.setText(jsonObject.getString("email"));
-                        usuario = jsonObject.getString("username");
-                        contrasñausuario = jsonObject.getString("password");
-                        emailusuario = jsonObject.getString("email");
-                        privilegio = jsonObject.getString("privilegio");
-
-
+                        correo.setText(response.getString("email"));
+                        usuario = response.getString("username");
+                        contrasñausuario = response.getString("password");
+                        emailusuario = response.getString("email");
+                        privilegio = response.getString("privilegio");
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                }
+
 
             }
         }, new Response.ErrorListener() {
@@ -104,11 +103,10 @@ public class sincorreo2 extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), "Error de Conexión", Toast.LENGTH_SHORT).show();
             }
-        }
-        );
+        }) ;
 
         rq = Volley.newRequestQueue(this);
-        rq.add(jsonArrayRequest);
+        rq.add(jsonRequest);
 
         botonenviar2.setOnClickListener(new View.OnClickListener() {
 
@@ -137,7 +135,7 @@ public class sincorreo2 extends AppCompatActivity {
 
                     if (session != null) {
                         setProgressDialog();
-                        String ip= getResources().getString(R.string.ip)+"/img/cosecha.png";
+                        String ip= getResources().getString(R.string.descarga)+"img";
                         javax.mail.Message message = new MimeMessage(session);
                         message.setFrom(new InternetAddress(correoelectronico));
                         message.setSubject("Consulta de Datos");

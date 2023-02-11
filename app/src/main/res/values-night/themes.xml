@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryDark">@color/purple_201</item>
         <item name="colorAccent">#F86300</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/purple_201</item>
         <!-- Customize your theme here. -->
     </style>
 

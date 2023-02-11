@@ -32,7 +32,7 @@ public class Autoupdater extends androidx.core.content.FileProvider {
      * El enlace al archivo público de información de la versión. Puede ser de
      * Dropbox, un hosting propio o cualquier otro servicio similar.
      */
-    private static final String INFO_FILE = "https://cosecha.tech/cosechaap_api_service/versions/version.txt";
+    private static final String INFO_FILE ="https://cosechapp.cosecha.tech/txt";
 
     /**
      * El código de versión establecido en el AndroidManifest.xml de la versión

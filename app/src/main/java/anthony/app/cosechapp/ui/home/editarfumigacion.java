@@ -3,6 +3,7 @@ package anthony.app.cosechapp.ui.home;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -18,28 +20,33 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import anthony.app.cosechapp.R;
+import anthony.app.cosechapp.validation.validateToken;
 
 public class editarfumigacion extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener{
-
+    validateToken validate;
+    Context context= getActivity();
+    ProgressBar progressBar;
     Button bfecha,bhora,agregarfumigacion,atrasfumigacion;
     EditText tfecha,thora,invernadero,tratamiento,encargado;
     int dia,mes,anio,hora,minuto;
@@ -51,12 +58,12 @@ public class editarfumigacion extends Fragment implements Response.Listener<JSON
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         editarfumigacionl =
-                new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(editarfumigacionViewModel.class);
+             new ViewModelProvider((ViewModelStoreOwner) getContext(), (ViewModelProvider.Factory) new ViewModelProvider.NewInstanceFactory()).get(editarfumigacionViewModel.class);
 
         Bundle datosRecuperados = getArguments();
         id= datosRecuperados.getString("id");
         Toast.makeText(getContext(), "Pantalla edición de fumigación.", Toast.LENGTH_SHORT).show();
-        String urls=getResources().getString(R.string.ip)+"selectfumigacioneditar.php?id="+id;
+        String urls=getResources().getString(R.string.ip)+"selectfumigacioneditar";
         View v;
         v=inflater.inflate(R.layout.editarfumigacion, container, false);
         bfecha=(Button) v.findViewById(R.id.bfechaeditar);
@@ -68,45 +75,50 @@ public class editarfumigacion extends Fragment implements Response.Listener<JSON
         invernadero=(EditText) v.findViewById(R.id.editarinvernadero);
         tratamiento=(EditText) v.findViewById(R.id.fumi_tratamientoeditar);
         encargado=(EditText) v.findViewById(R.id.encargadofumieditar);
-
+        progressBar = v.findViewById(R.id.progressbareditarfu);
+        progressBar.setVisibility(View.VISIBLE);
         rqs = Volley.newRequestQueue(getContext());
 
         //******************************************************************************************
 
-        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(urls, new Response.Listener<JSONArray>() {
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST,urls,validate.getfumigacion(id), new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray response) {
-
-
-                JSONObject jsonObject = null;
-                for (int i = 0; i < response.length(); i++) {
+            public void onResponse(JSONObject response) {
+                progressBar.setVisibility(View.INVISIBLE);
                     try {
-                        jsonObject = response.getJSONObject(i);
 
-                        fechaedi = jsonObject.getString("fecha");
+                        fechaedi = response.getString("fecha");
                         tfecha.setText(fechaedi);
-                        horaedi = jsonObject.getString("hora");
+                        horaedi = response.getString("hora");
                         thora.setText(horaedi);
-                        encargadoedi=jsonObject.getString("encargado");
+                        encargadoedi=response.getString("encargado");
                         encargado.setText(encargadoedi);
-                        invernaderoedi=jsonObject.getString("invernadero");
+                        invernaderoedi=response.getString("invernadero");
                         invernadero.setText(invernaderoedi);
-                        tratamientoedi=jsonObject.getString("tratamiento");
+                        tratamientoedi=response.getString("tratamiento");
                         tratamiento.setText(tratamientoedi);
                     } catch (JSONException e) {
                         Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                }
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError errore) {
+                progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(getContext(), "Error de Conexión", Toast.LENGTH_SHORT).show();
             }
-        }
-        );
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Accept", "application/json");
+                headers.put("Authorization", "Bearer "+validate.getAccesstoken());
+                return headers;
+            }
+        };
         rq= Volley.newRequestQueue(getContext());
-        rq.add(jsonArrayRequest);
+        rq.add(jsonRequest);
         //****************************************************************************************
 
         //****************************************************************************************
@@ -245,6 +257,13 @@ public class editarfumigacion extends Fragment implements Response.Listener<JSON
         return v;
     }
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context != null) {
+            validate = new validateToken(context);
+        }
+    }
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
 
@@ -273,8 +292,36 @@ public class editarfumigacion extends Fragment implements Response.Listener<JSON
 
     private void editar(){
 
-        String url=getResources().getString(R.string.ip)+"editarfumigacion.php?fecha="+tfecha.getText().toString()+"&hora="+thora.getText().toString()+"&invernadero="+invernadero.getText().toString()+"&tratamiento="+tratamiento.getText().toString()+"&encargado="+encargado.getText().toString()+"&id="+id;
-        jrq= new JsonObjectRequest(Request.Method.GET,url,null,this,this);
-        rqs.add(jrq);//Envió y recepción de datos
+        String url=getResources().getString(R.string.ip)+"editarfumigacion";
+        JSONObject data = new JSONObject();
+        validate.llenar();
+        try {
+            data.put("email", validate.getEmail());
+            data.put("token", validate.getApptoken());
+            data.put("password", validate.getPassword());
+
+            data.put("id", id);
+            data.put("fecha", tfecha.getText().toString());
+            data.put("hora", thora.getText().toString());
+            data.put("invernadero", invernadero.getText().toString());
+            data.put("tratamiento", tratamiento.getText().toString());
+            data.put("encargado", encargado.getText().toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        jrq= new JsonObjectRequest(Request.Method.PUT,url,data,this,this){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Accept","application/json");
+                headers.put("Authorization", "Bearer "+validate.getAccesstoken());
+                return headers;
+            }
+        };
+        rq.add(jrq);//Envió y recepción de datos
+
+
+
     }
 }

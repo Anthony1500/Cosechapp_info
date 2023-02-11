@@ -2,13 +2,21 @@ package anthony.app.cosechapp;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
+import static anthony.app.cosechapp.DatabaseHelper.COLUMN_accesstoken;
+import static anthony.app.cosechapp.DatabaseHelper.COLUMN_apptoken;
+import static anthony.app.cosechapp.DatabaseHelper.COLUMN_email;
+import static anthony.app.cosechapp.DatabaseHelper.COLUMN_password;
+import static anthony.app.cosechapp.DatabaseHelper.TABLE_NAME;
+
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -28,6 +36,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -37,21 +46,24 @@ import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.dcastalia.localappupdate.DownloadApk;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import anthony.app.cosechapp.databinding.FragmentFirstBinding;
 import anthony.app.cosechapp.dialogo.sininternetdialogo;
+import anthony.app.cosechapp.validation.validateToken;
 
-public class FirstFragment extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener ,OnRequestPermissionsResultCallback  {
+public class FirstFragment extends Fragment  implements Response.Listener<JSONObject>,Response.ErrorListener ,OnRequestPermissionsResultCallback  {
 
     private static final int MY_PERMISSIONS_REQUEST_MANAGE_EXTERNAL_STORAGE = 1;
     private static final int REQUEST_CODE_WRITE_STORAGE_PERMISSION = 2;
     private static final int REQUEST_CODE_MANAGE_EXTERNAL_STORAGE = 3;
+
     sininternetdialogo dialogFragment = new sininternetdialogo();
 
     private FragmentFirstBinding binding;
@@ -72,6 +84,7 @@ public class FirstFragment extends Fragment implements Response.Listener<JSONObj
     ProgressDialog progressDialog;
     private Timer timer;
     private ActivityCompat FragmentCompat;
+    validateToken validate = new validateToken(getContext());
 
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container,
@@ -83,6 +96,7 @@ public class FirstFragment extends Fragment implements Response.Listener<JSONObj
         cajacontraseña=(EditText) vista.findViewById(R.id.contraseña);
         botonenviar=(Button) vista.findViewById(R.id.reportetemp);//Instanciamos las variables del XML a variables locales.
         botoncorreo=(Button) vista.findViewById(R.id.botoncorreo);
+
         {
             rq = Volley.newRequestQueue(getContext());
         }
@@ -94,7 +108,7 @@ public class FirstFragment extends Fragment implements Response.Listener<JSONObj
             public void run() {
                 checkInternetConnection();
             }
-        }, 0, 5000);  // Ejecute el método cada 5 segundos.
+        }, 0, 90000);  // Ejecute el método cada 5 segundos.
 
 
 
@@ -191,36 +205,41 @@ if ( checkPer()){
     public void onErrorResponse(VolleyError error) {//Respuesta fallida
         progressDialog.dismiss();
        // Toast.makeText(getContext(),"Las credenciales ingresadas son incorrectas"+error.toString(),Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(),"Las credenciales ingresadas son incorrectas",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(),"Las credenciales ingresadas son incorrectas"+error.getMessage(),Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponse(JSONObject response) {//Respuesta correcta
         Bundle bundle = new Bundle();
         User usario = new User();
-        JSONArray jsonArray = response.optJSONArray("datos");
-        JSONObject jsonObject= null;
         progressDialog.dismiss();
-       try {
-            jsonObject = jsonArray.getJSONObject(0);
-            nombreusuario=jsonObject.optString("username");//Llenado de datos en base a la consulta
-            id_usuario=jsonObject.optString("id_usuario");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Toast.makeText(getContext(),"Se ha ingresado correctamente "+" "+nombreusuario,Toast.LENGTH_SHORT).show();
         try {
-            jsonObject = jsonArray.getJSONObject(0);
-            usario.setEmail(jsonObject.optString("email"));//Consulta de datos
-            usario.setPassword(jsonObject.optString("password"));
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
+
+                        JSONObject json = response.getJSONObject("user");
+                        nombreusuario= json.getString("username");//Llenado de datos en base a la consulta
+                        id_usuario= json.getString("id_usuario");
+                        usario.setEmail(json.getString("email"));
+                        usario.setPassword(json.getString("password"));
+                        // insert data
+            DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+            SQLiteDatabase db = databaseHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_accesstoken,response.getString("access_token"));
+            values.put(COLUMN_apptoken,getResources().getString(R.string.API_TOKEN));
+            values.put(COLUMN_email,json.getString("email"));
+            values.put(COLUMN_password,json.getString("password"));
+            db.insert(TABLE_NAME, null, values);
+            db.close();
 
 
+                        } catch (JSONException e) {
+                        Toast.makeText(getContext(),"Error al recibir datos",Toast.LENGTH_SHORT).show();
+                        }
+
+        Toast.makeText(getContext(),"Se ha ingresado correctamente "+" "+nombreusuario,Toast.LENGTH_SHORT).show();
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         Intent intent = new Intent(getContext(), menuprincipal.class );
-        intent.putExtra("id", id_usuario);//Envió hacia otro Activity
+        intent.putExtra("id",id_usuario);//Envió hacia otro Activity
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -229,10 +248,26 @@ if ( checkPer()){
     }
     private void iniciarSesion(){
 
-        String url=getResources().getString(R.string.ip)+"usuarios.php?email="+cajacorreo.getText().toString()+"&password="+cajacontraseña.getText().toString();
-        jrq= new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+        String url=getResources().getString(R.string.ip)+"login";
+        JSONObject data = new JSONObject();
+        try {
+            data.put("email", cajacorreo.getText().toString());
+            data.put("token", getResources().getString(R.string.API_TOKEN));
+            data.put("password", cajacontraseña.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        jrq= new JsonObjectRequest(Request.Method.POST,url,data,this,this){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Accept","application/json");
+                return headers;
+            }
+        };
         rq.add(jrq);//Envió y recepción de datos
     }
+
     private Runnable finishBackgroundDownload = new Runnable() {
         @Override
         public void run() {
@@ -317,11 +352,10 @@ void requestPer(){
             }
         } else {
             // El dispositivo no está conectado a Internet.
-            if (!dialogFragment.isAdded()) {
-                // Muestre el diálogo.
-                dialogFragment.show(getParentFragmentManager(), "estado");
-
-            }
+            // Muestre el diálogo.
+            // dialogFragment.show(getParentFragmentManager(), "estado");
+            if (!dialogFragment.isAdded())
+                dialogFragment.show(getFragmentManager(), "estado");
         }
 
 
@@ -329,5 +363,13 @@ void requestPer(){
 
 
     }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context != null) {
+            validate = new validateToken(context);
+        }
+    }
+
 
 }

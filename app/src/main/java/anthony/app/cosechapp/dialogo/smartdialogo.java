@@ -26,27 +26,35 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import anthony.app.cosechapp.R;
+import anthony.app.cosechapp.validation.validateToken;
 
 
 public class smartdialogo extends DialogFragment {
-    ImageButton btnsalir;
+    Context context= getActivity();
+    validateToken validate;
+  ImageButton btnsalir;
     Activity actividad;
     RequestQueue rq;
 ImageView imagen;
     TextView botoncerrar;
 String rol="";
+
     ProgressDialog progressDialog;
     Handler handler = new Handler();
 public smartdialogo (){
@@ -87,7 +95,8 @@ public smartdialogo (){
 
        Bundle mArgs = getArguments();
        String valor= getArguments().getString("id");
-       String url=getResources().getString(R.string.ip)+"selectusuarios.php?id_usuario="+valor;
+       String url=getResources().getString(R.string.ip)+"selectusuarios";
+
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++}
         btnsalir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,50 +105,55 @@ public smartdialogo (){
                 dismiss();
             }
         });
-        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
 
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url,validate.getusuarios(valor),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        JSONObject jsonObject = null;
+                        try {
+                            nombre.setText(Html.fromHtml(response.getString("username").toUpperCase()));
+                            privilegio.setText(Html.fromHtml(response.getString("privilegio").toUpperCase()));
+                            rol= String.valueOf(Html.fromHtml(response.getString("privilegio")));//Llenado en los diferentes campos en base a la consulta realizada
 
-                JSONObject jsonObject = null;
+                            if(response.getString("privilegio").equals("desarrollador"))
+                                if (getActivity()!=null)
+                                    Glide.with(getActivity()).load(R.drawable.desarrollador).into(imagen);
+                            if(response.getString("privilegio").equals("admin"))
+                                if (getActivity()!=null)
+                                    Glide.with(getActivity()).load(R.drawable.administrador).into(imagen);
+                            if(response.getString("privilegio").equals("basico"))
+                                if (getActivity()!=null)
+                                    Glide.with(getActivity()).load(R.drawable.usuario).into(imagen);//IF que determina en base al privilegio el gif correspondiente
+                            if(response.getString("privilegio").equals("dueño"))
+                                if (getActivity()!=null)
+                                    Glide.with(getActivity()).load(R.drawable.dueno).into(imagen);
+                            if(response.getString("privilegio").equals("tecnico"))
+                                if (getActivity()!=null)
+                                    Glide.with(getActivity()).load(R.drawable.tecnico).into(imagen);
 
-                for (int i = 0; i < response.length(); i++) {
-
-                    try {
-                        jsonObject = response.getJSONObject(i);
-                        nombre.setText(Html.fromHtml(jsonObject.getString("username").toUpperCase()));
-                        privilegio.setText(Html.fromHtml(jsonObject.getString("privilegio").toUpperCase()));
-                        rol= String.valueOf(Html.fromHtml(jsonObject.getString("privilegio")));//Llenado en los diferentes campos en base a la consulta realizada
-
-                        if(jsonObject.get("privilegio").equals("desarrollador"))
-                            if (getActivity()!=null)
-                            Glide.with(getActivity()).load(R.drawable.desarrollador).into(imagen);
-                        if(jsonObject.get("privilegio").equals("admin"))
-                            if (getActivity()!=null)
-                            Glide.with(getActivity()).load(R.drawable.administrador).into(imagen);
-                        if(jsonObject.get("privilegio").equals("basico"))
-                            if (getActivity()!=null)
-                            Glide.with(getActivity()).load(R.drawable.usuario).into(imagen);//IF que determina en base al privilegio el gif correspondiente
-                        if(jsonObject.get("privilegio").equals("dueño"))
-                            if (getActivity()!=null)
-                            Glide.with(getActivity()).load(R.drawable.dueno).into(imagen);
-                        if(jsonObject.get("privilegio").equals("tecnico"))
-                            if (getActivity()!=null)
-                            Glide.with(getActivity()).load(R.drawable.tecnico).into(imagen);
-                    } catch (JSONException e) {
-                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            }
-        }, new Response.ErrorListener() {
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), "Error  de Conexion", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Error de Conexión", Toast.LENGTH_SHORT).show();
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Accept", "application/json");
+                headers.put("Authorization", "Bearer "+validate.getAccesstoken());
+                return headers;
             }
-        }
-        );
+        };
+
         rq= Volley.newRequestQueue(getContext());
-        rq.add(jsonArrayRequest);
+        rq.add(jsonRequest);
 
 
 
@@ -154,8 +168,11 @@ public smartdialogo (){
 
     @Override
     public void onAttach(Context context) {
-
         super.onAttach(context);
+        if (context != null) {
+            validate = new validateToken(context);
+        }
+
         if (context instanceof Activity){
             this.actividad=(Activity) context;
 

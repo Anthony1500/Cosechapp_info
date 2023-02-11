@@ -1,6 +1,7 @@
 package anthony.app.cosechapp.ui.home;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,48 +17,51 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import anthony.app.cosechapp.Listausu;
 import anthony.app.cosechapp.R;
 import anthony.app.cosechapp.databinding.FragmentHomeBinding;
+import anthony.app.cosechapp.validation.validateToken;
 
 public class editar_usuarios extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener{
 
     private List<Listausu> milista = new ArrayList<>();
    private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
+    Context context= getActivity();
+    validateToken validate;
     String privilegio,id_usuario;
     RequestQueue rq,rqs;
     JsonRequest jrq;
     Spinner spinner;
     ProgressDialog progressDialog;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
+
         Bundle datosRecuperados = getArguments();
         String valor= datosRecuperados.getString("nombre");
         int imagen= datosRecuperados.getInt("imagen");
         id_usuario= datosRecuperados.getString("id_usuario");
-        String url=getResources().getString(R.string.ip)+"selectusuarios.php?id_usuario="+id_usuario;
+        String url=getResources().getString(R.string.ip)+"comprobar";
         View v;
         v=inflater.inflate(R.layout.editar_usuarios, container, false);
         rq = Volley.newRequestQueue(getContext());
@@ -88,32 +92,39 @@ public class editar_usuarios extends Fragment implements Response.Listener<JSONO
                 fragmentTransaction.commit();
             }
         });
+
         //******************************************************************************************
-        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url,validate.getcomprobar(valor),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
 
-
-                JSONObject jsonObject = null;
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        jsonObject = response.getJSONObject(i);
-                        privilegio= jsonObject.getString("privilegio");
-                    } catch (JSONException e) {
-                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        try {
+                            privilegio= response.getString("privilegio");
+                        } catch (JSONException e) {
+                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            }
-        }, new Response.ErrorListener() {
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), "Error de Conexión", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
             @Override
-            public void onErrorResponse(VolleyError errore) {
-                Toast.makeText(getContext(), "Error de Conexión", Toast.LENGTH_SHORT).show();
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Accept", "application/json");
+                headers.put("Authorization", "Bearer "+validate.getAccesstoken());
+                return headers;
             }
-        }
-        );
-        rqs= Volley.newRequestQueue(getContext());
-        rqs.add(jsonArrayRequest);
-        //****************************************************************************************
+        };
+
+        rq= Volley.newRequestQueue(getContext());
+        rq.add(jsonRequest);
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
         guardarrol.setOnClickListener(new View.OnClickListener() {//Método para darle función al botón
 
@@ -152,7 +163,6 @@ public class editar_usuarios extends Fragment implements Response.Listener<JSONO
 
     @Override
     public void onResponse(JSONObject response) {
-
         progressDialog.dismiss();
         Toast.makeText(getContext(), "Se guardo Correctamente", Toast.LENGTH_SHORT).show();
         Fragment fragmento = new Usuarios();
@@ -161,7 +171,6 @@ public class editar_usuarios extends Fragment implements Response.Listener<JSONO
         fragmentTransaction.replace(R.id.nav_host_fragment_content_menuprincipal, fragmento);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-
     }
     @Override
     public void onErrorResponse(VolleyError error) {
@@ -170,10 +179,39 @@ public class editar_usuarios extends Fragment implements Response.Listener<JSONO
 
     }
     private void comprovar(){
+// String url=getResources().getString(R.string.ip)+"/agregarfumigacion?fecha="+tfecha.getText().toString()+"&hora="+thora.getText().toString()+"&invernadero="+invernadero.getText().toString()+"&tratamiento="+tratamiento.getText().toString()+"&encargado="+encargado.getText().toString();
+        String url=getResources().getString(R.string.ip)+"actualizar";
+        JSONObject data = new JSONObject();
+        validate.llenar();
+        try {
+            data.put("email", validate.getEmail());
+            data.put("token", validate.getApptoken());
+            data.put("password", validate.getPassword());
 
-        String urls=getResources().getString(R.string.ip)+"actualizar.php?privilegio="+spinner.getSelectedItem().toString()+"&id_usuario="+id_usuario;
-        jrq= new JsonObjectRequest(Request.Method.GET,urls,null,this,this);
+            data.put("privilegio",spinner.getSelectedItem().toString());
+            data.put("id_usuario",id_usuario);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        jrq= new JsonObjectRequest(Request.Method.PUT,url,data,this,this){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Accept","application/json");
+                headers.put("Authorization", "Bearer "+validate.getAccesstoken());
+                return headers;
+            }
+        };
         rq.add(jrq);//Envió y recepción de datos
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context != null) {
+            validate = new validateToken(context);
+        }
     }
     @Override
     public void onDestroyView() {

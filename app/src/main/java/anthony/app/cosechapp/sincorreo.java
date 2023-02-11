@@ -1,6 +1,7 @@
 package anthony.app.cosechapp;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,9 +21,13 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import anthony.app.cosechapp.validation.validateToken;
 
 public class sincorreo extends AppCompatActivity implements Response.Listener<JSONObject>,Response.ErrorListener {
 
@@ -34,6 +40,8 @@ public class sincorreo extends AppCompatActivity implements Response.Listener<JS
     String id_usuario;
     String email;
     EditText mensaje;
+    Context context = this;
+    validateToken validate = new validateToken(context);
     JsonRequest jrq;
     ProgressDialog progressDialog;
     String url ="selectusuarios2.php";
@@ -83,11 +91,10 @@ public class sincorreo extends AppCompatActivity implements Response.Listener<JS
     @Override
     public void onResponse(JSONObject response) {//Respuesta correcta
         progressDialog.dismiss();
-        JSONArray jsonArray = response.optJSONArray("probar");
-        JSONObject jsonObject= null;
+
         try {
-            jsonObject = jsonArray.getJSONObject(0);
-            id_usuario =jsonObject.optString("id_usuario");//Obtención del id
+            JSONObject json = response.getJSONObject("user");
+            id_usuario =json.optString("id_usuario");//Obtención del id
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -97,10 +104,31 @@ public class sincorreo extends AppCompatActivity implements Response.Listener<JS
         startActivity(intent);
         Toast.makeText(sincorreo.this,"El usuario ingresado es correcto ",Toast.LENGTH_SHORT).show();
     }
-    private void comprovar(){
 
-        String urls=getResources().getString(R.string.ip)+"comprobar.php?username="+cajausuario.getText().toString();
-        jrq= new JsonObjectRequest(Request.Method.GET,urls,null,this,this);
+    private void comprovar(){
+        String url=getResources().getString(R.string.ip)+"comprobaruser";
+        JSONObject data = new JSONObject();
+        validate.llenar();
+        try {
+            data.put("email", validate.getEmail());
+            data.put("token", validate.getApptoken());
+            data.put("password", validate.getPassword());
+
+            data.put("username", cajausuario.getText().toString());
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        jrq= new JsonObjectRequest(Request.Method.POST,url,data,this,this){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Accept","application/json");
+                headers.put("Authorization", "Bearer "+validate.getAccesstoken());
+                return headers;
+            }
+        };
         rq.add(jrq);//Envió y recepción de datos
     }
 }
