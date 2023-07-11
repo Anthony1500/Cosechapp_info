@@ -54,24 +54,21 @@ public class menuprincipal extends AppCompatActivity {
 
 
     TextView version;
-    ListView listView;
+
     RequestQueue rq;
     JsonRequest jrq;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMenuprincipalBinding binding;
     Button botoncerrarsecion;
     private Timer timer;
-    Button botoninfo;
-    CheckBox pizza,coffe,burger;
-    MenuItem var;
+
     String valor;
-    Menu menu;
-    JSONObject data;
+
     Autoupdater autoupdater = new Autoupdater(this);
     sininternetdialogo dialogFragment = new sininternetdialogo();
     Context context = this;
     validateToken validate = new validateToken(context);
-    String apptoken;
+
 
     private Context mContext;
     @Override
@@ -127,7 +124,6 @@ public class menuprincipal extends AppCompatActivity {
         View headerView = navigationView.getHeaderView(0);
 
         TextView navnombre = (TextView) headerView.findViewById(R.id.mostrarnombre);
-        TextView navcorreo = (TextView) headerView.findViewById(R.id.mostrarcorreo);
         TextView navid = (TextView) headerView.findViewById(R.id.idusuario);
 
 //********************************************************************************************
@@ -149,7 +145,7 @@ public class menuprincipal extends AppCompatActivity {
                                 }
                                navid.setText(response.getString("id_usuario"));
                                navnombre.setText(Html.fromHtml(response.getString("username")));
-                               navcorreo.setText(response.getString("email"));
+
                             } catch (JSONException e) {
                                 Toast.makeText(menuprincipal.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
