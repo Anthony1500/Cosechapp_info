@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="anthony.app.cosechapp.FirstFragment"
+        android:name="cosechatech.app.cosechapp.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
         <action
@@ -19,19 +19,19 @@
     </fragment>
     <activity
         android:id="@+id/comprovar"
-        android:name="anthony.app.cosechapp.comprovar"
+        android:name="cosechatech.app.cosechapp.comprovar"
         android:label="comprovarver"
         tools:layout="@layout/comprovarver" />
     <activity
         android:id="@+id/menuprincipal"
-        android:name="anthony.app.cosechapp.menuprincipal"
+        android:name="cosechatech.app.cosechapp.menuprincipal"
         android:label="app_bar_menuprincipal"
         tools:layout="@layout/app_bar_menuprincipal" />
     <navigation android:id="@+id/navigation"
         app:startDestination="@id/splash_activity">
         <activity
             android:id="@+id/splash_activity"
-            android:name="anthony.app.cosechapp.splash_activity"
+            android:name="cosechatech.app.cosechapp.splash_activity"
             android:label="activity_splash"
             tools:layout="@layout/activity_splash" />
         <action

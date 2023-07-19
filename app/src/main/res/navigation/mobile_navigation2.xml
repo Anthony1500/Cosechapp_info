@@ -7,49 +7,37 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="anthony.app.cosechapp.ui.home.HomeFragment"
+        android:name="cosechatech.app.cosechapp.ui.home.HomeFragment"
         android:label="Prog.fumigación"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="anthony.app.cosechapp.ui.gallery.GalleryFragment"
+        android:name="cosechatech.app.cosechapp.ui.gallery.GalleryFragment"
         android:label="Sensado de T y H"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="anthony.app.cosechapp.ui.slideshow.SlideshowFragment"
+        android:name="cosechatech.app.cosechapp.ui.slideshow.SlideshowFragment"
         android:label="Reportes"
         tools:layout="@layout/fragment_slideshow" />
-    <fragment
-        android:id="@+id/nav_diagnosticar"
-        android:name="anthony.app.cosechapp.ui.sistema.sistemaexperto"
-        android:label="Sistema Experto"
-        tools:layout="@layout/sistemaexperto" />
-    <fragment
-        android:id="@+id/reglas_sistemaexperto"
-        android:name="anthony.app.cosechapp.ui.sistema.reglas_sistemaexperto"
-        android:label="sistemaexpertoreglas_fragment"
-        tools:layout="@layout/sistemaexpertoreglas_fragment" />
-    <fragment
-        android:id="@+id/nav_calendario"
-        android:name="anthony.app.cosechapp.ui.calendario.calendario"
-        android:label="calendario"
-        tools:layout="@layout/calendario" />
+
+
+
     <fragment
         android:id="@+id/nav_menu_bienvenida"
-        android:name="anthony.app.cosechapp.ui.home.menu_bienvenida"
+        android:name="cosechatech.app.cosechapp.ui.home.menu_bienvenida"
         android:label="Corp.Cosecha"
         tools:layout="@layout/menu_bienvenida" />
     <fragment
         android:id="@+id/menu_bienvenida"
-        android:name="anthony.app.cosechapp.ui.sistema.menu_bienvenida"
+        android:name="cosechatech.app.cosechapp.ui.sistema.menu_bienvenida"
         android:label="menu_bienvenida"
         tools:layout="@layout/menu_bienvenida" />
     <fragment
         android:id="@+id/nav_usuarios"
-        android:name="anthony.app.cosechapp.ui.home.Usuarios"
+        android:name="cosechatech.app.cosechapp.ui.home.Usuarios"
         android:label="Administrar Usuarios"
         tools:layout="@layout/usuarios" />
 </navigation>

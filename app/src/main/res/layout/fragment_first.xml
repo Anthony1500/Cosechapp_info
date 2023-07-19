@@ -17,13 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/imageView3"
+            <ImageSwitcher
+                android:id="@+id/imageswitcher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
-                android:src="@drawable/arandanos_imagen" /><!--Imagen presentación superior  -->
-
+                android:scaleType="centerCrop"/>
+            <!--android:src="@drawable/arandanos_imagen" />  -->
+            <!--Imagen presentación superior  -->
 
             <RelativeLayout
                 android:id="@+id/loadingPanel"
@@ -123,7 +123,7 @@
                 android:layout_height="59dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:backgroundTint="#FFAB40"
+                android:backgroundTint="#E68F28"
                 android:gravity="center"
                 android:text="Iniciar Sesión "
                 android:textAlignment="center"

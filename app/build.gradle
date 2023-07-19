@@ -6,19 +6,19 @@ plugins {
 }
 
 android {
-    compileSdkVersion 20
+    compileSdkVersion 21
     buildToolsVersion "20.0.0"-
 
     defaultConfig {
-        applicationId "anthony.app.cosechapp"
-        minSdkVersion 20
+        applicationId "cosechatech.app.cosechapp"
+        minSdkVersion 21
         targetSdkVersion 32
         versionCode 4
-        versionName "1.3.00"
+        versionName "0.1.0"
         multiDexEnabled true
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-        minSdkVersion 20
+        minSdkVersion 21
         targetSdk 32
         signingConfig signingConfigs.debug
     }
@@ -38,7 +38,7 @@ android {
     }
     compileSdkVersion 32
     buildToolsVersion '30.0.3'
-    namespace 'anthony.app.cosechapp'
+    namespace 'cosechatech.app.cosechapp'
 }
 
 dependencies {
@@ -79,10 +79,12 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     //noinspection GradleCompatible
-    implementation 'com.github.Anthony1500:AndroidAppUpdateLibrary:db6af25027'
+    implementation 'com.github.Piashsarker:AndroidAppUpdateLibrary:1.0.4'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
 
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    implementation 'jp.wasabeef:glide-transformations:4.3.0'
 
     //actualizador
     implementation 'com.github.d-max:spots-dialog:0.4@aar'
