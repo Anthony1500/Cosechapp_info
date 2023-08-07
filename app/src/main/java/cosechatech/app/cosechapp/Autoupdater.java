@@ -3,7 +3,9 @@ package cosechatech.app.cosechapp;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
+
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -197,8 +199,9 @@ public class Autoupdater extends androidx.core.content.FileProvider {
     public void DownloadData(Runnable OnFinishRunnable){
         //Guarda el listener.
         this.listener = OnFinishRunnable;
-        //Ejecuta el AsyncTask para bajar los datos.
-        downloaderData.execute();
+        // Ejecuta tu tarea en segundo plano utilizando un Thread
+        new Thread(downloaderData).start();
+
     }
 
     /**
@@ -223,23 +226,28 @@ public class Autoupdater extends androidx.core.content.FileProvider {
      * Objeto de AsyncTask encargado de descargar la informacion del servidor
      * y ejecutar el listener.
      */
-    private AsyncTask downloaderData = new AsyncTask() {
-        @Override
-        protected Object doInBackground(Object[] objects) {
-            //llama al metodo auxiliar que seteara todas las variables.
-            getData();
-            return null;
-        }
+    // Crea un Handler para el hilo principal
+    Handler handler = new Handler(Looper.getMainLooper());
 
+    // Crea un Runnable para ejecutar tu tarea en segundo plano
+    Runnable downloaderData = new Runnable() {
         @Override
-        protected void onPostExecute(Object o) {
-            super.onPostExecute(o);
-            //Despues de ejecutar el codigo principal, se ejecuta el listener
-            //para hacer saber al hilo principal.
-            if(listener != null)listener.run();
-            listener = null;
+        public void run() {
+            // Ejecuta el método getData en segundo plano
+            getData();
+
+            // Después de completar la tarea en segundo plano, utiliza el Handler para ejecutar el listener en el hilo principal
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (listener != null) listener.run();
+                    listener = null;
+                }
+            });
         }
     };
+
+
 
     /**
      * Objeto de AsyncTask encargado de descargar e instalar la ultima version de la aplicacion.

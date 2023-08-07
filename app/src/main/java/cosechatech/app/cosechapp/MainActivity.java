@@ -11,10 +11,14 @@ import cosechatech.app.cosechapp.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.widget.Button;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieCompositionFactory;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+
 Button callfragment;
 
 

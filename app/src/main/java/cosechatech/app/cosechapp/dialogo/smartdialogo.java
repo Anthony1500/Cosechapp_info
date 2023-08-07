@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -48,10 +49,10 @@ import cosechatech.app.cosechapp.validation.validateToken;
 public class smartdialogo extends DialogFragment {
     Context context= getActivity();
     validateToken validate;
-  ImageButton btnsalir;
+    LottieAnimationView btnsalir,imagen;
     Activity actividad;
     RequestQueue rq;
-ImageView imagen;
+
     TextView botoncerrar;
 String rol="";
 
@@ -87,10 +88,10 @@ public smartdialogo (){
 
         View v=inflater.inflate(R.layout.fragment_smartdialogo,layout);
 
-        TextView nombre = (TextView) v.findViewById(R.id.textonombre);
-        TextView privilegio = (TextView) v.findViewById(R.id.textorol);
-        imagen = (ImageView) v.findViewById(R.id.imagenrol);
-        btnsalir= (ImageButton) v.findViewById(R.id.btnSalir);
+
+        imagen =   v.findViewById(R.id.imagenrol);
+        btnsalir = v.findViewById(R.id.btnSalir);
+
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
        Bundle mArgs = getArguments();
@@ -112,25 +113,27 @@ public smartdialogo (){
                     public void onResponse(JSONObject response) {
                         JSONObject jsonObject = null;
                         try {
-                            nombre.setText(Html.fromHtml(response.getString("username").toUpperCase()));
-                            privilegio.setText(Html.fromHtml(response.getString("privilegio").toUpperCase()));
-                            rol= String.valueOf(Html.fromHtml(response.getString("privilegio")));//Llenado en los diferentes campos en base a la consulta realizada
-
-                            if(response.getString("privilegio").equals("desarrollador"))
+                             if(response.getString("privilegio").equals("desarrollador"))
                                 if (getActivity()!=null)
-                                    Glide.with(getActivity()).load(R.drawable.desarrollador).into(imagen);
+                                    imagen.setAnimation(R.raw.closebutton);
+                                    imagen.playAnimation();
+
                             if(response.getString("privilegio").equals("admin"))
                                 if (getActivity()!=null)
-                                    Glide.with(getActivity()).load(R.drawable.administrador).into(imagen);
+                                    imagen.setAnimation(R.raw.closebutton);
+                                    imagen.playAnimation();
                             if(response.getString("privilegio").equals("basico"))
                                 if (getActivity()!=null)
-                                    Glide.with(getActivity()).load(R.drawable.usuario).into(imagen);//IF que determina en base al privilegio el gif correspondiente
+                                    imagen.setAnimation(R.raw.closebutton);
+                                    imagen.playAnimation();//IF que determina en base al privilegio el gif correspondiente
                             if(response.getString("privilegio").equals("dueño"))
                                 if (getActivity()!=null)
-                                    Glide.with(getActivity()).load(R.drawable.dueno).into(imagen);
+                                    imagen.setAnimation(R.raw.closebutton);
+                                    imagen.playAnimation();
                             if(response.getString("privilegio").equals("tecnico"))
                                 if (getActivity()!=null)
-                                    Glide.with(getActivity()).load(R.drawable.tecnico).into(imagen);
+                                    imagen.setAnimation(R.raw.closebutton);
+                                    imagen.playAnimation();
 
                         } catch (JSONException e) {
                             Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();

@@ -1,5 +1,7 @@
 package cosechatech.app.cosechapp;
 
+import static java.security.AccessController.getContext;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -55,7 +57,7 @@ public class menuprincipal extends AppCompatActivity {
     private ActivityMenuprincipalBinding binding;
     Button botoncerrarsecion;
     private Timer timer;
-    String valor;
+    String valor,nombre;
 
     Autoupdater autoupdater = new Autoupdater(this);
     sininternetdialogo dialogFragment = new sininternetdialogo();
@@ -68,10 +70,12 @@ public class menuprincipal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        Bundle bundle = getIntent().getExtras();
+         Bundle bundle = getIntent().getExtras();
         valor= getIntent().getStringExtra("id");
         String url=getResources().getString(R.string.ip)+"selectusuarios";
         //validate.llenar();
+
+
 
         //HomeFragment v= new HomeFragment();
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

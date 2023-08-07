@@ -1,9 +1,12 @@
 package cosechatech.app.cosechapp.ui.home;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -29,6 +33,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
@@ -46,6 +51,7 @@ public class agregarfumigacion extends Fragment implements Response.Listener<JSO
 
 Button bfecha,bhora,agregarfumigacion,atrasfumigacion;
 EditText tfecha,thora,invernadero,tratamiento,encargado;
+
     validateToken validate;
     Context context= getActivity();
 int dia,mes,anio,hora,minuto;
@@ -84,7 +90,7 @@ int dia,mes,anio,hora,minuto;
         thora.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Campo solo lectura. ", Toast.LENGTH_SHORT).show();
+               Toast.makeText(getContext(), "Campo solo lectura. ", Toast.LENGTH_SHORT).show();
             }
         });
         //*******************************************************************************

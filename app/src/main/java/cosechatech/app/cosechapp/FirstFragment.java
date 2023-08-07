@@ -17,23 +17,33 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
@@ -41,6 +51,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import androidx.fragment.app.Fragment;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -50,13 +61,18 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.target.Target;
 import com.dcastalia.localappupdate.DownloadApk;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -64,9 +80,9 @@ import java.util.TimerTask;
 import cosechatech.app.cosechapp.databinding.FragmentFirstBinding;
 import cosechatech.app.cosechapp.dialogo.sininternetdialogo;
 import cosechatech.app.cosechapp.validation.validateToken;
-import jp.wasabeef.glide.transformations.BlurTransformation;
 
-public class FirstFragment extends Fragment  implements Response.Listener<JSONObject>,Response.ErrorListener ,OnRequestPermissionsResultCallback  {
+
+public class FirstFragment extends Fragment  implements Response.Listener<JSONObject>,Response.ErrorListener ,OnRequestPermissionsResultCallback {
 
     private static final int MY_PERMISSIONS_REQUEST_MANAGE_EXTERNAL_STORAGE = 1;
     private static final int REQUEST_CODE_WRITE_STORAGE_PERMISSION = 2;
@@ -80,33 +96,49 @@ public class FirstFragment extends Fragment  implements Response.Listener<JSONOb
     private Autoupdater updater;
     private RelativeLayout loadingPanel;
     private Context context;
-    Button  actualizarBTN;
+    Button actualizarBTN;
     private TextView textVie;
     ImageSwitcher imageswitcher;
-    Integer[] imagenes_banner={R.drawable.banner_image_1,R.drawable.banner_image_2,R.drawable.banner_image_3,R.drawable.banner_image_4,R.drawable.banner_image_5,R.drawable.banner_image_0};
+    Integer[] imagenes_banner = {R.drawable.banner_image_1, R.drawable.banner_image_2, R.drawable.banner_image_3, R.drawable.banner_image_4, R.drawable.banner_image_5, R.drawable.banner_image_0};
     JsonRequest jrq;
-    EditText  cajacorreo,cajacontraseña;//Definimos variables a utilizar
+    EditText cajacorreo, cajacontraseña;//Definimos variables a utilizar
+    LottieAnimationView imagen;
     Button botonenviar;
+    boolean videoReproduciendose = false;
+    boolean imagenesMostrandose = false;
+    View snackView;
     Button botoncorreo;
-    String nombreusuario="";
-    String id_usuario="",valor;
+    String nombreusuario = "";
+    SurfaceView surfaceView;
+    VideoView videoView;
+    String id_usuario = "", valor;
     Handler handler = new Handler();
     ProgressDialog progressDialog;
     private Timer timer;
     private ActivityCompat FragmentCompat;
     validateToken validate = new validateToken(getContext());
+    ManejadorGlobal manejador = new ManejadorGlobal();
+    String horaInicio = String.format(new Locale("es", "EC"), "%02d:%02d", 19, 00);
+
+    String horaFin = String.format(new Locale("es", "EC"), "%02d:%02d", 05, 59);
+
+   
+    String horaActual = manejador.HoraActual();
+    int minutoActual = manejador.MinutoActual();
 
     @Override
-    public View onCreateView( LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState
     ) {
-        View vista = inflater.inflate(R.layout.fragment_first,container,false);
+        View vista = inflater.inflate(R.layout.fragment_first, container, false);
 
-        cajacorreo=(EditText) vista.findViewById(R.id.correo);
-        cajacontraseña=(EditText) vista.findViewById(R.id.contraseña);
-        botonenviar=(Button) vista.findViewById(R.id.reportetemp);//Instanciamos las variables del XML a variables locales.
-        botoncorreo=(Button) vista.findViewById(R.id.botoncorreo);
-        imageswitcher= (ImageSwitcher) vista.findViewById(R.id.imageswitcher);
+        cajacorreo = (EditText) vista.findViewById(R.id.correo);
+        cajacontraseña = (EditText) vista.findViewById(R.id.contraseña);
+        botonenviar = (Button) vista.findViewById(R.id.reportetemp);//Instanciamos las variables del XML a variables locales.
+        botoncorreo = (Button) vista.findViewById(R.id.botoncorreo);
+        imageswitcher = (ImageSwitcher) vista.findViewById(R.id.imageswitcher);
+        videoView = (VideoView) vista.findViewById(R.id.videoswitcher);
+        //surfaceView = vista.findViewById(R.id.videoswitcher);
         {
             rq = Volley.newRequestQueue(getContext());
         }
@@ -117,19 +149,11 @@ public class FirstFragment extends Fragment  implements Response.Listener<JSONOb
             @Override
             public void run() {
                 checkInternetConnection();
+                transicion();
             }
         }, 0, 90000);  // Ejecute el método cada 5 segundos.
 
 
-
-
-
-
-        // ANIMACION DE CAMBIO DE IMAGENES++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        Animation in = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
-        Animation out = AnimationUtils.loadAnimation(getContext(), R.anim.fade_out);
-        imageswitcher.setInAnimation(in);
-        imageswitcher.setOutAnimation(out);
         imageswitcher.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView() {
@@ -140,21 +164,14 @@ public class FirstFragment extends Fragment  implements Response.Listener<JSONOb
             }
         });
         imageswitcher.setImageResource(imagenes_banner[5]);
-        final Handler handler = new Handler();
-        final Runnable runnable = new Runnable() {
-            int i = 0;
-            @Override
-            public void run() {
-                imageswitcher.setImageResource(imagenes_banner[i]);
-                i++;
-                if (i == imagenes_banner.length) {
-                    i = 0;
-                }
-                handler.postDelayed(this, 5000); // 3000ms = 3s
-            }
-        };
-        handler.postDelayed(runnable, 4000);
-
+        Animation in = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+        Animation out = AnimationUtils.loadAnimation(getContext(), R.anim.fade_out);
+        imageswitcher.setInAnimation(in);
+        imageswitcher.setOutAnimation(out);
+        videoView.startAnimation(in);
+        videoView.startAnimation(out);
+        String video = "android.resource://" + getContext().getPackageName() + "/" + R.raw.videonightwebm;
+        videoView.setVideoPath(video);
 
 
         //imageSwitcher.setImageResource(R.drawable.cosechabanner2);
@@ -175,19 +192,19 @@ public class FirstFragment extends Fragment  implements Response.Listener<JSONOb
             actualizarBTN.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-if ( checkPer()){
-    Toast.makeText(getContext(),"Esperando respuesta",Toast.LENGTH_SHORT).show();
-    comenzarActualizar();
-    // Si ya se tiene el permiso, se puede hacer lo que se necesite
+                    if (checkPer()) {
+                        Toast.makeText(getContext(), "Esperando respuesta", Toast.LENGTH_SHORT).show();
+                        comenzarActualizar();
+                        // Si ya se tiene el permiso, se puede hacer lo que se necesite
 
-}else{
-    requestPer();
-}
-              }
+                    } else {
+                        requestPer();
+                    }
+                }
             });
-        }catch (Exception ex){
+        } catch (Exception ex) {
             //Por Cualquier error.
-            Toast.makeText(getContext(),ex.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
         }
 //***************************************************************************************
         botonenviar.setOnClickListener(new View.OnClickListener() {//Método para darle función al botón
@@ -195,15 +212,13 @@ if ( checkPer()){
             @Override
             public void onClick(View v) {
                 String caja1 = cajacorreo.getText().toString();
-                if(!caja1.isEmpty() )
-                {
+                if (!caja1.isEmpty()) {
                     progressDialog = new ProgressDialog(getContext(), R.style.MyAlertDialogStyle);
                     progressDialog.setMessage("Por favor espera...");//Método del Progress Dialog
                     progressDialog.setCancelable(false);
                     progressDialog.show();
                     iniciarSesion();
-                }
-                else{
+                } else {
                     cajacorreo.setError("Favor de escribir algo");
 
                 }
@@ -226,7 +241,7 @@ if ( checkPer()){
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == 200 & grantResults[0]==PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == 200 & grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(getContext(), "Permiso concebido", Toast.LENGTH_SHORT).show();
             } else {
@@ -234,8 +249,7 @@ if ( checkPer()){
                 // Si no se ha concedido el permiso, puedes mostrar un mensaje de error o hacer algo más
                 Toast.makeText(getContext(), "Permiso denegado", Toast.LENGTH_SHORT).show();
             }
-        }
-       else if (requestCode == REQUEST_CODE_WRITE_STORAGE_PERMISSION) {
+        } else if (requestCode == REQUEST_CODE_WRITE_STORAGE_PERMISSION) {
             // Revisa si el usuario concedió o negó el permiso
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(getContext(), "Permiso concebido", Toast.LENGTH_SHORT).show();
@@ -245,11 +259,93 @@ if ( checkPer()){
         }
     }
 
+    private void transicion() {
+        // ANIMACION DE CAMBIO DE IMAGENES Y VIDEOS++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        Boolean trueorfalse;
+        try {
+            trueorfalse = manejador.Comprobar(horaActual,horaInicio,horaFin);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (trueorfalse) {
+
+                // Mostrar el video en el VideoView
+                //surfaceView.setVisibility(View.VISIBLE);
+
+                if (!videoReproduciendose) {
+                    videoReproduciendose = true;
+
+                    videoView.requestFocus();
+                    videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            // Start playback cuando el reproductor está listo
+                            mp.start();
+                            mp.setLooping(true);
+                            videoView.start();
+                        }
+                    });
+                    videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            // Marcar como completado cuando el video termine de reproducirse
+                            videoReproduciendose = false;
+                        }
+                    });
+
+            }
+        } else {
+            if (!imagenesMostrandose) {
+                imagenesMostrandose = true;
+                imageswitcher.setVisibility(View.VISIBLE);
+                videoView.setVisibility(View.GONE);
+
+                final Handler handler1 = new Handler(Looper.getMainLooper());
+                final Runnable runnable = new Runnable() {
+                    int i = 0;
+
+                    @Override
+                    public void run() {
+                        // Precargar la siguiente imagen en segundo plano
+                        int nextImageIndex = i + 1;
+                        if (nextImageIndex >= imagenes_banner.length) {
+                            nextImageIndex = 0;
+                        }
+                        final int finalNextImageIndex = nextImageIndex;
+                        if (isAdded()) {
+                            Glide.with(getContext())
+                                    .load(imagenes_banner[finalNextImageIndex])
+                                    .preload();
+                        }
+
+                        // Cambiar la imagen mostrada en el ImageSwitcher
+                        imageswitcher.setImageResource(imagenes_banner[i]);
+                        i++;
+                        if (i == imagenes_banner.length) {
+                            i = 0;
+                        }
+                        handler1.postDelayed(this, 5000); // 3000ms = 3s
+                    }
+                };
+                handler1.postDelayed(runnable, 4000);
+            }
+
+
+
+        }
+    // ANIMACION DE CAMBIO DE IMAGENES Y VIDEOS++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+}
     @Override
     public void onErrorResponse(VolleyError error) {//Respuesta fallida
         progressDialog.dismiss();
        // Toast.makeText(getContext(),"Las credenciales ingresadas son incorrectas"+error.toString(),Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(),"Las credenciales ingresadas son incorrectas"+error.getMessage(),Toast.LENGTH_SHORT).show();
+
+
+
+       ManejadorGlobal.mostrarSnackbarfailed("Las credenciales ingresadas son incorrectas.", getView(), getContext());
+
     }
 
     @Override
@@ -277,17 +373,19 @@ if ( checkPer()){
 
 
                         } catch (JSONException e) {
-                        Toast.makeText(getContext(),"Error al recibir datos",Toast.LENGTH_SHORT).show();
+
+                         ManejadorGlobal.mostrarSnackbarfailed("Error al recibir datos.", getView(), getContext());
                         }
 
-        Toast.makeText(getContext(),"Se ha ingresado correctamente "+" "+nombreusuario,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "¡Bienvenido, " + nombreusuario + "!", Toast.LENGTH_SHORT).show();
+
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         Intent intent = new Intent(getContext(), menuprincipal.class );
         intent.putExtra("id",id_usuario);//Envió hacia otro Activity
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-        //****************************************************************
+         //****************************************************************
 
     }
     private void iniciarSesion(){
@@ -312,7 +410,7 @@ if ( checkPer()){
         rq.add(jrq);//Envió y recepción de datos
     }
 
-    private Runnable finishBackgroundDownload = new Runnable() {
+        private Runnable finishBackgroundDownload = new Runnable() {
         @Override
         public void run() {
 
@@ -382,6 +480,7 @@ void requestPer(){
         binding = null;
         timer.cancel();
     }
+
     private void checkInternetConnection() {
         // Compruebe si el dispositivo está conectado a Internet.
 
@@ -401,7 +500,6 @@ void requestPer(){
             if (!dialogFragment.isAdded())
                 dialogFragment.show(getFragmentManager(), "estado");
         }
-
 
 
 

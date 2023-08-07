@@ -17,11 +17,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <VideoView
+                android:id="@+id/videoswitcher"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="clip_horizontal|center_vertical"
+                android:scaleType="matrix" />
+
             <ImageSwitcher
                 android:id="@+id/imageswitcher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
+
             <!--android:src="@drawable/arandanos_imagen" />  -->
             <!--Imagen presentación superior  -->
 
@@ -123,18 +132,48 @@
                 android:layout_height="59dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:backgroundTint="#E68F28"
+                android:backgroundTint="#E78000"
                 android:gravity="center"
                 android:text="Iniciar Sesión "
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 app:cornerRadius="20dp" /><!--Bóton Iniciar Sesión -->
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="27dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="O"
+                    android:textAllCaps="true"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="351dp"
+                android:layout_height="46dp"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/loggin_google"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/google" />
+            </LinearLayout>
+
             <Button
                 android:id="@+id/botoncorreo"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="351dp"
-                android:layout_height="59dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
