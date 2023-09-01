@@ -3,7 +3,14 @@
     <string name="app_name">Cosechapp</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-
+    <string name="user">Usuario</string>
+    <string name="email">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="repeatpassword">Confirme la contraseña</string>
+    <string name="password_rescue">¿Ha olvidado su contraseña?</string>
+    <string name="O">O</string>
+    <string name="login">Iniciar Sesión </string>
+    <string name="sing_up">Registrase </string>
     <string name="descripcion_scrollview">Contenedor</string>
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

@@ -17,29 +17,25 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.Drawable;
+import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +46,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.AuthFailureError;
@@ -61,21 +58,17 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.target.Target;
 import com.dcastalia.localappupdate.DownloadApk;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import cosechatech.app.cosechapp.databinding.FragmentFirstBinding;
 import cosechatech.app.cosechapp.dialogo.sininternetdialogo;
@@ -97,20 +90,23 @@ public class FirstFragment extends Fragment  implements Response.Listener<JSONOb
     private RelativeLayout loadingPanel;
     private Context context;
     Button actualizarBTN;
+
     private TextView textVie;
     ImageSwitcher imageswitcher;
     Integer[] imagenes_banner = {R.drawable.banner_image_1, R.drawable.banner_image_2, R.drawable.banner_image_3, R.drawable.banner_image_4, R.drawable.banner_image_5, R.drawable.banner_image_0};
     JsonRequest jrq;
-    EditText cajacorreo, cajacontraseña;//Definimos variables a utilizar
+    EditText cajacorreo, cajacontraseña,cajausuario,cajarepeatcontraseña;//Definimos variables a utilizar
     LottieAnimationView imagen;
     Button botonenviar;
+    TextInputLayout complerepeatcontraseña,complecontraseña;
     boolean videoReproduciendose = false;
     boolean imagenesMostrandose = false;
     View snackView;
-    Button botoncorreo;
+    Button botoncorreo,botonregistro;
     String nombreusuario = "";
     SurfaceView surfaceView;
     VideoView videoView;
+    Boolean trueorfalse;
     String id_usuario = "", valor;
     Handler handler = new Handler();
     ProgressDialog progressDialog;
@@ -132,27 +128,108 @@ public class FirstFragment extends Fragment  implements Response.Listener<JSONOb
     ) {
         View vista = inflater.inflate(R.layout.fragment_first, container, false);
 
+
+        cajausuario = (EditText) vista.findViewById(R.id.text_usuario);
+        cajarepeatcontraseña = (EditText) vista.findViewById(R.id.repeatcontraseña);
+        complerepeatcontraseña = (TextInputLayout) vista.findViewById(R.id.complerepeatcontraseña);
+        complecontraseña = (TextInputLayout) vista.findViewById(R.id.complecontraseña);
         cajacorreo = (EditText) vista.findViewById(R.id.correo);
         cajacontraseña = (EditText) vista.findViewById(R.id.contraseña);
-        botonenviar = (Button) vista.findViewById(R.id.reportetemp);//Instanciamos las variables del XML a variables locales.
+        botonenviar = (Button) vista.findViewById(R.id.botonlogin);//Instanciamos las variables del XML a variables locales.
         botoncorreo = (Button) vista.findViewById(R.id.botoncorreo);
+        botonregistro = (Button) vista.findViewById(R.id.botonregistro);
         imageswitcher = (ImageSwitcher) vista.findViewById(R.id.imageswitcher);
         videoView = (VideoView) vista.findViewById(R.id.videoswitcher);
         //surfaceView = vista.findViewById(R.id.videoswitcher);
+        transicion();
+        final TextView textView1 = vista.findViewById(R.id.btn_acceder);
+        final TextView textView2 = vista.findViewById(R.id.btn_registro);
+        setHighlightedBottomBorder(textView1);
         {
             rq = Volley.newRequestQueue(getContext());
         }
+        cajausuario.setVisibility(View.GONE);
+        cajacorreo.setBackgroundResource(R.drawable.border_top);
+        cajacontraseña.setBackgroundResource(R.drawable.border_botton);
+        cajarepeatcontraseña.setVisibility(View.GONE);
+        botonregistro.setVisibility(View.GONE);
+        complerepeatcontraseña.setVisibility(View.GONE);
+
+        textView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cambiar el fondo del TextView 1 cuando se hace clic
+                int color = textView1.getCurrentTextColor();
+
+                // Comparar el color con el color deseado
+                if (color == getResources().getColor(R.color.colorRojo)) {
+                    setHighlightedBottomBorder(textView1);
+                    // Restaurar el fondo del TextView 2
+                    restoreDefaultState(textView2);
+                } else {
+                    // El color del texto no es el color deseado
+                    setHighlightedBottomBorder(textView1);
+                    // Restaurar el fondo del TextView 2
+                    restoreDefaultState(textView2);
+                    terminarAnimacion();
+                    cajausuario.setText("");
+                    cajarepeatcontraseña.setText("");
+                    cajacorreo.setText("");
+                    cajacontraseña.setText("");
+                }
+
+
+
+            }
+        });
+
+        // Establecer el listener para el TextView 2
+        textView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Cambiar el fondo del TextView 1 cuando se hace clic
+                int color = textView2.getCurrentTextColor();
+
+                // Comparar el color con el color deseado
+                if (color == getResources().getColor(R.color.colorText)) {
+
+                    // El color del texto no es el color deseado
+                    setHighlightedBottomBorder(textView2);
+                    // Restaurar el fondo del TextView 2
+                    restoreDefaultState(textView1);
+                    iniciarAnimacion();
+                    cajausuario.setText("");
+                    cajarepeatcontraseña.setText("");
+                    cajacorreo.setText("");
+                    cajacontraseña.setText("");
+                } else {
+                    setHighlightedBottomBorder(textView2);
+                    // Restaurar el fondo del TextView 2
+                    restoreDefaultState(textView1);
+                }
+            }
+        });
+
+
+        // Cambiar el fondo a un estado de resaltado
+
+
+
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         // Inicie el timer.
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
+        Handler handler = new Handler();
+        Runnable periodicTask = new Runnable() {
             @Override
             public void run() {
-                checkInternetConnection();
                 transicion();
+                checkInternetConnection();
+                handler.postDelayed(this, 5000); // Programa la próxima ejecución después de 90000 ms
             }
-        }, 0, 90000);  // Ejecute el método cada 5 segundos.
+        };
 
+// Iniciar la tarea periódica por primera vez
+        handler.postDelayed(periodicTask, 5000); // Inicia después de 90000 ms
 
         imageswitcher.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
@@ -251,7 +328,7 @@ public class FirstFragment extends Fragment  implements Response.Listener<JSONOb
             }
         } else if (requestCode == REQUEST_CODE_WRITE_STORAGE_PERMISSION) {
             // Revisa si el usuario concedió o negó el permiso
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(getContext(), "Permiso concebido", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getContext(), "Permiso denegado", Toast.LENGTH_SHORT).show();
@@ -261,7 +338,7 @@ public class FirstFragment extends Fragment  implements Response.Listener<JSONOb
 
     private void transicion() {
         // ANIMACION DE CAMBIO DE IMAGENES Y VIDEOS++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        Boolean trueorfalse;
+
         try {
             trueorfalse = manejador.Comprobar(horaActual,horaInicio,horaFin);
         } catch (ParseException e) {
@@ -314,7 +391,7 @@ public class FirstFragment extends Fragment  implements Response.Listener<JSONOb
                         }
                         final int finalNextImageIndex = nextImageIndex;
                         if (isAdded()) {
-                            Glide.with(getContext())
+                            Glide.with(requireContext())
                                     .load(imagenes_banner[finalNextImageIndex])
                                     .preload();
                         }
@@ -346,6 +423,86 @@ public class FirstFragment extends Fragment  implements Response.Listener<JSONOb
 
        ManejadorGlobal.mostrarSnackbarfailed("Las credenciales ingresadas son incorrectas.", getView(), getContext());
 
+    }
+
+
+    public void iniciarAnimacion() {
+
+
+        final AlphaAnimation animation = new AlphaAnimation(1.0f, 0.0f);
+        animation.setDuration(1000);
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (cajausuario.getVisibility() == View.GONE) {
+                    cajacorreo.setVisibility(View.VISIBLE);
+                    cajacontraseña.setVisibility(View.VISIBLE);
+                    botonenviar.setVisibility(View.GONE);
+                    botoncorreo.setVisibility(View.GONE);
+                    cajausuario.setBackgroundResource(R.drawable.border_top);
+                    cajausuario.setVisibility(View.VISIBLE);
+                    cajacorreo.setBackgroundResource(R.drawable.border_middle);
+                    cajacontraseña.setBackgroundResource(R.drawable.border_middle);
+                    cajarepeatcontraseña.setVisibility(View.VISIBLE);
+                    complerepeatcontraseña.setVisibility(View.VISIBLE);
+                    botonregistro.setVisibility(View.VISIBLE);
+                    cajarepeatcontraseña.setBackgroundResource(R.drawable.border_botton);
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+
+        botonenviar.startAnimation(animation);
+        botoncorreo.startAnimation(animation);
+        cajarepeatcontraseña.startAnimation(animation);
+        cajacorreo.startAnimation(animation);
+        complecontraseña.startAnimation(animation);
+
+    }
+
+    public void terminarAnimacion() {
+
+
+        final AlphaAnimation animation = new AlphaAnimation(1.0f, 0.0f);
+        animation.setDuration(1000);
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (cajausuario.getVisibility() == View.VISIBLE) {
+                    cajausuario.setVisibility(View.GONE);
+                    cajacorreo.setBackgroundResource(R.drawable.border_top);
+                    cajacontraseña.setBackgroundResource(R.drawable.border_botton);
+                    cajarepeatcontraseña.setVisibility(View.GONE);
+                    complerepeatcontraseña.setVisibility(View.GONE);
+                    botonregistro.setVisibility(View.GONE);
+                    botonenviar.setVisibility(View.VISIBLE);
+                    botoncorreo.setVisibility(View.VISIBLE);
+
+                }
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+
+
+        cajausuario.startAnimation(animation);
+        cajarepeatcontraseña.startAnimation(animation);
+        complerepeatcontraseña.startAnimation(animation);
+        botonregistro.startAnimation(animation);
     }
 
     @Override
@@ -478,32 +635,54 @@ void requestPer(){
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-        timer.cancel();
+        // Cancela cualquier Runnable o Message enviado al Handler
+        handler.removeCallbacksAndMessages(null);
     }
 
     private void checkInternetConnection() {
         // Compruebe si el dispositivo está conectado a Internet.
-
-        ConnectivityManager cm = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetworkInfo != null && activeNetworkInfo.isConnected();
-        if (isConnected) {
-            // El dispositivo está conectado a Internet.
-            if (dialogFragment.isAdded()) {
-                // Oculte el diálogo si está mostrándose.
-                dialogFragment.dismiss();
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
+            boolean isConnected = activeNetworkInfo != null && activeNetworkInfo.isConnected();
+            if (isConnected) {
+                // El dispositivo está conectado a Internet.
+                if (dialogFragment.isAdded()) {
+                    // Oculte el diálogo si está mostrándose.
+                    dialogFragment.dismiss();
+                }
+            } else {
+                // El dispositivo no está conectado a Internet.
+                // Muestre el diálogo.
+                // dialogFragment.show(getParentFragmentManager(), "estado");
+                if (!dialogFragment.isAdded()) {
+                    dialogFragment.show(getActivity().getSupportFragmentManager(), "estado");
+                }
             }
-        } else {
-            // El dispositivo no está conectado a Internet.
-            // Muestre el diálogo.
-            // dialogFragment.show(getParentFragmentManager(), "estado");
-            if (!dialogFragment.isAdded())
-                dialogFragment.show(getFragmentManager(), "estado");
+
         }
 
 
 
 
+
+    }
+
+
+
+
+
+
+    private void setHighlightedBottomBorder(TextView textView) {
+        textView.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        textView.setTextColor(getResources().getColor(R.color.colorRojo)); // Cambiar al color deseado
+    }
+
+    // Restaurar el estado del texto
+    private void restoreDefaultState(TextView textView) {
+        textView.setPaintFlags(textView.getPaintFlags() & (~Paint.UNDERLINE_TEXT_FLAG));
+        textView.setTextColor(getResources().getColor(R.color.colorText)); // Cambiar al color original
     }
     @Override
     public void onAttach(Context context) {

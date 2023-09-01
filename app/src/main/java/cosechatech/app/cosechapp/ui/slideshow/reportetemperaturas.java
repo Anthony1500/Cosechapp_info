@@ -68,11 +68,11 @@ public class reportetemperaturas extends Fragment {
 
         View v;
         v=inflater.inflate(R.layout.reportetemperaturas, container, false);
-        TextView linkTextView = v.findViewById(R.id.reportetemp);
+        TextView linkTextView = v.findViewById(R.id.botonlogin);
         linkTextView.setMovementMethod(LinkMovementMethod.getInstance());
         listatempera = (ListView) v.findViewById(R.id.listatempera);
         botonregresar=(Button) v.findViewById(R.id.regresar);
-        reportetemperatura=(Button) v.findViewById(R.id.reportetemp);
+        reportetemperatura=(Button) v.findViewById(R.id.botonlogin);
         progressBar = v.findViewById(R.id.progressbartemp);
         progressBar.setVisibility(View.VISIBLE);
         List<String> names = new ArrayList<String>();

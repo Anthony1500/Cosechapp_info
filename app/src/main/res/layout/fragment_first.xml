@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".FirstFragment">
+    tools:context=".FirstFragment"
+    android:layout_width="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -87,57 +87,196 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="12dp" >
+            android:padding="12dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btn_acceder"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="80dp"
+                    android:layout_height="49dp"
+                    android:fontFamily="sans-serif"
+                    android:foregroundGravity="clip_horizontal|right"
+                    android:insetLeft="-14dp"
+                    android:insetRight="-10dp"
+                    android:text="Acceder"
+                    android:textAllCaps="false"
+                    android:textColor="#2144C1"
+                    android:textSize="14sp"
+                    app:backgroundTint="@color/cardview_shadow_end_color"
+                    app:iconTint="@color/cardview_shadow_end_color"
+                    app:rippleColor="@color/cardview_shadow_end_color" />
+
+                <Button
+                    android:id="@+id/botoncorreo4"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="15dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:fontFamily="sans-serif"
+                    android:foregroundGravity="clip_horizontal|right"
+                    android:insetLeft="-13dp"
+                    android:insetRight="-15dp"
+                    android:text="/"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="#2144C1"
+                    android:textSize="16sp"
+                    app:backgroundTint="@color/cardview_shadow_end_color"
+                    app:iconTint="@color/cardview_shadow_end_color"
+                    app:rippleColor="@color/cardview_shadow_end_color" />
+
+                <TextView
+                    android:id="@+id/btn_registro"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:fontFamily="sans-serif"
+                    android:foregroundGravity="clip_horizontal|right"
+                    android:insetLeft="-14dp"
+                    android:insetRight="-10dp"
+                    android:text="Registrarse"
+                    android:textAllCaps="false"
+                    android:textColor="#2144C1"
+                    android:textSize="14sp"
+                    app:backgroundTint="@color/cardview_shadow_end_color"
+                    app:iconTint="@color/cardview_shadow_end_color"
+                    app:rippleColor="@color/cardview_shadow_end_color" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/text_usuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/user"
+                android:inputType="text|textPersonName|textAutoComplete|textAutoCorrect"
+                android:padding="15dp"
+                android:selectAllOnFocus="true"
+                android:singleLine="false" />
 
             <EditText
                 android:id="@+id/correo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border_top"
+                android:autofillHints=""
                 android:ems="10"
-                android:hint="Correo Electronico"
-                android:inputType="textEmailAddress"
+                android:hint="@string/email"
+                android:inputType="text|textEmailAddress|textAutoComplete"
                 android:padding="15dp"
                 android:selectAllOnFocus="true"
                 android:singleLine="false" /> <!--Campo Correo -->
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/complecontraseña"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
 
+                android:layout_height="wrap_content"
                 android:persistentDrawingCache="animation"
                 app:boxBackgroundMode="none"
                 app:counterEnabled="false"
+                app:endIconMode="password_toggle"
                 app:errorEnabled="false"
                 app:hintAnimationEnabled="false"
-                app:hintEnabled="false"
-                app:endIconMode="password_toggle">
+                app:hintEnabled="false">
 
                 <EditText
                     android:id="@+id/contraseña"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border_botton"
+                    android:autofillHints=""
                     android:ems="10"
                     android:enabled="true"
-                    android:hint="Contraseña"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:padding="15dp"
+                    android:textSize="18sp"
                     app:passwordToggleEnabled="true"
                     tools:ignore="SpeakableTextPresentCheck" /> <!--Campo Contraseña -->
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/complerepeatcontraseña"
+                android:layout_width="match_parent"
+
+                android:layout_height="match_parent"
+                android:persistentDrawingCache="animation"
+                app:boxBackgroundMode="none"
+                app:counterEnabled="false"
+                app:endIconMode="password_toggle"
+                app:errorEnabled="false"
+                app:hintAnimationEnabled="false"
+                app:hintEnabled="false">
+
+                <EditText
+                    android:id="@+id/repeatcontraseña"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:enabled="true"
+                    android:hint="@string/repeatpassword"
+                    android:inputType="textPassword"
+                    android:padding="15dp"
+                    android:textSize="18sp"
+                    app:passwordToggleEnabled="true"
+                    tools:ignore="SpeakableTextPresentCheck" /> <!--Campo Contraseña -->
+            </com.google.android.material.textfield.TextInputLayout>
+
             <Button
-                android:id="@+id/reportetemp"
+                android:id="@+id/botonregistro"
                 android:layout_width="351dp"
                 android:layout_height="59dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:backgroundTint="#E78000"
                 android:gravity="center"
-                android:text="Iniciar Sesión "
+                android:text="@string/sing_up"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                app:cornerRadius="20dp" /><!--Bóton Iniciar Sesión -->
+                android:textColor="@color/colorBlanco"
+                android:textColorHint="@color/colorBlancoTransparente"
+                app:cornerRadius="20dp"
+                app:iconTint="#FAF3F3" />
+
+            <Button
+                android:id="@+id/botonlogin"
+                android:layout_width="351dp"
+                android:layout_height="59dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:backgroundTint="#E78000"
+                android:gravity="center"
+                android:text="@string/login"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBlanco"
+                android:textColorHint="@color/colorBlancoTransparente"
+                app:cornerRadius="20dp"
+                app:iconTint="#FAF3F3" /><!--Bóton Iniciar Sesión -->
+
+            <Button
+                android:id="@+id/botoncorreo"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="351dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="@string/password_rescue"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#2144C1"
+                app:backgroundTint="@color/cardview_shadow_end_color"
+                app:iconTint="@color/cardview_shadow_end_color"
+                app:rippleColor="@color/cardview_shadow_end_color" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -146,44 +285,48 @@
 
                 <TextView
                     android:id="@+id/textView3"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_horizontal"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="O"
+                    android:text="@string/O"
                     android:textAllCaps="true"
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="351dp"
-                android:layout_height="46dp"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="353dp"
+                android:layout_height="61dp"
+                android:layout_gravity="center|center_vertical"
+                android:foregroundGravity="center_vertical|center">
+
+                <TextView
+                    android:id="@+id/text_btgoogle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:layout_marginTop="40dp"
+                    android:foregroundGravity="center"
+                    android:gravity="clip_horizontal|center|center_vertical"
+                    android:text="Google"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/loggin_google" />
 
                 <ImageView
                     android:id="@+id/loggin_google"
-                    android:layout_width="40dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/google" />
-            </LinearLayout>
+                    android:foregroundGravity="center|center_horizontal"
+                    android:src="@drawable/google"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/botoncorreo"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="351dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:text="¿Ha olvidado su contraseña?"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textColor="#2144C1"
-                app:backgroundTint="@color/cardview_shadow_end_color"
-                app:iconTint="@color/cardview_shadow_end_color"
-                app:rippleColor="@color/cardview_shadow_end_color" /><!--Botón de recuperación de credenciales -->
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--Botón de recuperación de credenciales -->
 
         </LinearLayout>
 

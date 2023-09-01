@@ -72,7 +72,7 @@ public class SlideshowFragment extends Fragment {
         //TextView linkTextView = root.findViewById(R.id.reportetemperatura);
       //  linkTextView.setMovementMethod(LinkMovementMethod.getInstance());
         listafumi = (ListView) root.findViewById(R.id.listatempera);
-        botonpasaratemperatura=(Button) root.findViewById(R.id.reportetemp);
+        botonpasaratemperatura=(Button) root.findViewById(R.id.botonlogin);
         reportefumigacion=(Button) root.findViewById(R.id.reportefumigacion);
         progressBar = root.findViewById(R.id.progressBarslider);
         progressBar.setVisibility(View.VISIBLE);

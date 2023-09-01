@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/reportetemp"
+        android:id="@+id/botonlogin"
         android:layout_width="251dp"
         android:layout_height="63dp"
         android:layout_gravity="center"
@@ -56,7 +56,7 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.218"
-        app:layout_constraintStart_toEndOf="@+id/reportetemp"
+        app:layout_constraintStart_toEndOf="@+id/botonlogin"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView

@@ -91,7 +91,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
         lista = (ListView) root.findViewById(R.id.listatempera);
         lista.setOnItemClickListener(this);
         List<String> names = new ArrayList<String>();
-        botonfumigacion=(Button) root.findViewById(R.id.reportetemp);
+        botonfumigacion=(Button) root.findViewById(R.id.botonlogin);
 
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

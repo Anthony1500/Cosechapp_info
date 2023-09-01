@@ -5,6 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/border_botton_top"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
@@ -21,7 +22,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_menuprincipal"
-        app:menu="@menu/activity_menu_drawer" ><!--Vista de navegacion-->
+        app:menu="@menu/activity_menu_drawer"><!--Vista de navegacion-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -31,8 +32,8 @@
                 android:id="@+id/cerrraesecion"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="496dp"
-                android:gravity="center|start|right|center_horizontal|top|left"
+                android:layout_marginTop="528dp"
+                android:fontFamily="sans-serif-medium"
                 android:text="Cerrar sesión "
                 android:textAlignment="center"
                 app:backgroundTint="#FF4433"
@@ -45,10 +46,10 @@
                 android:id="@+id/version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="32dp"
                 android:text="v1.2.44"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.114"
+                app:layout_constraintHorizontal_bias="0.111"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cerrraesecion" />
 
