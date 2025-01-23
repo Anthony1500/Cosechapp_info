@@ -160,7 +160,7 @@ public class FirstFragment extends Fragment  implements Response.Listener<JSONOb
             public void onClick(View v) {
                 // Cambiar el fondo del TextView 1 cuando se hace clic
                 int color = textView1.getCurrentTextColor();
-
+                 manejador.getIp();
                 // Comparar el color con el color deseado
                 if (color == getResources().getColor(R.color.colorRojo)) {
                     setHighlightedBottomBorder(textView1);

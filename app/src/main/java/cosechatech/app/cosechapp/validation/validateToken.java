@@ -1,8 +1,18 @@
 package cosechatech.app.cosechapp.validation;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceIdReceiver;
+import com.google.firebase.iid.internal.FirebaseInstanceIdInternal;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,6 +23,7 @@ import java.util.List;
 import cosechatech.app.cosechapp.DatabaseHelper;
 import cosechatech.app.cosechapp.User;
 import cosechatech.app.cosechapp.datos;
+import cosechatech.app.cosechapp.dialogo.NonNull;
 
 public class validateToken extends DatabaseHelper {
     private  String accesstoken,apptoken,email,password;

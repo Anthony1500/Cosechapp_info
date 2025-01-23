@@ -115,12 +115,12 @@ public smartdialogo (){
                         try {
                              if(response.getString("privilegio").equals("desarrollador"))
                                 if (getActivity()!=null)
-                                    imagen.setAnimation(R.raw.closebutton);
+                                    imagen.setAnimation(R.raw.farmer);
                                     imagen.playAnimation();
 
                             if(response.getString("privilegio").equals("admin"))
                                 if (getActivity()!=null)
-                                    imagen.setAnimation(R.raw.closebutton);
+                                    imagen.setAnimation(R.raw.farmer);
                                     imagen.playAnimation();
                             if(response.getString("privilegio").equals("basico"))
                                 if (getActivity()!=null)
@@ -128,11 +128,11 @@ public smartdialogo (){
                                     imagen.playAnimation();//IF que determina en base al privilegio el gif correspondiente
                             if(response.getString("privilegio").equals("dueño"))
                                 if (getActivity()!=null)
-                                    imagen.setAnimation(R.raw.closebutton);
+                                    imagen.setAnimation(R.raw.farmer);
                                     imagen.playAnimation();
                             if(response.getString("privilegio").equals("tecnico"))
                                 if (getActivity()!=null)
-                                    imagen.setAnimation(R.raw.closebutton);
+                                    imagen.setAnimation(R.raw.farmer);
                                     imagen.playAnimation();
 
                         } catch (JSONException e) {

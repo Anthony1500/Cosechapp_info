@@ -1,22 +1,30 @@
 package cosechatech.app.cosechapp;
 
+import static android.content.ContentValues.TAG;
+
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import cosechatech.app.cosechapp.dialogo.NonNull;
 
 public class ManejadorGlobal extends Application {
         public static View snackView;
@@ -113,6 +121,7 @@ public class ManejadorGlobal extends Application {
             }
         }
     }
+
     public static void mostrarSnackbarcorrect(String texto, View rootView, Context context) {
         if (rootView != null && context != null) {
             Snackbar snackbar = Snackbar.make(rootView, "", Snackbar.LENGTH_LONG);
@@ -142,7 +151,27 @@ public class ManejadorGlobal extends Application {
         }
     }
 
+    public void getIp() {
+        String token;
 
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Obtener el token de registro
+                        String token = task.getResult();
+
+                        // Enviar el token al servidor Laravel
+                        Log.d(TAG, "FCM token: " + token);
+                    }
+                });
+
+    }
 
 
 

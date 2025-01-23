@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:806331149339:android:c1da086fb0a5026791dcbe",
         "android_client_info": {
-          "package_name": "cosechatech.app.cosechapp"
+          "package_name": "anthony.app.cosechapp"
         }
       },
       "oauth_client": [
@@ -40,6 +40,35 @@
         "mobilesdk_app_id": "1:806331149339:android:22a2f67087f11e5e91dcbe",
         "android_client_info": {
           "package_name": "com.cosecha.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "806331149339-b64r1gd57gs547re1uedmvofojtosup9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3a66ABa0tVJF0xOf_FxXd9iaAiaMJFcw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "806331149339-b64r1gd57gs547re1uedmvofojtosup9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806331149339:android:24a2a0124db7433e91dcbe",
+        "android_client_info": {
+          "package_name": "cosechatech.app.cosechapp"
         }
       },
       "oauth_client": [

@@ -50,11 +50,11 @@
     <public name="mylib_app_name" type="string"/>
     <public name="mylib_public_string" type="string"/>
     <!-- Comunicación -->
-    <string name="ip">https://cosechapp.cosecha.tech/api/</string>
-    <string name="descarga">https://cosechapp.cosecha.tech/</string>
-    <string  name="API_TOKEN">EZQ449RX3BHSPC7AHI09PA63XLFBTEXE</string>
-    <!-- LINKS REPORTES -->
-    <string name="hyperlink">Reporte de las Fumigaciónes <a href="https://apps.indoamerica.edu.ec/catastros/reportefumigacion.php"> Descargar</a></string>
-    <string name="hyperlink2">Reporte de las Temperaturas <a href="https://apps.indoamerica.edu.ec/catastros/reportedatosplanta.php"> Descargar</a></string>
+    <!-- <string name="ip">https://cosechapp.cosecha.tech/api/</string>
+     <string name="descarga">https://cosechapp.cosecha.tech/</string>-->
+     <string  name="API_TOKEN">EZQ449RX3BHSPC7AHI09PA63XLFBTEXE</string>
 
-</resources>
+     <string name="ip">http://192.168.100.175:8081/api/</string>
+     <string name="descarga">http://192.168.100.175:8081/</string>
+
+ </resources>
